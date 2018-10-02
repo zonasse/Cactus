@@ -11,9 +11,12 @@
 @implementation CATitle
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.t_id = (NSInteger)dict[@"t_id"];
+
         self.name = dict[@"name"];
-        self.type = dict[@"type"];
+        self.type = (NSInteger)dict[@"type"];
+        self.weight = (NSInteger)dict[@"weight"];
+        self.points = dict[@"points"];
+        self.titleGroup = dict[@"titleGroup"];
     }
     return self;
 }

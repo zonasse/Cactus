@@ -1,19 +1,20 @@
 //
-//  CALessonClass.m
+//  CAMajor.m
 //  Cactus
 //
-//  Created by 钟奇龙 on 2018/9/26.
+//  Created by 钟奇龙 on 2018/10/2.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //
 
-#import "CALessonClass.h"
+#import "CAMajor.h"
 
-@implementation CALessonClass
+@implementation CAMajor
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.lc_id = (NSInteger)dict[@"lc_id"];
+        self.name = dict[@"name"];
+        self.shortname = dict[@"shortname"];
+        self.college = dict[@"college"];
         self.students = dict[@"students"];
-        self.lessonInfo = (NSInteger)dict[@"lessonInfo"];
     }
     return self;
 }

@@ -11,9 +11,10 @@
 @implementation CAUniversity
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.uni_id = (NSInteger)dict[@"uni_id"];
         self.name = dict[@"name"];
         self.shortname = dict[@"shortname"];
+        self.colleges = dict[@"colleges"];
+
     }
     return self;
 }
