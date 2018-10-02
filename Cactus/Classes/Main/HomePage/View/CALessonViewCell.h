@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CALessonViewCell : UITableViewCell
-
+-(void) setCellContentInformationWithLessonImage:(NSString *)lessonImage lessonClassName:(NSString*) lessonClassName lessonName:(NSString*)lessonName studentNumber:(NSInteger) studentNumber lessonTime:(NSString *)lessonTime;
 @end

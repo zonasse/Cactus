@@ -27,6 +27,7 @@
 
 #pragma mark --设置tabbar子页面
 - (void)addChildViewControllers{
+    
     NSArray <NSDictionary *>*VCArray =
     @[@{@"vc":[[CALessonHomePageViewController alloc] init] ,@"normalImg":@"\U0000ec82",@"selectImg":@"\U0000ec82",@"itemTitle":@"主页"},
       @{@"vc":[[CADataAnalysesViewController alloc] init],@"normalImg":@"\U0000ecf2",@"selectImg":@"\U0000ecf2",@"itemTitle":@"数据分析"},
