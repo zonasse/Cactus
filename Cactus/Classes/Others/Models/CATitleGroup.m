@@ -1,22 +1,20 @@
 //
-//  CAStudent.m
+//  CATitleGroup.m
 //  Cactus
 //
-//  Created by 钟奇龙 on 2018/9/26.
+//  Created by 钟奇龙 on 2018/10/2.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
-//  
+//
 
-#import "CAStudent.h"
+#import "CATitleGroup.h"
 
-@implementation CAStudent
+@implementation CATitleGroup
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.s_id = dict[@"s_id"];
         self.name = dict[@"name"];
-        self.index = dict[@"index"];
-        self.year = dict[@"year"];
-        self.major = dict[@"major"];
-        self.points = dict[@"points"];
+        self.lesson = dict[@"lesson"];
+        self.weight = (NSInteger)dict[@"weight"];
+        self.titles = dict[@"titles"];
     }
     return self;
 }

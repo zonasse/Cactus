@@ -1,22 +1,23 @@
 //
-//  CAStudent.m
+//  CAClassInfo.m
 //  Cactus
 //
 //  Created by 钟奇龙 on 2018/9/26.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
-//  
+//
 
-#import "CAStudent.h"
+#import "CAClassInfo.h"
 
-@implementation CAStudent
+@implementation CAClassInfo
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.s_id = dict[@"s_id"];
+        self.b_class = dict[@"b_class"];
         self.name = dict[@"name"];
-        self.index = dict[@"index"];
         self.year = dict[@"year"];
-        self.major = dict[@"major"];
-        self.points = dict[@"points"];
+        self.month = dict[@"month"];
+        self.date = dict[@"date"];
+        self.room = dict[@"room"];
+
     }
     return self;
 }

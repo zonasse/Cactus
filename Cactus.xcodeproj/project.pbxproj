@@ -21,16 +21,19 @@
 		EA031A7E21570FA300128829 /* CAScoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7D21570FA200128829 /* CAScoreListViewController.m */; };
 		EA031A8121570FC100128829 /* CAStudentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7F21570FC100128829 /* CAStudentListViewController.m */; };
 		EA031A832157478C00128829 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA031A822157478C00128829 /* iconfont.ttf */; };
+		EA89A3A9216301AC00FFC473 /* CAClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3A8216301AC00FFC473 /* CAClass.m */; };
+		EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AB2163051500FFC473 /* CATitleGroup.m */; };
+		EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AE2163065500FFC473 /* CAMajor.m */; };
 		EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A3B2155D54F00C43599 /* AppDelegate.m */; };
 		EACE3A442155D55000C43599 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACE3A432155D55000C43599 /* Assets.xcassets */; };
 		EACE3A472155D55000C43599 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EACE3A452155D55000C43599 /* LaunchScreen.storyboard */; };
 		EACE3A4A2155D55000C43599 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A492155D55000C43599 /* main.m */; };
 		EACE3A542155D55200C43599 /* CactusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A532155D55200C43599 /* CactusTests.m */; };
 		EACE3A5F2155D55200C43599 /* CactusUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A5E2155D55200C43599 /* CactusUITests.m */; };
-		EAE8E430215B0EE20037420C /* CAUser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E42F215B0EE20037420C /* CAUser.m */; };
+		EAE8E430215B0EE20037420C /* CATeacher.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E42F215B0EE20037420C /* CATeacher.m */; };
 		EAE8E433215B174B0037420C /* CAStudent.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E432215B174B0037420C /* CAStudent.m */; };
-		EAE8E436215B19390037420C /* CALessonInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E435215B19390037420C /* CALessonInfo.m */; };
-		EAE8E439215B1AD10037420C /* CALessonClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E438215B1AD10037420C /* CALessonClass.m */; };
+		EAE8E436215B19390037420C /* CALesson.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E435215B19390037420C /* CALesson.m */; };
+		EAE8E439215B1AD10037420C /* CAClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E438215B1AD10037420C /* CAClassInfo.m */; };
 		EAE8E43C215B1FB70037420C /* CAPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E43B215B1FB70037420C /* CAPoint.m */; };
 		EAE8E43F215B212C0037420C /* CATitle.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E43E215B212C0037420C /* CATitle.m */; };
 		EAE8E442215B22470037420C /* CAUniversity.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E441215B22470037420C /* CAUniversity.m */; };
@@ -80,6 +83,12 @@
 		EA031A7F21570FC100128829 /* CAStudentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAStudentListViewController.m; sourceTree = "<group>"; };
 		EA031A8021570FC100128829 /* CAStudentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAStudentListViewController.h; sourceTree = "<group>"; };
 		EA031A822157478C00128829 /* iconfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = iconfont.ttf; sourceTree = "<group>"; };
+		EA89A3A7216301AC00FFC473 /* CAClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAClass.h; sourceTree = "<group>"; };
+		EA89A3A8216301AC00FFC473 /* CAClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAClass.m; sourceTree = "<group>"; };
+		EA89A3AA2163051500FFC473 /* CATitleGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CATitleGroup.h; sourceTree = "<group>"; };
+		EA89A3AB2163051500FFC473 /* CATitleGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CATitleGroup.m; sourceTree = "<group>"; };
+		EA89A3AD2163065500FFC473 /* CAMajor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMajor.h; sourceTree = "<group>"; };
+		EA89A3AE2163065500FFC473 /* CAMajor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAMajor.m; sourceTree = "<group>"; };
 		EACE3A372155D54E00C43599 /* Cactus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cactus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACE3A3A2155D54F00C43599 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EACE3A3B2155D54F00C43599 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -93,14 +102,14 @@
 		EACE3A5A2155D55200C43599 /* CactusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CactusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACE3A5E2155D55200C43599 /* CactusUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CactusUITests.m; sourceTree = "<group>"; };
 		EACE3A602155D55200C43599 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EAE8E42E215B0EE20037420C /* CAUser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAUser.h; sourceTree = "<group>"; };
-		EAE8E42F215B0EE20037420C /* CAUser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAUser.m; sourceTree = "<group>"; };
+		EAE8E42E215B0EE20037420C /* CATeacher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CATeacher.h; sourceTree = "<group>"; };
+		EAE8E42F215B0EE20037420C /* CATeacher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CATeacher.m; sourceTree = "<group>"; };
 		EAE8E431215B174B0037420C /* CAStudent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAStudent.h; sourceTree = "<group>"; };
 		EAE8E432215B174B0037420C /* CAStudent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAStudent.m; sourceTree = "<group>"; };
-		EAE8E434215B19390037420C /* CALessonInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CALessonInfo.h; sourceTree = "<group>"; };
-		EAE8E435215B19390037420C /* CALessonInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CALessonInfo.m; sourceTree = "<group>"; };
-		EAE8E437215B1AD10037420C /* CALessonClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CALessonClass.h; sourceTree = "<group>"; };
-		EAE8E438215B1AD10037420C /* CALessonClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CALessonClass.m; sourceTree = "<group>"; };
+		EAE8E434215B19390037420C /* CALesson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CALesson.h; sourceTree = "<group>"; };
+		EAE8E435215B19390037420C /* CALesson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CALesson.m; sourceTree = "<group>"; };
+		EAE8E437215B1AD10037420C /* CAClassInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAClassInfo.h; sourceTree = "<group>"; };
+		EAE8E438215B1AD10037420C /* CAClassInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAClassInfo.m; sourceTree = "<group>"; };
 		EAE8E43A215B1FB70037420C /* CAPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAPoint.h; sourceTree = "<group>"; };
 		EAE8E43B215B1FB70037420C /* CAPoint.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAPoint.m; sourceTree = "<group>"; };
 		EAE8E43D215B212C0037420C /* CATitle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CATitle.h; sourceTree = "<group>"; };
@@ -426,22 +435,28 @@
 		EAFB44AD2155E0CA0001931B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EAE8E42E215B0EE20037420C /* CAUser.h */,
-				EAE8E42F215B0EE20037420C /* CAUser.m */,
-				EAE8E431215B174B0037420C /* CAStudent.h */,
-				EAE8E432215B174B0037420C /* CAStudent.m */,
-				EAE8E434215B19390037420C /* CALessonInfo.h */,
-				EAE8E435215B19390037420C /* CALessonInfo.m */,
-				EAE8E437215B1AD10037420C /* CALessonClass.h */,
-				EAE8E438215B1AD10037420C /* CALessonClass.m */,
-				EAE8E43A215B1FB70037420C /* CAPoint.h */,
-				EAE8E43B215B1FB70037420C /* CAPoint.m */,
-				EAE8E43D215B212C0037420C /* CATitle.h */,
-				EAE8E43E215B212C0037420C /* CATitle.m */,
 				EAE8E440215B22470037420C /* CAUniversity.h */,
 				EAE8E441215B22470037420C /* CAUniversity.m */,
 				EAE8E443215B22B40037420C /* CACollege.h */,
 				EAE8E444215B22B40037420C /* CACollege.m */,
+				EA89A3AD2163065500FFC473 /* CAMajor.h */,
+				EA89A3AE2163065500FFC473 /* CAMajor.m */,
+				EAE8E42E215B0EE20037420C /* CATeacher.h */,
+				EAE8E42F215B0EE20037420C /* CATeacher.m */,
+				EA89A3A7216301AC00FFC473 /* CAClass.h */,
+				EA89A3A8216301AC00FFC473 /* CAClass.m */,
+				EAE8E431215B174B0037420C /* CAStudent.h */,
+				EAE8E432215B174B0037420C /* CAStudent.m */,
+				EAE8E434215B19390037420C /* CALesson.h */,
+				EAE8E435215B19390037420C /* CALesson.m */,
+				EAE8E437215B1AD10037420C /* CAClassInfo.h */,
+				EAE8E438215B1AD10037420C /* CAClassInfo.m */,
+				EAE8E43A215B1FB70037420C /* CAPoint.h */,
+				EAE8E43B215B1FB70037420C /* CAPoint.m */,
+				EAE8E43D215B212C0037420C /* CATitle.h */,
+				EAE8E43E215B212C0037420C /* CATitle.m */,
+				EA89A3AA2163051500FFC473 /* CATitleGroup.h */,
+				EA89A3AB2163051500FFC473 /* CATitleGroup.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -643,21 +658,24 @@
 				EA031A7E21570FA300128829 /* CAScoreListViewController.m in Sources */,
 				EAE8E43C215B1FB70037420C /* CAPoint.m in Sources */,
 				EA031A57215631BD00128829 /* CASignUpViewController.m in Sources */,
-				EAE8E439215B1AD10037420C /* CALessonClass.m in Sources */,
+				EAE8E439215B1AD10037420C /* CAClassInfo.m in Sources */,
 				EAE8E43F215B212C0037420C /* CATitle.m in Sources */,
+				EA89A3A9216301AC00FFC473 /* CAClass.m in Sources */,
 				EA031A7B21570F7E00128829 /* CALessonHomePageViewController.m in Sources */,
 				EA031A622156373D00128829 /* CAHomePageViewController.m in Sources */,
 				EA031A8121570FC100128829 /* CAStudentListViewController.m in Sources */,
 				EACE3A4A2155D55000C43599 /* main.m in Sources */,
 				EA031A692156580B00128829 /* CALessonManagementViewController.m in Sources */,
+				EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */,
 				EAE8E433215B174B0037420C /* CAStudent.m in Sources */,
 				EA031A5221562F6100128829 /* CASignInViewController.m in Sources */,
 				EA031A7821570F6A00128829 /* CADataAnalysesViewController.m in Sources */,
-				EAE8E430215B0EE20037420C /* CAUser.m in Sources */,
+				EAE8E430215B0EE20037420C /* CATeacher.m in Sources */,
 				EAE8E442215B22470037420C /* CAUniversity.m in Sources */,
 				EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */,
 				EAE8E445215B22B40037420C /* CACollege.m in Sources */,
-				EAE8E436215B19390037420C /* CALessonInfo.m in Sources */,
+				EAE8E436215B19390037420C /* CALesson.m in Sources */,
+				EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
