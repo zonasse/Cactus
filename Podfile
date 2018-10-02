@@ -24,8 +24,6 @@ target 'Cactus' do
 	#引导页
 	pod 'LCNewFeature'
 	
-	pod 'MBProgressHUD'
-
 	pod 'AFNetworking'
 
 	pod 'MJExtension'
