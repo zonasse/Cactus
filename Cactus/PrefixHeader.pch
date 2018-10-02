@@ -9,8 +9,17 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
+#pragma mark --公共头文件
 #import "TBCityIconFont.h"
 #import "UIImage+TBCityIconFont.h"
+#import "MBProgressHUD+MJ.h"
+#import "AFNetworking.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+
+#pragma mark --公共变量
+#define baseURL @"http://localhost:8000"
+#define cellHeight 64
+
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 

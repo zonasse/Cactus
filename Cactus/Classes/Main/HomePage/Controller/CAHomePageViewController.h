@@ -7,7 +7,9 @@
 //  主页面
 
 #import <UIKit/UIKit.h>
+#import "CATeacher.h"
 
 @interface CAHomePageViewController : UIViewController
+@property (strong,nonatomic) CATeacher *teacher;
 
 @end

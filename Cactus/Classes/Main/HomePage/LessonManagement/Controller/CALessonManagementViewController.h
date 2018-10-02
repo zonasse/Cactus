@@ -7,7 +7,7 @@
 //  课程管理主页
 
 #import <UIKit/UIKit.h>
-
+#import "CAClass.h"
 @interface CALessonManagementViewController : UITabBarController
-
+@property(nonatomic,strong) CAClass *lessonClass;
 @end
