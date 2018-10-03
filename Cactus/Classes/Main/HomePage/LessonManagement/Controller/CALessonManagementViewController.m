@@ -20,20 +20,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"C++设计";
+//    self.title = self.lessonClass.classInfo.name;
+    self.title = @"c++ 19999班";
+    /*
+     * 此处设置课程管理主页简略信息
+     */
+    
+    /*
+     * 添加子页面
+     */
     [self addChildViewControllers];
     // Do any additional setup after loading the view.
 }
 
 #pragma mark --设置tabbar子页面
 - (void)addChildViewControllers{
+    CALessonHomePageViewController *lessonHomePageVC = [[CALessonHomePageViewController alloc] init];
+    lessonHomePageVC.lessonClass = self.lessonClass;
+    
+    CADataAnalysesViewController *dataAnalysesVC = [[CADataAnalysesViewController alloc] init];
+    dataAnalysesVC.lessonClass = self.lessonClass;
+
+    CAScoreListViewController *scoreListVC = [[CAScoreListViewController alloc] init];
+    scoreListVC.lessonClass = self.lessonClass;
+
+    CAStudentListViewController *studentListVC = [[CAStudentListViewController alloc] init];
+    studentListVC.lessonClass = self.lessonClass;
+
     
     NSArray <NSDictionary *>*VCArray =
-    @[@{@"vc":[[CALessonHomePageViewController alloc] init] ,@"normalImg":@"\U0000ec82",@"selectImg":@"\U0000ec82",@"itemTitle":@"主页"},
-      @{@"vc":[[CADataAnalysesViewController alloc] init],@"normalImg":@"\U0000ecf2",@"selectImg":@"\U0000ecf2",@"itemTitle":@"数据分析"},
+    @[@{@"vc":lessonHomePageVC ,@"normalImg":@"\U0000ec82",@"selectImg":@"\U0000ec82",@"itemTitle":@"主页"},
+      @{@"vc":dataAnalysesVC,@"normalImg":@"\U0000ecf2",@"selectImg":@"\U0000ecf2",@"itemTitle":@"数据分析"},
       @{@"vc":[[CALessonHomePageViewController alloc] init],@"normalImg":@"",@"selectImg":@"",@"itemTitle":@" "},
-      @{@"vc":[[CAStudentListViewController alloc] init],@"normalImg":@"\U0000ece3",@"selectImg":@"\U0000ece3",@"itemTitle":@"学生列表"},
-      @{@"vc":[[CAScoreListViewController alloc] init],@"normalImg":@"\U0000ed0e",@"selectImg":@"\U0000ed0e",@"itemTitle":@"分数列表"}];
+      @{@"vc":scoreListVC ,@"normalImg":@"\U0000ece3",@"selectImg":@"\U0000ece3",@"itemTitle":@"学生列表"},
+      @{@"vc":studentListVC,@"normalImg":@"\U0000ed0e",@"selectImg":@"\U0000ed0e",@"itemTitle":@"分数列表"}];
     // 1.遍历这个集合
     // 1.1 设置一个保存构造器的数组
     NSMutableArray *tabBarConfs = @[].mutableCopy;

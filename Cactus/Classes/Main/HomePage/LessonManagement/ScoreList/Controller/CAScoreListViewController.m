@@ -16,7 +16,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSLog(@"show CAScoreListViewController");
+
+
     self.view.backgroundColor = [UIColor whiteColor];
     
     _list = @[].mutableCopy;
@@ -82,7 +84,9 @@
         }
     }
 }
-
+- (void)setLessonClass:(CAClass *)lessonClass{
+    NSLog(@"CAScoreListViewController setClass");
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

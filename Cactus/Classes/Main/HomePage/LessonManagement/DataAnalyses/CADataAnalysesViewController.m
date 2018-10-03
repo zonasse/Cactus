@@ -7,18 +7,30 @@
 //
 
 #import "CADataAnalysesViewController.h"
-
+#import "CADataAnalysesContentView.h"
 @interface CADataAnalysesViewController ()
-
+@property (nonatomic,strong) CADataAnalysesContentView *dataAnalysesView;
 @end
 
 @implementation CADataAnalysesViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"show CADataAnalysesViewController");
+    _dataAnalysesView = [[CADataAnalysesContentView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-tabbarVCStartY)];
+    _dataAnalysesView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_dataAnalysesView];
     // Do any additional setup after loading the view.
 }
 
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [_dataAnalysesView changeColor];
+}
+
+
+- (void)setLessonClass:(CAClass *)lessonClass{
+    NSLog(@"CADataAnalysesViewController setClass");
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

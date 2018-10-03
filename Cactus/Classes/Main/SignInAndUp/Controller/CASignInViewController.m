@@ -34,10 +34,10 @@
     /*
      * 1.检查账号密码格式的合法性
      */
-    if(self.accountTextField.text.length == 0 || self.passwordTextField.text.length == 0){
-        [MBProgressHUD showError:@"账号或密码不能为空"];
-        return;
-    }
+//    if(self.accountTextField.text.length == 0 || self.passwordTextField.text.length == 0){
+//        [MBProgressHUD showError:@"账号或密码不能为空"];
+//        return;
+//    }
     /*
      * 2.检查网络状态
      */
@@ -45,39 +45,39 @@
     /*
      * 3.显示加载过渡动画
      */
-    [MBProgressHUD showMessage:@"登录中..."];
+//    [MBProgressHUD showMessage:@"登录中..."];
     /*
      * 4.连接服务器，附送账号和密码加密文段
      */
     __block NSError *error;
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    NSDictionary *params = @{@"username":self.accountTextField.text,@"password":self.passwordTextField.text};
-    [manager POST:[baseURL stringByAppendingString:@"/user/login"] parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
-        
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
-        /*
-         * 5.判断服务器返回字段
-         */
-        if(responseDict[@"token"]){
-            [NSUserDefaults setValue:responseObject[@"token"] forKey:@"userToken"];
-            [MBProgressHUD showSuccess:@"登录成功"];
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    NSDictionary *params = @{@"username":self.accountTextField.text,@"password":self.passwordTextField.text};
+//    [manager POST:[baseURL stringByAppendingString:@"/user/login"] parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+//
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
+//        /*
+//         * 5.判断服务器返回字段
+//         */
+//        if(responseDict[@"token"]){
+//            [NSUserDefaults setValue:responseObject[@"token"] forKey:@"userToken"];
+//            [MBProgressHUD showSuccess:@"登录成功"];
             CAHomePageViewController *homePageVC = [[CAHomePageViewController alloc] init];
             //设置课程主页用户
             homePageVC.teacher = [[CATeacher alloc] initWithDict:@{}];
             UINavigationController *homePageNav = [[UINavigationController alloc] initWithRootViewController:homePageVC];
             [self presentViewController:homePageNav animated:YES completion:^{
-                
+
             }];
-        }else{
-            [MBProgressHUD showError:@"登录失败，请重新检查"];
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [MBProgressHUD showError:@"未知错误"];
-    }];
+//        }else{
+//            [MBProgressHUD showError:@"登录失败，请重新检查"];
+//        }
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        [MBProgressHUD showError:@"未知错误"];
+//    }];
    
     
 }
