@@ -9,11 +9,10 @@
 #import "CASignUpViewController.h"
 #import "CAHomePageViewController.h"
 
-@interface CASignUpViewController ()<UIAlertViewDelegate>
+@interface CASignUpViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *accountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;//返回按钮
-@property (strong,nonatomic) UIAlertView *alertView;
 #pragma mark --添加用户名、密码等文本输入框
 
 @end
@@ -25,13 +24,16 @@
      * 若任何一个文本框有内容，则弹出提示
      */
     if(self.accountTextField.text.length || self.passwordTextField.text.length){
-        [self.alertView show];
-    }else{
-        [self dismissViewControllerAnimated:YES completion:^{
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"放弃修改吗？" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }]];
+        [self presentViewController:alert animated:YES completion:^{
             
         }];
     }
-
 }
 #pragma mark --点击注册按钮
 - (IBAction)signUp:(id)sender{
@@ -93,25 +95,13 @@
      */
     [self.backButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec91", 34, [UIColor blackColor])] forState:UIControlStateNormal];
     [self.backButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec91", 34, [UIColor orangeColor])] forState:UIControlStateHighlighted];
-    /*
-     * 设置提醒框
-     */
-    self.alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"您有未提交的修改，确认退出吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"退出", nil];
+
     
     // Do any additional setup after loading the view from its nib.
 }
 
 #pragma mark --设置点击或滑动背景退出键盘
 
-
-#pragma mark --提醒框点击事件
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if(buttonIndex == 1){
-        [self dismissViewControllerAnimated:YES completion:^{
-            
-        }];
-    }
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

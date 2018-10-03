@@ -16,9 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"show CAStudentListViewController");
+
     // Do any additional setup after loading the view.
 }
-
+- (void)setLessonClass:(CAClass *)lessonClass{
+    NSLog(@"CAStudentListViewController setClass");
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
