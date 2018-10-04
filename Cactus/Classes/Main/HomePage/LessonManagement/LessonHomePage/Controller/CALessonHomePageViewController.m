@@ -34,15 +34,16 @@
     // Do any additional setup after loading the view.
 }
 - (void)setLessonClass:(CAClass *)lessonClass{
+    _lessonClass = lessonClass;
     NSLog(@"CALessonHomePageViewController setClass");
     self.classImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 150)];
-    [self.classImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@""]];
+    [self.classImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"课程占位"]];
     
-    self.teacherNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.classImageView.frame) + 10, 100, 34)];
+    self.teacherNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.classImageView.frame) + 10, 150, 34)];
     self.teacherNameLabel.text = [NSString stringWithFormat:@"任课教师 : %@", lessonClass.teacher.name];
     self.teacherNameLabel.textAlignment = NSTextAlignmentLeft;
     
-    self.studentNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 100 - 20, self.teacherNameLabel.frame.origin.y, 100, self.teacherNameLabel.frame.size.height)];
+    self.studentNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 150 - 20, self.teacherNameLabel.frame.origin.y, 100, self.teacherNameLabel.frame.size.height)];
     self.studentNumberLabel.text = [NSString stringWithFormat:@"学生人数 : %lu", lessonClass.students.count];
     self.studentNumberLabel.textAlignment = NSTextAlignmentLeft;
 

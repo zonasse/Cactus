@@ -20,7 +20,7 @@
 //教学班信息
 @property (nonatomic,strong) CAClassInfo *classInfo;
 //拥有教师
-@property (nonatomic,weak) CATeacher *teacher;
+@property (nonatomic,strong) CATeacher *teacher;//原为weak
 //拥有分数组
 @property (nonatomic,strong) NSArray *points;
 

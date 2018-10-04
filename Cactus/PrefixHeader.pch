@@ -17,7 +17,7 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 #pragma mark --公共变量
-#define baseURL @"http://localhost:8000"
+#define baseURL @"http://192.168.23.1:8000/test/"
 #define cellHeight 88
 #define tabbarVCStartY 64
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
