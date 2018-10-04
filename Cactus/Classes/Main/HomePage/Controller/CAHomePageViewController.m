@@ -11,6 +11,8 @@
 #import "CALessonManagementViewController.h"
 #import "CALesson.h"
 #import "CAClass.h"
+#import "CACollege.h"
+#import "CAClassInfo.h"
 @interface CAHomePageViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UIImageView *userPic;//用户头像
 @property (weak, nonatomic) IBOutlet UILabel *usernameLabel;//用户姓名
@@ -32,6 +34,40 @@
     self.title = @"课程主页";
     self.lessonListTableView.delegate = self;
     self.lessonListTableView.dataSource = self;
+    
+    self.usernameLabel.text = [NSString stringWithFormat:@"教师:%@",self.teacher.name];
+    self.userCollegeLabel.text = [NSString stringWithFormat:@"学院:%@",self.teacher.college.name];;
+    self.useridLabel.text = [NSString stringWithFormat:@"工号:%@",self.teacher.t_id];;
+    self.isManagerPic.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec1d", 34, [UIColor orangeColor])];
+    [self.userPic sd_setImageWithURL:[NSURL URLWithString:self.teacher.avatar] placeholderImage:[UIImage imageNamed:@"头像占位"]];
+#pragma mark --构造虚拟数据用于展示
+    NSMutableArray *lessons = [[NSMutableArray alloc] init];
+    CALesson *lesson1 = [[CALesson alloc] init];
+    lesson1.name = @"英语视听说";
+    CAClass *class1 = [[CAClass alloc] init];
+    class1.classInfo = [[CAClassInfo alloc] initWithDict:@{@"name":@"英语视听说1班",@"date":@"秋季学期4-18双周",@"room":@"10-202"}];
+    class1.teacher = self.teacher;
+    CAClass *class2 = [[CAClass alloc] init];
+    class2.classInfo = [[CAClassInfo alloc] initWithDict:@{@"name":@"英语视听说2班",@"date":@"秋季学期4-18单周",@"room":@"10-309"}];
+    class2.teacher = self.teacher;
+
+    lesson1.classes = [NSArray arrayWithObjects:class1,class2, nil];
+    
+    CALesson *lesson2 = [[CALesson alloc] init];
+    lesson2.name = @"英语学术写作";
+    CAClass *class3 = [[CAClass alloc] init];
+    class3.classInfo = [[CAClassInfo alloc] initWithDict:@{@"name":@"英语写作1班",@"date":@"秋季学期3-12双周",@"room":@"5-101"}];
+    class3.teacher = self.teacher;
+
+    CAClass *class4 = [[CAClass alloc] init];
+    class4.classInfo = [[CAClassInfo alloc] initWithDict:@{@"name":@"英语写作2班",@"date":@"秋季学期3-12单周",@"room":@"5-891"}];
+    class4.teacher = self.teacher;
+
+    lesson2.classes = [NSArray arrayWithObjects:class3,class4, nil];
+    [lessons addObject:lesson1];
+    [lessons addObject:lesson2];
+    self.lessons = lessons;
+    [self.lessonListTableView reloadData];
     /*
      * 搜索教师所有课程及课程所有教学班
      */
@@ -73,14 +109,12 @@
 #pragma mark -- tableview datasource/delegate --------------
 #pragma mark --课程行数
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    CALesson *currentLesson = self.lessons[section];
-//    return currentLesson.classes.count;
-    return 2;
+    CALesson *currentLesson = self.lessons[section];
+    return currentLesson.classes.count;
 }
 #pragma mark --课程组数
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    return self.lessons.count;
-    return 1;
+    return self.lessons.count;
 }
 #pragma mark --设置课程单元格
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -88,9 +122,9 @@
     CALessonViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if(!cell){
         cell = [[CALessonViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-//        CALesson *currentLesson = self.lessons[indexPath.section];
-//        CAClass *currentClass = self.lessons[indexPath.section][indexPath.row];
-//        [cell setCellContentInformationWithLessonImage:@"" lessonClassName:currentClass.classInfo.name lessonName:currentLesson.name studentNumber:currentClass.students.count lessonTime:currentClass.classInfo.date];
+        CALesson *currentLesson = self.lessons[indexPath.section];
+        CAClass *currentClass = currentLesson.classes[indexPath.row];
+        [cell setCellContentInformationWithLessonImage:@"" lessonClassName:currentClass.classInfo.name lessonName:currentLesson.name studentNumber:currentClass.students.count lessonTime:currentClass.classInfo.date classRoom:currentClass.classInfo.room];
     }
     return cell;
 }
@@ -104,7 +138,8 @@
      * 由indexPath判断当前课程并跳转到课程主界面
      */
     CALessonManagementViewController *lessonManagementVC = [[CALessonManagementViewController alloc] init];
-//    lessonManagementVC.lessonClass = self.lessons[indexPath.section][indexPath.row];
+    CALesson *currentLesson = self.lessons[indexPath.section];
+    lessonManagementVC.lessonClass = currentLesson.classes[indexPath.row];
     [self.navigationController pushViewController:lessonManagementVC animated:YES];
 }
 - (void)didReceiveMemoryWarning {

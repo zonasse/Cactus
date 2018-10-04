@@ -7,9 +7,9 @@
 //
 
 #import "CAStudentListViewController.h"
-
-@interface CAStudentListViewController ()
-
+#import <YWExcelView.h>
+#import "CAStudent.h"
+@interface CAStudentListViewController ()<YWExcelViewDataSource>
 @end
 
 @implementation CAStudentListViewController
@@ -21,7 +21,60 @@
     // Do any additional setup after loading the view.
 }
 - (void)setLessonClass:(CAClass *)lessonClass{
+    _lessonClass = lessonClass;
+    
     NSLog(@"CAStudentListViewController setClass");
+
+    [self test1];
+}
+
+- (void)test1{
+    
+    
+    //    YWExcelView *exceView = [[YWExcelView alloc] initWithFrame:CGRectMake(20, 74, CGRectGetWidth(self.view.frame) - 40, 250) style:YWExcelViewStyleDefalut headViewText:@[@"类目",@"语文",@"数学",@"物理",@"化学",@"生物",@"英语",@"政治"] height:40];
+    
+    YWExcelViewMode *mode = [YWExcelViewMode new];
+    mode.style = YWExcelViewStyleDefalut;
+    mode.headTexts = @[@"学号",@"姓名",@"数学",@"物理",@"化学",@"生物",@"英语",@"政治"];
+    mode.defalutHeight = 40;
+    //推荐使用这样初始化
+    YWExcelView *exceView = [[YWExcelView alloc] initWithFrame:CGRectMake(20, 74, CGRectGetWidth(self.view.frame) - 40, 250) mode:mode];
+    
+    exceView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    exceView.dataSource = self;
+    exceView.showBorder = YES;
+    [self.view addSubview:exceView];
+    
+    
+    UILabel *menuLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(exceView.frame) + 10, CGRectGetWidth(self.view.frame) - 40, 20)];
+    menuLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    menuLabel.textColor = [UIColor redColor];
+    menuLabel.font = [UIFont systemFontOfSize:13];
+    menuLabel.textAlignment = NSTextAlignmentCenter;
+    menuLabel.text = @"test";
+    [self.view addSubview:menuLabel];
+    
+}
+
+//多少行
+- (NSInteger)excelView:(YWExcelView *)excelView numberOfRowsInSection:(NSInteger)section{
+    return self.lessonClass.students.count;
+}
+//多少列
+- (NSInteger)itemOfRow:(YWExcelView *)excelView{
+    return 8;
+}
+- (void)excelView:(YWExcelView *)excelView label:(UILabel *)label textAtIndexPath:(YWIndexPath *)indexPath{
+    if (indexPath.row < self.lessonClass.students.count) {
+        CAStudent *currentStudent = self.lessonClass.students[indexPath.row];
+        if (indexPath.item == 0) {
+            label.text = currentStudent.s_id;
+        }else{
+            //NSArray *values = dict[@"score"];
+            //label.text = values[indexPath.item - 1];
+            label.text = currentStudent.name;
+        }
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
