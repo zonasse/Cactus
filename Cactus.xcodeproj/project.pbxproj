@@ -25,6 +25,10 @@
 		EA16965D21635960005C3D48 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = EA16965A21635960005C3D48 /* MBProgressHUD+MJ.m */; };
 		EA16965E21635960005C3D48 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA16965B21635960005C3D48 /* MBProgressHUD.bundle */; };
 		EA16966121646A30005C3D48 /* CADataAnalysesContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA16966021646A30005C3D48 /* CADataAnalysesContentView.m */; };
+		EA4BDC8E2166FFB4003B446B /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4BDC8B2166FE75003B446B /* Charts.framework */; };
+		EA4BDC8F2166FFB4003B446B /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA4BDC8B2166FE75003B446B /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EA4BDC952166FFD1003B446B /* CATest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4BDC942166FFD1003B446B /* CATest.swift */; };
+		EA4BDC9A21670631003B446B /* UIView+CAExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BDC9921670631003B446B /* UIView+CAExtension.m */; };
 		EA89A3A9216301AC00FFC473 /* CAClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3A8216301AC00FFC473 /* CAClass.m */; };
 		EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AB2163051500FFC473 /* CATitleGroup.m */; };
 		EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AE2163065500FFC473 /* CAMajor.m */; };
@@ -46,6 +50,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		EA4BDC8A2166FE75003B446B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA4BDC852166FE75003B446B /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
+			remoteInfo = Charts;
+		};
+		EA4BDC8C2166FE75003B446B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA4BDC852166FE75003B446B /* Charts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
+			remoteInfo = ChartsTests;
+		};
+		EA4BDC902166FFB4003B446B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA4BDC852166FE75003B446B /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
 		EACE3A502155D55200C43599 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EACE3A2F2155D54E00C43599 /* Project object */;
@@ -61,6 +86,20 @@
 			remoteInfo = Cactus;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		EA4BDC922166FFB5003B446B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EA4BDC8F2166FFB4003B446B /* Charts.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		567A93B252946B5F8BD3190D /* Pods-Cactus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cactus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cactus/Pods-Cactus.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +134,11 @@
 		EA16965B21635960005C3D48 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		EA16965F21646A30005C3D48 /* CADataAnalysesContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CADataAnalysesContentView.h; path = Cactus/Classes/Others/CADataAnalysesContentView.h; sourceTree = SOURCE_ROOT; };
 		EA16966021646A30005C3D48 /* CADataAnalysesContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CADataAnalysesContentView.m; path = Cactus/Classes/Others/CADataAnalysesContentView.m; sourceTree = SOURCE_ROOT; };
+		EA4BDC852166FE75003B446B /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
+		EA4BDC932166FFD1003B446B /* Cactus-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cactus-Bridging-Header.h"; sourceTree = "<group>"; };
+		EA4BDC942166FFD1003B446B /* CATest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CATest.swift; sourceTree = "<group>"; };
+		EA4BDC9821670631003B446B /* UIView+CAExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+CAExtension.h"; sourceTree = "<group>"; };
+		EA4BDC9921670631003B446B /* UIView+CAExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+CAExtension.m"; sourceTree = "<group>"; };
 		EA89A3A7216301AC00FFC473 /* CAClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAClass.h; sourceTree = "<group>"; };
 		EA89A3A8216301AC00FFC473 /* CAClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAClass.m; sourceTree = "<group>"; };
 		EA89A3AA2163051500FFC473 /* CATitleGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CATitleGroup.h; sourceTree = "<group>"; };
@@ -141,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DA646B90AE1F5F9EB935364 /* libPods-Cactus.a in Frameworks */,
+				EA4BDC8E2166FFB4003B446B /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,7 +217,10 @@
 		EA16965521635957005C3D48 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				EA4BDC842166FE1E003B446B /* ChartsLib */,
 				EA16965621635960005C3D48 /* MBProgressHUD */,
+				EA4BDC9821670631003B446B /* UIView+CAExtension.h */,
+				EA4BDC9921670631003B446B /* UIView+CAExtension.m */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -187,6 +235,30 @@
 				EA16965B21635960005C3D48 /* MBProgressHUD.bundle */,
 			);
 			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		EA4BDC842166FE1E003B446B /* ChartsLib */ = {
+			isa = PBXGroup;
+			children = (
+				EA4BDC852166FE75003B446B /* Charts.xcodeproj */,
+			);
+			path = ChartsLib;
+			sourceTree = "<group>";
+		};
+		EA4BDC862166FE75003B446B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA4BDC8B2166FE75003B446B /* Charts.framework */,
+				EA4BDC8D2166FE75003B446B /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA4BDC962167005E003B446B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		EACE3A2E2155D54E00C43599 = {
@@ -223,6 +295,8 @@
 				EACE3A452155D55000C43599 /* LaunchScreen.storyboard */,
 				EACE3A482155D55000C43599 /* Info.plist */,
 				EACE3A492155D55000C43599 /* main.m */,
+				EA4BDC942166FFD1003B446B /* CATest.swift */,
+				EA4BDC932166FFD1003B446B /* Cactus-Bridging-Header.h */,
 			);
 			path = Cactus;
 			sourceTree = "<group>";
@@ -285,12 +359,12 @@
 		EAFB44982155E0CA0001931B /* LessonManagement */ = {
 			isa = PBXGroup;
 			children = (
+				EA4BDC962167005E003B446B /* View */,
 				EAFB44992155E0CA0001931B /* Controller */,
 				EAFB449A2155E0CA0001931B /* LessonHomePage */,
 				EAFB449D2155E0CA0001931B /* DataAnalyses */,
 				EAFB44A02155E0CA0001931B /* ScoreList */,
 				EAFB44A32155E0CA0001931B /* StudentList */,
-				EAFB44A62155E0CA0001931B /* View */,
 			);
 			path = LessonManagement;
 			sourceTree = "<group>";
@@ -408,13 +482,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		EAFB44A62155E0CA0001931B /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		EAFB44A72155E0CA0001931B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -513,10 +580,12 @@
 				EACE3A342155D54E00C43599 /* Frameworks */,
 				EACE3A352155D54E00C43599 /* Resources */,
 				5A0121A2873B952426310537 /* [CP] Copy Pods Resources */,
+				EA4BDC922166FFB5003B446B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				EA4BDC912166FFB4003B446B /* PBXTargetDependency */,
 			);
 			name = Cactus;
 			productName = Cactus;
@@ -571,6 +640,7 @@
 				TargetAttributes = {
 					EACE3A362155D54E00C43599 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					EACE3A4E2155D55200C43599 = {
@@ -596,6 +666,12 @@
 			mainGroup = EACE3A2E2155D54E00C43599;
 			productRefGroup = EACE3A382155D54E00C43599 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = EA4BDC862166FE75003B446B /* Products */;
+					ProjectRef = EA4BDC852166FE75003B446B /* Charts.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				EACE3A362155D54E00C43599 /* Cactus */,
@@ -604,6 +680,23 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		EA4BDC8B2166FE75003B446B /* Charts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Charts.framework;
+			remoteRef = EA4BDC8A2166FE75003B446B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EA4BDC8D2166FE75003B446B /* ChartsTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ChartsTests.xctest;
+			remoteRef = EA4BDC8C2166FE75003B446B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		EACE3A352155D54E00C43599 /* Resources */ = {
@@ -698,6 +791,7 @@
 				EA031A7B21570F7E00128829 /* CALessonHomePageViewController.m in Sources */,
 				EA031A622156373D00128829 /* CAHomePageViewController.m in Sources */,
 				EA031A8121570FC100128829 /* CAStudentListViewController.m in Sources */,
+				EA4BDC9A21670631003B446B /* UIView+CAExtension.m in Sources */,
 				EACE3A4A2155D55000C43599 /* main.m in Sources */,
 				EA16965D21635960005C3D48 /* MBProgressHUD+MJ.m in Sources */,
 				EA031A692156580B00128829 /* CALessonManagementViewController.m in Sources */,
@@ -709,6 +803,7 @@
 				EAE8E442215B22470037420C /* CAUniversity.m in Sources */,
 				EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */,
 				EAE8E445215B22B40037420C /* CACollege.m in Sources */,
+				EA4BDC952166FFD1003B446B /* CATest.swift in Sources */,
 				EAF42A1A2164A19F00B6668A /* XZMPieView.m in Sources */,
 				EAE8E436215B19390037420C /* CALesson.m in Sources */,
 				EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */,
@@ -734,6 +829,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		EA4BDC912166FFB4003B446B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = EA4BDC902166FFB4003B446B /* PBXContainerItemProxy */;
+		};
 		EACE3A512155D55200C43599 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EACE3A362155D54E00C43599 /* Cactus */;
@@ -866,7 +966,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 567A93B252946B5F8BD3190D /* Pods-Cactus.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558BYD3F79;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -875,6 +977,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Cactus.application.Cactus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Cactus/Cactus-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -883,7 +988,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 815C3FDCCCFDE09D31FFE63C /* Pods-Cactus.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558BYD3F79;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -892,6 +999,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.Cactus.application.Cactus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Cactus/Cactus-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -899,6 +1008,7 @@
 		EACE3A672155D55200C43599 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558BYD3F79;
@@ -914,6 +1024,7 @@
 		EACE3A682155D55200C43599 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558BYD3F79;
@@ -929,6 +1040,7 @@
 		EACE3A6A2155D55200C43599 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558BYD3F79;
 				INFOPLIST_FILE = CactusUITests/Info.plist;
@@ -943,6 +1055,7 @@
 		EACE3A6B2155D55200C43599 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558BYD3F79;
 				INFOPLIST_FILE = CactusUITests/Info.plist;

@@ -15,7 +15,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
-
+#import "UIView+CAExtension.h"
 #pragma mark --公共变量
 #define baseURL @"http://192.168.23.1:8000/test/"
 #define cellHeight 88
