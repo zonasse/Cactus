@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface CADataAnalysesContentView : UIView
--(void) changeColor;
 @end

@@ -7,110 +7,137 @@
 //
 
 #import "CADataAnalysesContentView.h"
-#import "XZMPieView.h"
-@interface CADataAnalysesContentView()
-@property(nonatomic,strong) UIView *pieContentView;//饼图父视图
+//#import "XZMPieView.h"
+#import "Masonry.h"
+#import "Cactus-Bridging-Header.h"
+@interface CADataAnalysesContentView()<ChartViewDelegate>
+@property(nonatomic,strong) PieChartView *pieView;//饼图父视图
+@property(nonatomic,strong) PieChartData *pieData;
 @property(nonatomic,strong) UIView *NormalDistributionContentView;//正态图父视图
-@property(nonatomic,strong) XZMPieView *pieView;
-@property(nonatomic,strong) UIBezierPath *bezierPath;
-@property(nonatomic,strong) CAShapeLayer *shapeLayer;
+//@property(nonatomic,strong) XZMPieView *pieView;
+//@property(nonatomic,strong) UIBezierPath *bezierPath;
+//@property(nonatomic,strong) CAShapeLayer *shapeLayer;
+
 @end
 @implementation CADataAnalysesContentView
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    /*
-     * 饼图
-     */
-    self.pieContentView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 220)];
-    self.pieContentView.backgroundColor = [UIColor lightGrayColor];
-    self.pieView = [[XZMPieView alloc] initWithFrame:CGRectMake(10, 10, 200, 200)];
-    self.pieView.backgroundColor = [UIColor orangeColor];
-    [self.pieContentView addSubview:self.pieView];
-        _pieView.sectorSpace = 0.01;
-    [_pieView setDatas:[self getDatas] colors:@[[UIColor redColor],[UIColor purpleColor]]];
-    [_pieView stroke];
-    [self addSubview:self.pieContentView];
-    /*
-     * 正态图
-     */
-    self.NormalDistributionContentView = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.pieContentView.frame) + 10, self.pieContentView.frame.size.width, self.pieContentView.frame.size.height)];
-    self.NormalDistributionContentView.backgroundColor = [UIColor lightGrayColor];
-    [self addSubview:self.NormalDistributionContentView];
-    _bezierPath= [UIBezierPath bezierPath];
-    [self drawNormalDistributionWithMui:50 ksei:10 startX:self.NormalDistributionContentView.frame.origin.x startY:self.NormalDistributionContentView.frame.origin.y width:self.NormalDistributionContentView.frame.size.width height:self.NormalDistributionContentView.frame.size.height];
-    
-    //CADisplayLink *refreshLink= [CADisplayLink displayLinkWithTarget:self selector:@selector(runloop)];
-    //[refreshLink addToRunLoop: [NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+- (void)drawRect:(CGRect)rect{
+    [self setupPieChartView];
     
     
 }
-#pragma mark --正态图
-- (void)drawNormalDistributionWithMui:(CGFloat)mui ksei:(CGFloat) ksei startX:(CGFloat) startX startY:(CGFloat) startY width:(CGFloat) width height:(CGFloat) height{
+- (void)setupPieChartView{
+    //1.
+    self.pieView = [[PieChartView alloc] initWithFrame:CGRectMake(0, 0, self.width, self.height*0.5)];
+    self.pieView.backgroundColor = [UIColor lightGrayColor];
+    self.pieView.delegate = self;
+    [self addSubview:self.pieView];
+    self.pieView.drawEntryLabelsEnabled = YES;//
+    self.pieView.usePercentValuesEnabled = YES;
+    self.pieView.drawSlicesUnderHoleEnabled = NO;
+    self.pieView.holeRadiusPercent = 0.58;
+    self.pieView.transparentCircleRadiusPercent = 0.61;
+    self.pieView.chartDescription.enabled = NO;
+    [self.pieView setExtraOffsetsWithLeft:5.f top:10.f right:5.f bottom:5.f];
     
-//    static CGFloat mui = 0;//均值
-//    static CGFloat ksei = 1;//方差
-    [_bezierPath removeAllPoints];//重置path
+    self.pieView.drawCenterTextEnabled = YES;
     
-    if(_shapeLayer==nil) {//第一次创建CAShapeLayer
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    NSMutableAttributedString *centerText = [[NSMutableAttributedString alloc] initWithString:@"Charts\nby Daniel Cohen Gindi"];
+    [centerText setAttributes:@{
+                                NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:13.f],
+                                NSParagraphStyleAttributeName: paragraphStyle
+                                } range:NSMakeRange(0, centerText.length)];
+    [centerText addAttributes:@{
+                                NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f],
+                                NSForegroundColorAttributeName: UIColor.grayColor
+                                } range:NSMakeRange(10, centerText.length - 10)];
+    [centerText addAttributes:@{
+                                NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-LightItalic" size:11.f],
+                                NSForegroundColorAttributeName: [UIColor colorWithRed:51/255.f green:181/255.f blue:229/255.f alpha:1.f]
+                                } range:NSMakeRange(centerText.length - 19, 19)];
+    _pieView.centerAttributedText = centerText;
+    
+    _pieView.drawHoleEnabled = YES;
+    _pieView.rotationAngle = 0.0;
+    _pieView.rotationEnabled = YES;
+    _pieView.highlightPerTapEnabled = YES;
+    
+    ChartLegend *l = _pieView.legend;
+    l.horizontalAlignment = ChartLegendHorizontalAlignmentRight;
+    l.verticalAlignment = ChartLegendVerticalAlignmentTop;
+    l.orientation = ChartLegendOrientationVertical;
+    l.drawInside = NO;
+    l.xEntrySpace = 7.0;
+    l.yEntrySpace = 0.0;
+    l.yOffset = 0.0;
+    
+    // entry label styling
+    _pieView.entryLabelColor = UIColor.whiteColor;
+    _pieView.entryLabelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.f];
+    
+    [_pieView animateWithXAxisDuration:1.4 easingOption:ChartEasingOptionEaseOutBack];
+    [self setDataCount:5 range:14.0];
+}
+- (void)setDataCount:(int)count range:(double)range
+{
+    double mult = range;
+    
+    NSMutableArray *values = [[NSMutableArray alloc] init];
+    
+    for (int i = 0; i < count; i++)
+    {
+        [values addObject:[[PieChartDataEntry alloc] initWithValue:(arc4random_uniform(mult) + mult / 5) label:[NSString stringWithFormat:@"数据 %d",i] icon: [UIImage imageNamed:@"icon"]]];
         
-        _shapeLayer= [CAShapeLayer layer];
-        _shapeLayer.strokeColor= [UIColor blackColor].CGColor;
-        _shapeLayer.fillColor= [UIColor whiteColor].CGColor;
-        [self.layer addSublayer:_shapeLayer];
-    }
-    int count = 100;
-    CGFloat x = 0;
-    while (count >= 0) {
-        CGFloat y = (1.0/(sqrt(2*M_PI)*ksei)) * exp(-1 * (x-mui) * (x-mui) / (2*ksei*ksei));
-        NSLog(@" x = %f, y = %f",x,y);
-        y = y*1000;
-        if(count == 100) {
-            //[_bezierPath moveToPoint:CGPointMake(x*100+xMove,yMove)];//手动设置首点
-            //[_bezierPath addLineToPoint:CGPointMake(x*100+xMove, y*100+yMove)];
-            CGPoint startPoint = CGPointMake(startX+10+x,height+startY-y-20);
-            [_bezierPath moveToPoint:startPoint];//手动设置首点
-            NSLog(@"%f %f",startPoint.x,startPoint.y);
-        }else if(count == 0){
-            CGPoint endPoint = CGPointMake(startX+10+x,height+startY-y-20);
-
-            [_bezierPath addLineToPoint:endPoint];//手动设置末点
-            NSLog(@"%f %f",endPoint.x,endPoint.y);
-
-            //[_bezierPath addLineToPoint:CGPointMake(x*100+xMove, yMove)];
-        }else{
-            [_bezierPath addLineToPoint:CGPointMake(startX+10+x, height+startY-y-20)];
-            
-        }
-        count--;
-        x+=1;
-    }
-
-    
-    //[_bezierPath closePath];
-    
-    _shapeLayer.path=_bezierPath.CGPath;
-    
-    
-}
-
-#pragma mark --饼图
-- (NSArray *)getDatas{
-    
-    int cout = arc4random() % 5;
-    NSMutableArray *arr = [NSMutableArray array];
-    for (int i = 0; i < cout+1 ; i++) {
-        
-        [arr addObject:@(arc4random()%100)];
     }
     
-    return arr;
+    PieChartDataSet *dataSet = [[PieChartDataSet alloc] initWithValues:values label:@"Election Results"];
+    
+    dataSet.drawIconsEnabled = NO;
+    
+    dataSet.sliceSpace = 2.0;
+    dataSet.iconsOffset = CGPointMake(0, 40);
+    
+    // add a lot of colors
+    
+    NSMutableArray *colors = [[NSMutableArray alloc] init];
+    [colors addObjectsFromArray:ChartColorTemplates.vordiplom];
+    [colors addObjectsFromArray:ChartColorTemplates.joyful];
+    [colors addObjectsFromArray:ChartColorTemplates.colorful];
+    [colors addObjectsFromArray:ChartColorTemplates.liberty];
+    [colors addObjectsFromArray:ChartColorTemplates.pastel];
+    [colors addObject:[UIColor colorWithRed:51/255.f green:181/255.f blue:229/255.f alpha:1.f]];
+    
+    dataSet.colors = colors;
+    
+    PieChartData *data = [[PieChartData alloc] initWithDataSet:dataSet];
+    
+    NSNumberFormatter *pFormatter = [[NSNumberFormatter alloc] init];
+    pFormatter.numberStyle = NSNumberFormatterPercentStyle;
+    pFormatter.maximumFractionDigits = 1;
+    pFormatter.multiplier = @1.f;
+    pFormatter.percentSymbol = @" %";
+    [data setValueFormatter:[[ChartDefaultValueFormatter alloc] initWithFormatter:pFormatter]];
+    [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:11.f]];
+    [data setValueTextColor:UIColor.whiteColor];
+    
+    _pieView.data = data;
+    [_pieView highlightValues:nil];
 }
 
-- (void)changeColor{
-    _pieView.sectorSpace = 0;
-    [_pieView setDatas:[self getDatas] colors:@[[UIColor redColor],[UIColor purpleColor]]];
-    [_pieView stroke];
+#pragma mark - ChartViewDelegate
+
+- (void)chartValueSelected:(ChartViewBase * __nonnull)chartView entry:(ChartDataEntry * __nonnull)entry highlight:(ChartHighlight * __nonnull)highlight
+{
+    NSLog(@"chartValueSelected");
 }
+
+- (void)chartValueNothingSelected:(ChartViewBase * __nonnull)chartView
+{
+    NSLog(@"chartValueNothingSelected");
+}
+
 @end

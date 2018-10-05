@@ -17,14 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"show CADataAnalysesViewController");
-    _dataAnalysesView = [[CADataAnalysesContentView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-tabbarVCStartY)];
-    _dataAnalysesView.backgroundColor = [UIColor whiteColor];
+    _dataAnalysesView = [[CADataAnalysesContentView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-tabbarVCStartY-44)];
     [self.view addSubview:_dataAnalysesView];
     // Do any additional setup after loading the view.
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [_dataAnalysesView changeColor];
+//    [_dataAnalysesView changeColor];
 }
 
 
