@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CADataAnalysesContentView : UIView
+@interface CADataAnalysesContentView : UIScrollView
 @end
