@@ -16,8 +16,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     NSLog(@"show CADataAnalysesViewController");
     _dataAnalysesView = [[CADataAnalysesContentView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-tabbarVCStartY-44)];
+    _dataAnalysesView.contentSize = CGSizeMake(SCREEN_WIDTH, 1000);
+    _dataAnalysesView.backgroundColor = [UIColor whiteColor];
+    _dataAnalysesView.showsHorizontalScrollIndicator = YES;
     [self.view addSubview:_dataAnalysesView];
     // Do any additional setup after loading the view.
 }

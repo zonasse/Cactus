@@ -135,6 +135,11 @@
 #pragma mark --点击当前课程
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     /*
+     * 取消单元格背景灰色
+     */
+    CALessonViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    /*
      * 由indexPath判断当前课程并跳转到课程主界面
      */
     CALessonManagementViewController *lessonManagementVC = [[CALessonManagementViewController alloc] init];
