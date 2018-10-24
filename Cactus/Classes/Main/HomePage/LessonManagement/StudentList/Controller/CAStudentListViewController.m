@@ -35,10 +35,10 @@
     
     YWExcelViewMode *mode = [YWExcelViewMode new];
     mode.style = YWExcelViewStyleDefalut;
-    mode.headTexts = @[@"学号",@"姓名",@"数学",@"物理",@"化学",@"生物",@"英语",@"政治"];
+    mode.headTexts = @[@"学号",@"姓名",@"性别",@"星座",@"年龄"];
     mode.defalutHeight = 40;
     //推荐使用这样初始化
-    YWExcelView *exceView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY) mode:mode];
+    YWExcelView *exceView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY) mode:mode];
     
     exceView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     exceView.dataSource = self;

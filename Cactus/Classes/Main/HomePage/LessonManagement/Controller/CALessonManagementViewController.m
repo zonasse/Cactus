@@ -42,22 +42,22 @@
 - (void)addChildViewControllers{
 #pragma mark --添加虚拟数据
     CAStudent *stu1 = [[CAStudent alloc] init];
-    stu1.name = @"黎明";
+    stu1.name = @"赵丽";
     stu1.s_id = @"20180001";
     CAStudent *stu2 = [[CAStudent alloc] init];
-    stu2.name = @"路飞";
+    stu2.name = @"刘信";
     stu2.s_id = @"20180002";
     CAStudent *stu3 = [[CAStudent alloc] init];
-    stu3.name = @"龟仙人";
+    stu3.name = @"Kami";
     stu3.s_id = @"20180003";
     CAStudent *stu4 = [[CAStudent alloc] init];
-    stu4.name = @"克林";
+    stu4.name = @"zoro";
     stu4.s_id = @"20180004";
     CAStudent *stu5 = [[CAStudent alloc] init];
-    stu5.name = @"18号";
+    stu5.name = @"三笠";
     stu5.s_id = @"20180005";
     CAStudent *stu6 = [[CAStudent alloc] init];
-    stu6.name = @"贾克斯";
+    stu6.name = @"Alice";
     stu6.s_id = @"20180006";
     NSArray *students = [NSArray arrayWithObjects:stu1,stu2,stu3,stu4,stu5,stu6, nil];
     self.lessonClass.students = students;
