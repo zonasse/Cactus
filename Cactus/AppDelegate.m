@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "CASignInViewController.h"
+#import "CALoginViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -25,12 +25,12 @@
      * 登录逻辑，首先检查本地缓存，若已登录则直接进入主界面，否则进入登录界面
      */
     
-    CASignInViewController *signInVC = [[CASignInViewController alloc] init];
+    CALoginViewController *loginVC = [[CALoginViewController alloc] init];
     
     self.window = [[UIWindow alloc] init];
     self.window.frame = [[UIScreen mainScreen] bounds];
     [self.window makeKeyAndVisible];
-    self.window.rootViewController = signInVC;
+    self.window.rootViewController = loginVC;
     self.window.backgroundColor = [UIColor whiteColor];
     
     return YES;

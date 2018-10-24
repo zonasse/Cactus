@@ -16,7 +16,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat) y;
 - (CGFloat) width;
 - (CGFloat) height;
-
+- (CGFloat) getMaxX;
+- (CGFloat) getMaxY;
+- (void)setX:(CGFloat) x;
+- (void)setY:(CGFloat) y;
+- (void)setWidth:(CGFloat) width;
+- (void)setHeight:(CGFloat) height;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -23,15 +23,15 @@
     
     _list = @[].mutableCopy;
     
-    [_list addObject:@{@"grade":@"年级",@"score":@[@"10",@"20",@"30",@"40",@"50",@"60",@"70"]}];
-    [_list addObject:@{@"grade":@"年级",@"score":@[@"101",@"201",@"301",@"401",@"501",@"601",@"701"]}];
-    [_list addObject:@{@"grade":@"年级",@"score":@[@"102",@"202",@"302",@"402",@"502",@"602",@"702"]}];
-    [_list addObject:@{@"grade":@"年级",@"score":@[@"103",@"203",@"303",@"403",@"503",@"603",@"703"]}];
-    [_list addObject:@{@"grade":@"年级",@"score":@[@"104",@"204",@"304",@"404",@"504",@"604",@"704"]}];
-    
-    [_list addObject:@{@"grade":@"学校",@"score":@[@"学校10",@"学校20",@"学校30",@"学校40",@"学校50",@"学校60",@"学校70"]}];
-    [_list addObject:@{@"grade":@"学校",@"score":@[@"学校10",@"学校20",@"学校30",@"学校40",@"学校50",@"学校60",@"学校70"]}];
-    [_list addObject:@{@"grade":@"学校",@"score":@[@"学校10",@"学校20",@"学校30",@"学校40",@"学校50",@"学校60",@"学校70"]}];
+    [_list addObject:@{@"grade":@"2015196852",@"score":@[@"李松",@"20",@"30",@"40",@"50",@"60",@"70"]}];
+    [_list addObject:@{@"grade":@"2015196853",@"score":@[@"张晶",@"201",@"301",@"401",@"501",@"601",@"701"]}];
+    [_list addObject:@{@"grade":@"2015196854",@"score":@[@"赵信",@"202",@"302",@"402",@"502",@"602",@"702"]}];
+    [_list addObject:@{@"grade":@"2015196855",@"score":@[@"文艺",@"203",@"303",@"403",@"503",@"603",@"703"]}];
+    [_list addObject:@{@"grade":@"2015196855",@"score":@[@"夏磊",@"204",@"304",@"404",@"504",@"604",@"704"]}];
+    [_list addObject:@{@"grade":@"2015196856",@"score":@[@"仙人",@"204",@"304",@"404",@"504",@"604",@"704"]}];
+    [_list addObject:@{@"grade":@"2015196857",@"score":@[@"kami",@"204",@"304",@"404",@"504",@"604",@"704"]}];
+    [_list addObject:@{@"grade":@"2015196858",@"score":@[@"haha",@"204",@"304",@"404",@"504",@"604",@"704"]}];
+
     
     [self test1];
     
@@ -44,10 +44,10 @@
     
     YWExcelViewMode *mode = [YWExcelViewMode new];
     mode.style = YWExcelViewStyleDefalut;
-    mode.headTexts = @[@"类目",@"语文",@"数学",@"物理",@"化学",@"生物",@"英语",@"政治"];
+    mode.headTexts = @[@"学号",@"姓名",@"听力",@"写作",@"阅读",@"期中",@"期末",@"总成绩"];
     mode.defalutHeight = 40;
     //推荐使用这样初始化
-    YWExcelView *exceView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY) mode:mode];
+    YWExcelView *exceView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY) mode:mode];
     
     exceView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     exceView.dataSource = self;

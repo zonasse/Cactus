@@ -15,61 +15,50 @@ target 'Cactus' do
 	
 	#page view
 	
-	pod 'JXPagingView/Pager'
+    #pod 'JXPagingView/Pager'
 		
 	pod 'Masonry'
 	
-	pod 'TZImagePickerController'
+    #pod 'TZImagePickerController'
 	
 	#引导页
-	pod 'LCNewFeature'
+    #pod 'LCNewFeature'
 	
 	pod 'AFNetworking'
 
 	pod 'MJExtension'
-
-	pod 'JPush'
 	
 	pod 'SDWebImage'
 	
 	pod 'MJRefresh','3.1.15'
 
-	pod 'SDCycleScrollView'
+    #pod 'SDCycleScrollView'
 
-	pod 'DateTools'
+    #pod 'DateTools'
 
-	pod 'WebViewJavascriptBridge'
+    #pod 'WebViewJavascriptBridge'
 	
 	#可以滑动的cell
-	pod 'MGSwipeTableCell'
+    #pod 'MGSwipeTableCell'
 	
 	#搜索控制器
-	pod 'PYSearch'
+    #pod 'PYSearch'
 
 	pod 'FMDB'
 
-	pod 'FSCalendar'
+    #pod 'FSCalendar'
 	
 	#全屏滑动手势,只需要添加这个库就可以执行,不需要代码
 	#pod 'FDFullscreenPopGesture'
 	
 	#图表
-	pod 'PNChart'
+    #pod 'PNChart'
 	
 	#正则
-	pod 'RegexKitLite'
-	
-	#免费短信
-	pod 'SMSSDK'
-	
-	#存放用户账号密码组件
-	pod 'UICKeyChainStore'
-	
-	#状态栏加载
-	pod 'JDStatusBarNotification'
-	
+    #pod 'RegexKitLite'
+			
 	#App Store的版本检查
-	pod 'RMAppStoreVersionCheck'
+    #pod 'RMAppStoreVersionCheck'
 
 
 end

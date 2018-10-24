@@ -1,15 +1,15 @@
 //
-//  CASignUpViewController.m
+//  CALoginViewController.m
 //  Cactus
 //
 //  Created by 钟奇龙 on 2018/9/22.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //
 
-#import "CASignUpViewController.h"
+#import "CALogonViewController.h"
 #import "CAHomePageViewController.h"
 
-@interface CASignUpViewController ()
+@interface CALogonViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *accountTextField;
 @property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;//返回按钮
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation CASignUpViewController
+@implementation CALogonViewController
 #pragma mark --点击返回按钮
 - (IBAction)close:(id)sender {
     /*
@@ -34,14 +34,17 @@
             
         }];
     }
+    [self dismissViewControllerAnimated:YES completion:^{
+    }];
+    
 }
 #pragma mark --点击注册按钮
-- (IBAction)signUp:(id)sender{
+- (IBAction)logon:(id)sender{
     /*
      * 1.检查各输入框合法性
      */
     if(self.accountTextField.text.length == 0 || self.passwordTextField.text.length == 0){
-        [MBProgressHUD showMessage:@"账号或密码不能为空"];
+        [MBProgressHUD showError:@"标号*选项不能为空"];
         return;
     }
     
