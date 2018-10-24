@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "12B81FC1BDAD0AC6390CF2BE1B81B1D2"
+               BlueprintIdentifier = "51437DAE07515A94A1220D8006113EE1"
                BlueprintName = "YWExcel"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "libYWExcel.a">

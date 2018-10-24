@@ -13,7 +13,7 @@
 #import "CACollege.h"
 #import "CAClass.h"
 @interface CALoginViewController ()
-@property (strong,nonatomic) UIImageView *backgroundImageView;
+@property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) UIView *AvatarView;
 @property (strong, nonatomic) UITextField *accountTextField;
 @property (strong, nonatomic) UITextField *passwordTextField;
@@ -24,21 +24,12 @@
 @end
 
 @implementation CALoginViewController
-const CGFloat _leftEdge = 20;
-const CGFloat _rightEdge = 20;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     //设置子控件
     [self setupSubView];
-    /*
-     * 1.设置账号密码输入框的左部占位图
-     */
-    self.accountTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ece1", 34, [UIColor lightGrayColor])]];
-    self.accountTextField.leftViewMode = UITextFieldViewModeAlways;
     
-    self.passwordTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec0f", 34, [UIColor lightGrayColor])]];
-    self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
     
     /*
      * 2.检查本地缓存是否有账号记录，若有，则直接填充账号输入框
@@ -49,11 +40,43 @@ const CGFloat _rightEdge = 20;
 - (void)setupSubView{
     //设置子控件位置
     self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    
-    self.AvatarView = [[UIImageView alloc] initWithFrame:CGRectMake(_leftEdge, 64, SCREEN_WIDTH-2*_leftEdge, 100)];
-    self.accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(_leftEdge, self.AvatarView.getMaxY + 20, self.AvatarView.width, 50)];
+    self.AvatarView = [[UIImageView alloc] initWithFrame:CGRectMake(leftEdge, 64, SCREEN_WIDTH-2*leftEdge, 100)];
+    self.accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, self.AvatarView.getMaxY + 20, self.AvatarView.width, 50)];
+    self.passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, _accountTextField.getMaxY + 20, _accountTextField.width, _accountTextField.height)];
+    self.loginButton = [[UIButton alloc] initWithFrame:CGRectMake(leftEdge, _passwordTextField.getMaxY + 30, _passwordTextField.width , 50)];
+    self.findPasswordButton = [[UIButton alloc] initWithFrame:CGRectMake(leftEdge, _loginButton.getMaxY+20, 100, 30)];
+    self.logonButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-rightEdge-_findPasswordButton.width, _findPasswordButton.y, _findPasswordButton.width, _findPasswordButton.height)];
+    [self.backgroundImageView addSubview:_AvatarView];
+    [self.backgroundImageView addSubview:_accountTextField];
+    [self.backgroundImageView addSubview:_passwordTextField];
+    [self.backgroundImageView addSubview:_loginButton];
+    [self.backgroundImageView addSubview:_logonButton];
+    [self.backgroundImageView addSubview:_findPasswordButton];
+    [self.view addSubview:_backgroundImageView];
     
     //设置子控件内容
+    self.backgroundImageView.image = [UIImage imageNamed:@"background"];
+    [self.backgroundImageView setUserInteractionEnabled:YES];
+
+    /*
+     * 设置账号密码输入框的左部占位图
+     */
+    self.accountTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ece1", 34, [UIColor orangeColor])]];
+    self.accountTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.accountTextField.background = [UIImage imageNamed:@"hotweibo_edit_button_background_default.png"];
+    self.accountTextField.placeholder = @"请输入学工号";
+    self.passwordTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec0f", 34, [UIColor orangeColor])]];
+    self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
+    self.passwordTextField.background = [UIImage imageNamed:@"hotweibo_edit_button_background_default.png"];
+    self.passwordTextField.placeholder = @"请输入密码";
+    [self.loginButton setBackgroundImage:[UIImage imageNamed:@"reward_button"] forState:UIControlStateNormal];
+    [self.loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [self.loginButton addTarget:self action:@selector(login) forControlEvents:UIControlEventTouchUpInside];
+    [self.logonButton setTitle:@"注册新用户" forState:UIControlStateNormal];
+    [self.logonButton addTarget:self action:@selector(logon) forControlEvents:UIControlEventTouchUpInside];
+    [self.findPasswordButton setTitle:@"忘记密码？" forState:UIControlStateNormal];
+    [self.findPasswordButton addTarget:self action:@selector(findPassword) forControlEvents:UIControlEventTouchUpInside];
+
 }
 #pragma mark ------ 点击动作
 #pragma mark - 登录
@@ -104,7 +127,7 @@ const CGFloat _rightEdge = 20;
     //[MBProgressHUD hideHUD];
     //        if(responseDict[@"token"]){
     //            [NSUserDefaults setValue:responseObject[@"token"] forKey:@"userToken"];
-    [MBProgressHUD showSuccess:@"登录成功"];
+    [MBProgressHUD hideHUD];
     CAHomePageViewController *homePageVC = [[CAHomePageViewController alloc] init];
     //设置课程主页用户
     CACollege *college = [[CACollege alloc] init];
@@ -137,7 +160,9 @@ const CGFloat _rightEdge = 20;
     /*
      * 进入注册界面并清除登录界面文本框内容
      */
-    [self presentViewController:[[CALogonViewController alloc] init] animated:YES completion:^{
+    CALogonViewController *logonVC = [[CALogonViewController alloc] init];
+    logonVC.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:logonVC animated:YES completion:^{
         
     }];
     
@@ -150,7 +175,7 @@ const CGFloat _rightEdge = 20;
 
 #pragma mark --设置点击或滑动背景退出键盘
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self resignFirstResponder];
+    [self.view endEditing:YES];
 }
 
 

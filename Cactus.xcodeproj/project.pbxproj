@@ -30,6 +30,7 @@
 		EA89A3A9216301AC00FFC473 /* CAClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3A8216301AC00FFC473 /* CAClass.m */; };
 		EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AB2163051500FFC473 /* CATitleGroup.m */; };
 		EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AE2163065500FFC473 /* CAMajor.m */; };
+		EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */; };
 		EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A3B2155D54F00C43599 /* AppDelegate.m */; };
 		EACE3A442155D55000C43599 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACE3A432155D55000C43599 /* Assets.xcassets */; };
 		EACE3A472155D55000C43599 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EACE3A452155D55000C43599 /* LaunchScreen.storyboard */; };
@@ -141,6 +142,8 @@
 		EA89A3AB2163051500FFC473 /* CATitleGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CATitleGroup.m; sourceTree = "<group>"; };
 		EA89A3AD2163065500FFC473 /* CAMajor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMajor.h; sourceTree = "<group>"; };
 		EA89A3AE2163065500FFC473 /* CAMajor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAMajor.m; sourceTree = "<group>"; };
+		EAB2ED7B21802CF1008E6DAD /* UIResponder+CAFirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+CAFirstResponder.h"; sourceTree = "<group>"; };
+		EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+CAFirstResponder.m"; sourceTree = "<group>"; };
 		EACE3A372155D54E00C43599 /* Cactus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cactus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACE3A3A2155D54F00C43599 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EACE3A3B2155D54F00C43599 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 				EA16965621635960005C3D48 /* MBProgressHUD */,
 				EA4BDC9821670631003B446B /* UIView+CAExtension.h */,
 				EA4BDC9921670631003B446B /* UIView+CAExtension.m */,
+				EAB2ED7B21802CF1008E6DAD /* UIResponder+CAFirstResponder.h */,
+				EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -747,17 +752,11 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Cactus/Pods-Cactus-resources.sh",
-				"${PODS_ROOT}/DateTools/DateTools/DateTools/DateTools.bundle",
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-				"${PODS_ROOT}/PYSearch/PYSearch/PYSearch.bundle",
-				"${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/DateTools.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PYSearch.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TZImagePickerController.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -790,6 +789,7 @@
 				EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */,
 				EAE8E433215B174B0037420C /* CAStudent.m in Sources */,
 				EA031A5221562F6100128829 /* CALoginViewController.m in Sources */,
+				EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */,
 				EA031A7821570F6A00128829 /* CADataAnalysesViewController.m in Sources */,
 				EAE8E430215B0EE20037420C /* CATeacher.m in Sources */,
 				EAE8E442215B22470037420C /* CAUniversity.m in Sources */,
