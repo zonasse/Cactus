@@ -9,13 +9,14 @@
 #import "CALogonViewController.h"
 #import "CAHomePageViewController.h"
 #import "UIResponder+CAFirstResponder.h"
-@interface CALogonViewController ()<UIScrollViewDelegate>
+@interface CALogonViewController ()<UIScrollViewDelegate,UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate>
 @property (strong, nonatomic) UIScrollView *backgroundScrollView;
 @property (strong, nonatomic) UITextField *accountTextField;
 @property (strong, nonatomic) UITextField *passwordTextField;
 @property (strong, nonatomic) UITextField *confirmPasswordTextField;
 @property (strong, nonatomic) UITextField *nameTextField;
 @property (strong, nonatomic) UITextField *collegeTextField;
+@property (strong, nonatomic) UIPickerView *collegePickerView;
 @property (strong, nonatomic) UITextField *emailTextField;
 @property (strong, nonatomic) UITextField *mobileTextField;
 @property (strong, nonatomic) UIButton *logonButton;
@@ -24,10 +25,14 @@
 @end
 
 @implementation CALogonViewController
+{
+    NSDictionary *_collegeDict;
+}
 const CGFloat INTERVAL_KEYBOARD = 50;
 - (void)viewDidLoad{
-    
     [super viewDidLoad];
+    _collegeDict = [[NSDictionary alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"CollegeInfo" ofType:@"plist"]];
+
     [self setupSubView];
     //注册键盘出现的通知
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -151,37 +156,46 @@ const CGFloat INTERVAL_KEYBOARD = 50;
     self.accountTextField.leftViewMode = UITextFieldViewModeAlways;
     self.accountTextField.background = [UIImage imageNamed:@"hotweibo_edit_button_background_default.png"];
     self.accountTextField.placeholder = @"学工号*";
-    
+    self.accountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+
     self.passwordTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ece1", 34, [UIColor orangeColor])]];
     self.passwordTextField.leftViewMode = UITextFieldViewModeAlways;
     self.passwordTextField.background = [UIImage imageNamed:@"hotweibo_edit_button_background_default.png"];
     self.passwordTextField.placeholder = @"密码*";
-    
+    self.passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+
     self.confirmPasswordTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ece1", 34, [UIColor orangeColor])]];
     self.confirmPasswordTextField.leftViewMode = UITextFieldViewModeAlways;
     self.confirmPasswordTextField.background = [UIImage imageNamed:@"hotweibo_edit_button_background_default.png"];
     self.confirmPasswordTextField.placeholder = @"确认密码*";
-    
+    self.confirmPasswordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+
     self.nameTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ece1", 34, [UIColor orangeColor])]];
     self.nameTextField.leftViewMode = UITextFieldViewModeAlways;
     self.nameTextField.background = [UIImage imageNamed:@"hotweibo_edit_button_background_default.png"];
     self.nameTextField.placeholder = @"姓名*";
+    self.nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     
+
     self.collegeTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ece1", 34, [UIColor orangeColor])]];
     self.collegeTextField.leftViewMode = UITextFieldViewModeAlways;
     self.collegeTextField.background = [UIImage imageNamed:@"hotweibo_edit_button_background_default.png"];
     self.collegeTextField.placeholder = @"学院*";
-    
+    self.collegeTextField.delegate = self;
+    self.collegeTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+
     self.emailTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ece1", 34, [UIColor orangeColor])]];
     self.emailTextField.leftViewMode = UITextFieldViewModeAlways;
     self.emailTextField.background = [UIImage imageNamed:@"hotweibo_edit_button_background_default.png"];
     self.emailTextField.placeholder = @"邮箱";
-    
+    self.emailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+
     self.mobileTextField.leftView = [[UIImageView alloc] initWithImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ece1", 34, [UIColor orangeColor])]];
     self.mobileTextField.leftViewMode = UITextFieldViewModeAlways;
     self.mobileTextField.background = [UIImage imageNamed:@"hotweibo_edit_button_background_default.png"];
     self.mobileTextField.placeholder = @"手机号";
-    
+    self.mobileTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+
     [self.logonButton setBackgroundImage:[UIImage imageNamed:@"reward_button"] forState:UIControlStateNormal];
     [self.logonButton setTitle:@"注册" forState:UIControlStateNormal];
     [self.logonButton addTarget:self action:@selector(logon) forControlEvents:UIControlEventTouchUpInside];
@@ -228,7 +242,62 @@ const CGFloat INTERVAL_KEYBOARD = 50;
         self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     }];
 }
+#pragma mark --学院文本框代理
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    //隐藏键盘，避免遮挡pickerView
+    [textField resignFirstResponder];
+    [self showPickerView];
+}
+- (void)showPickerView{
+    
+    self.collegePickerView.delegate = self;
+    self.collegePickerView.dataSource = self;
+    [self.collegePickerView reloadAllComponents];
+}
+#pragma mark --选择器代理
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    return 1;
+}
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+    return _collegeDict.allKeys.count;
+}
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
+    return 20.0f;
+}
+- (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component{
+    return 100.0f;
+}
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+    if (!view){
+        
+        view = [[UIView alloc]init];
+        
+    }
+    
+    UILabel *text = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width/3, 20)];
+    
+    text.textAlignment = NSTextAlignmentCenter;
+    
+    text.text = [_collegeDict.allKeys objectAtIndex:row];
+    
+    [view addSubview:text];
+    
+    //隐藏上下直线
+    
+    [self.collegePickerView.subviews objectAtIndex:1].backgroundColor = [UIColor clearColor];
+    
+    [self.collegePickerView.subviews objectAtIndex:2].backgroundColor = [UIColor clearColor];
+    
+    return view;
+}
 
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    return [_collegeDict.allKeys objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+    NSLog(@"%@",[_collegeDict.allKeys objectAtIndex:row]);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
