@@ -16,10 +16,11 @@
 #import "AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIView+CAExtension.h"
-
+#import "CAMD5Tool.h"
+#import "CAHttpTool.h"
 
 #pragma mark --公共变量
-#define baseURL @"http://192.168.23.1:8000/test/"
+#define baseURL @"http://127.0.0.1:8000/api/"
 #define cellHeight 88
 #define tabbarVCStartY 64
 #define leftEdge 20
