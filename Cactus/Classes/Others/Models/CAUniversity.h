@@ -7,15 +7,12 @@
 //  学校
 
 #import <Foundation/Foundation.h>
-#import "CACollege.h"
 @interface CAUniversity : NSObject
 //校名
 @property (nonatomic,copy) NSString *name;
 //校昵称
 @property (nonatomic,copy) NSString *shortname;
-//学院组
-@property (nonatomic,strong) NSArray *colleges;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
-+ (instancetype) userWithDict:(NSDictionary *)dict;
++ (instancetype) universityWithDict:(NSDictionary *)dict;
 @end

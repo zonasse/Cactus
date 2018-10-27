@@ -11,11 +11,9 @@
 @interface CALesson : NSObject
 //课程名
 @property (nonatomic,copy) NSString *name;
-//拥有教学班组
-@property (nonatomic,strong) NSArray *classes;
-//拥有分数大项组
-@property (nonatomic,strong) NSArray *titleGroups;
+//学院
+@property (nonatomic,copy) NSString *college_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
-+ (instancetype) userWithDict:(NSDictionary *)dict;
++ (instancetype) lessonWithDict:(NSDictionary *)dict;
 @end

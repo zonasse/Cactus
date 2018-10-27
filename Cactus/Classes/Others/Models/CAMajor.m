@@ -13,8 +13,7 @@
     if(self = [super init]){
         self.name = dict[@"name"];
         self.shortname = dict[@"shortname"];
-        self.college = dict[@"college"];
-        self.students = dict[@"students"];
+        self.college_id = dict[@"college_id"];
     }
     return self;
 }

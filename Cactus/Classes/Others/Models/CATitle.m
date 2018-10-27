@@ -13,15 +13,13 @@
     if(self = [super init]){
 
         self.name = dict[@"name"];
-        self.type = (NSInteger)dict[@"type"];
         self.weight = (NSInteger)dict[@"weight"];
-        self.points = dict[@"points"];
-        self.titleGroup = dict[@"titleGroup"];
+        self.titleGroup_id = dict[@"titleGroup_id"];
     }
     return self;
 }
 
-+ (instancetype) userWithDict:(NSDictionary *)dict{
++ (instancetype) titleWithDict:(NSDictionary *)dict{
     return [[self alloc] initWithDict:dict];
 }
 @end

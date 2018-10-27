@@ -20,7 +20,9 @@
 #import "CAHttpTool.h"
 
 #pragma mark --公共变量
+//#define baseURL @"http://119.29.63.216:8000/api/"
 #define baseURL @"http://127.0.0.1:8000/api/"
+
 #define cellHeight 88
 #define tabbarVCStartY 64
 #define leftEdge 20

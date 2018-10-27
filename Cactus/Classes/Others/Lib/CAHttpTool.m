@@ -30,7 +30,7 @@
 
 -(instancetype)init{
     self = [super init];
-    if (!self) {
+    if (self) {
         _manager = [AFHTTPSessionManager manager];
         _manager.requestSerializer = [AFJSONRequestSerializer serializer];
         [_manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

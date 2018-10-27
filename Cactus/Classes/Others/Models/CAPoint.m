@@ -11,17 +11,17 @@
 @implementation CAPoint
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.b_class = dict[@"b_class"];
-        self.student = dict[@"student"];
-        self.point = (NSInteger)dict[@"point"];
+        self.classInfo_id = dict[@"classInfo_id"];
+        self.student_id = dict[@"student_id"];
+        self.pointNumber = (NSInteger)dict[@"pointNumber"];
         self.date = dict[@"date"];
-        self.notes = dict[@"notes"];
-        self.title = dict[@"title"];
+        self.note = dict[@"note"];
+        self.title_id = dict[@"title_id"];
     }
     return self;
 }
 
-+ (instancetype) userWithDict:(NSDictionary *)dict{
++ (instancetype) pointWithDict:(NSDictionary *)dict{
     return [[self alloc] initWithDict:dict];
 }
 @end
