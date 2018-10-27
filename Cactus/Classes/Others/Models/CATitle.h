@@ -8,20 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class CATitleGroup;
 
 @interface CATitle : NSObject
 //列名
 @property (nonatomic,copy) NSString *name;
-//列类别
-@property (nonatomic,assign) NSInteger type;
 //列权重
 @property (nonatomic,assign) NSInteger weight;
-//拥有分数组
-@property (nonatomic,strong) NSArray *points;
 //所属大项
-@property (nonatomic,weak) CATitleGroup *titleGroup;
+@property (nonatomic,weak) NSString *titleGroup_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
-+ (instancetype) userWithDict:(NSDictionary *)dict;
++ (instancetype) titleWithDict:(NSDictionary *)dict;
 @end

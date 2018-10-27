@@ -7,26 +7,24 @@
 //  教师模型
 
 #import <Foundation/Foundation.h>
-@class CACollege;
 @interface CATeacher : NSObject
 //教师职工号
-@property (nonatomic,copy) NSString *t_id;
+@property (nonatomic,copy) NSString *tid;
 //教师姓名
 @property (nonatomic,copy) NSString *name;
 //教师密码，加密
 @property (nonatomic,copy) NSString *password;
 //教师所在院系
-@property (nonatomic,strong) CACollege *college;
+@property (nonatomic,copy) NSString *college_id;
 //教师是否为组长
 @property (nonatomic,assign) BOOL is_manager;
 //教师邮箱
 @property (nonatomic,copy) NSString *email;
 //教师电话
 @property (nonatomic,copy) NSString *mobile;
-//拥有教学班组
-@property (nonatomic,strong) NSArray *classes;
 //头像
-@property (nonatomic,copy) NSString *avatar;
+//@property (nonatomic,copy) NSString *avatar;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
++ (instancetype) teacherWithDict:(NSDictionary *)dict;
 @end

@@ -9,21 +9,22 @@
 #import "CATeacher.h"
 
 @implementation CATeacher
+
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.t_id = dict[@"t_id"];
+        self.tid = dict[@"tid"];
         self.name = dict[@"name"];
         self.password = dict[@"password"];
-        self.college = dict[@"college"];
+        self.college_id = dict[@"college_id"];
         self.is_manager = (BOOL)dict[@"is_manager"];
         self.email = dict[@"email"];
         self.mobile = dict[@"mobile"];
-        self.classes = dict[@"classes"];
-    }
+        //self.avatar = dict[@"avatar"];
+    } 
     return self;
 }
 
-+ (instancetype) userWithDict:(NSDictionary *)dict{
++ (instancetype) teacherWithDict:(NSDictionary *)dict{
     return [[self alloc] initWithDict:dict];
 }
 @end

@@ -7,20 +7,15 @@
 //  学生模型
 
 #import <Foundation/Foundation.h>
-@class CAMajor;
 @interface CAStudent : NSObject
 //学号
-@property (nonatomic,copy) NSString *s_id;
+@property (nonatomic,copy) NSString *sid;
 //学生姓名
 @property (nonatomic,copy) NSString *name;
 //学生学年
 @property (nonatomic,copy) NSString *year;
-//学生班内序号
-@property (nonatomic,copy) NSString *index;
 //学生所在专业
-@property (nonatomic,weak) CAMajor *major;
-//学生课程分数
-@property (nonatomic,strong) NSArray *points;
+@property (nonatomic,copy) NSString *major_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype) userWithDict:(NSDictionary *)dict;

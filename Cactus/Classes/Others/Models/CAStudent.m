@@ -11,12 +11,10 @@
 @implementation CAStudent
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.s_id = dict[@"s_id"];
+        self.sid = dict[@"sid"];
         self.name = dict[@"name"];
-        self.index = dict[@"index"];
         self.year = dict[@"year"];
-        self.major = dict[@"major"];
-        self.points = dict[@"points"];
+        self.major_id = dict[@"major_id"];
     }
     return self;
 }

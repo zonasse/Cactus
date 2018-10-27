@@ -11,17 +11,14 @@
 @implementation CAClass
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.c_id = dict[@"name"];
-        self.lesson = dict[@"lesson"];
-        self.students = dict[@"students"];
-        self.classInfo = dict[@"classInfo"];
-        self.teacher = dict[@"teacher"];
-        self.points = dict[@"points"];
+        self.lesson_id = dict[@"lesson_id"];
+        self.classInfo_id = dict[@"classInfo_id"];
+        self.teacher_id = dict[@"teacher_id"];
     }
     return self;
 }
 
-+ (instancetype) userWithDict:(NSDictionary *)dict{
++ (instancetype) classWithDict:(NSDictionary *)dict{
     return [[self alloc] initWithDict:dict];
 }
 @end

@@ -11,8 +11,9 @@
 @implementation CAClassInfo
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-        self.b_class = dict[@"b_class"];
+        self.cid = dict[@"cid"];
         self.name = dict[@"name"];
+        self.teacher_id = dict[@"teacher_id"];
         self.year = dict[@"year"];
         self.month = dict[@"month"];
         self.date = dict[@"date"];
@@ -22,7 +23,7 @@
     return self;
 }
 
-+ (instancetype) userWithDict:(NSDictionary *)dict{
++ (instancetype) classInfoWithDict:(NSDictionary *)dict{
     return [[self alloc] initWithDict:dict];
 }
 @end

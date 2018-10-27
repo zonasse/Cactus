@@ -11,7 +11,6 @@
 		EA031A5221562F6100128829 /* CALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A5021562F6100128829 /* CALoginViewController.m */; };
 		EA031A57215631BD00128829 /* CALogonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A55215631BD00128829 /* CALogonViewController.m */; };
 		EA031A622156373D00128829 /* CAHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A602156373D00128829 /* CAHomePageViewController.m */; };
-		EA031A632156373D00128829 /* CAHomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA031A612156373D00128829 /* CAHomePageViewController.xib */; };
 		EA031A6621563DEC00128829 /* CALessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A6521563DEC00128829 /* CALessonViewCell.m */; };
 		EA031A692156580B00128829 /* CALessonManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A682156580B00128829 /* CALessonManagementViewController.m */; };
 		EA031A7821570F6A00128829 /* CADataAnalysesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7621570F6A00128829 /* CADataAnalysesViewController.m */; };
@@ -31,6 +30,7 @@
 		EA89A3A9216301AC00FFC473 /* CAClass.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3A8216301AC00FFC473 /* CAClass.m */; };
 		EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AB2163051500FFC473 /* CATitleGroup.m */; };
 		EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AE2163065500FFC473 /* CAMajor.m */; };
+		EA8B3F9F218300DC005E85A4 /* CAHomePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3F9E218300DC005E85A4 /* CAHomePageView.m */; };
 		EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */; };
 		EAB2ED9C218090D2008E6DAD /* CAMD5Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED9B218090D2008E6DAD /* CAMD5Tool.m */; };
 		EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A3B2155D54F00C43599 /* AppDelegate.m */; };
@@ -112,7 +112,6 @@
 		EA031A55215631BD00128829 /* CALogonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CALogonViewController.m; sourceTree = "<group>"; };
 		EA031A5F2156373D00128829 /* CAHomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAHomePageViewController.h; sourceTree = "<group>"; };
 		EA031A602156373D00128829 /* CAHomePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAHomePageViewController.m; sourceTree = "<group>"; };
-		EA031A612156373D00128829 /* CAHomePageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CAHomePageViewController.xib; sourceTree = "<group>"; };
 		EA031A6421563DEC00128829 /* CALessonViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CALessonViewCell.h; sourceTree = "<group>"; };
 		EA031A6521563DEC00128829 /* CALessonViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CALessonViewCell.m; sourceTree = "<group>"; };
 		EA031A672156580B00128829 /* CALessonManagementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CALessonManagementViewController.h; sourceTree = "<group>"; };
@@ -146,6 +145,8 @@
 		EA89A3AB2163051500FFC473 /* CATitleGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CATitleGroup.m; sourceTree = "<group>"; };
 		EA89A3AD2163065500FFC473 /* CAMajor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMajor.h; sourceTree = "<group>"; };
 		EA89A3AE2163065500FFC473 /* CAMajor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAMajor.m; sourceTree = "<group>"; };
+		EA8B3F9D218300DC005E85A4 /* CAHomePageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAHomePageView.h; sourceTree = "<group>"; };
+		EA8B3F9E218300DC005E85A4 /* CAHomePageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAHomePageView.m; sourceTree = "<group>"; };
 		EAB2ED7B21802CF1008E6DAD /* UIResponder+CAFirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+CAFirstResponder.h"; sourceTree = "<group>"; };
 		EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+CAFirstResponder.m"; sourceTree = "<group>"; };
 		EAB2ED9A218090D2008E6DAD /* CAMD5Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMD5Tool.h; sourceTree = "<group>"; };
@@ -496,9 +497,10 @@
 		EAFB44A72155E0CA0001931B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EA031A612156373D00128829 /* CAHomePageViewController.xib */,
 				EA031A6421563DEC00128829 /* CALessonViewCell.h */,
 				EA031A6521563DEC00128829 /* CALessonViewCell.m */,
+				EA8B3F9D218300DC005E85A4 /* CAHomePageView.h */,
+				EA8B3F9E218300DC005E85A4 /* CAHomePageView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -644,7 +646,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = CA;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "钟奇龙";
 				TargetAttributes = {
 					EACE3A362155D54E00C43599 = {
@@ -712,7 +714,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA031A632156373D00128829 /* CAHomePageViewController.xib in Resources */,
 				EA031A832157478C00128829 /* iconfont.ttf in Resources */,
 				EACE3A472155D55000C43599 /* LaunchScreen.storyboard in Resources */,
 				EACE3A442155D55000C43599 /* Assets.xcassets in Resources */,
@@ -796,6 +797,7 @@
 				EA4BDC9A21670631003B446B /* UIView+CAExtension.m in Sources */,
 				EACE3A4A2155D55000C43599 /* main.m in Sources */,
 				EA16965D21635960005C3D48 /* MBProgressHUD+MJ.m in Sources */,
+				EA8B3F9F218300DC005E85A4 /* CAHomePageView.m in Sources */,
 				EA031A692156580B00128829 /* CALessonManagementViewController.m in Sources */,
 				EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */,
 				EAE8E433215B174B0037420C /* CAStudent.m in Sources */,
@@ -876,6 +878,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -883,6 +886,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -910,7 +914,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -931,6 +935,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -938,6 +943,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -959,9 +965,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

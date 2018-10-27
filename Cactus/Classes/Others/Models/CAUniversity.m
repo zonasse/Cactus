@@ -13,13 +13,12 @@
     if(self = [super init]){
         self.name = dict[@"name"];
         self.shortname = dict[@"shortname"];
-        self.colleges = dict[@"colleges"];
 
     }
     return self;
 }
 
-+ (instancetype) userWithDict:(NSDictionary *)dict{
++ (instancetype) universityWithDict:(NSDictionary *)dict{
     return [[self alloc] initWithDict:dict];
 }
 @end

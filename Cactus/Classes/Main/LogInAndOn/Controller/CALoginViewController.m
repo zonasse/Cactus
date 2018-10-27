@@ -97,97 +97,61 @@
         [MBProgressHUD showError:@"账号或密码不能为空"];
         return;
     }
-    //[MBProgressHUD showMessage:@"登录中..."];
+    if (self.accountTextField.text.length < 8) {
+        [MBProgressHUD showError:@"账号长度需要8位以上"];
+        return;
+    }
+    if (self.passwordTextField.text.length < 6) {
+        [MBProgressHUD showError:@"密码长度需要6位以上"];
+        return;
+    }
+    [MBProgressHUD showMessage:@"登录中..."];
+    
+    NSString *urlString = [baseURL stringByAppendingString:@"user/login"];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"tid"] = self.accountTextField.text;
+#warning 此处做密码加密
+//    params[@"password"] = self.passwordTextField.text;
+
+    params[@"password"] = [CAMD5Tool md5:self.passwordTextField.text];
     /*
-     * 2.检查网络状态
+     * 2.发送请求
      */
-    
-    /*
-     * 3.显示加载过渡动画
-     */
-    
-    /*
-     * 4.连接服务器，附送账号和密码加密文段
-     */
-    __block NSError *error;
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    dict[@"tid"] = self.accountTextField.text;
-    dict[@"password"] = [CAMD5Tool md5:self.passwordTextField.text];
+    [ShareDefaultHttpTool POSTWithCompleteURL:urlString parameters:params progress:^(id progress) {
+        
+    } success:^(id responseObject) {
+        [MBProgressHUD hideHUD];
+        NSDictionary *responseDict = (NSDictionary *)responseObject;
+        NSString *code = responseObject[@"code"];
+        if(![code isEqualToString:@"1014"]){
+            [MBProgressHUD showError:@"用户名或密码错误"];
+            return;
+        }
+        NSDictionary *subjects = responseDict[@"subjects"];
+        /*
+         * 跳转
+         */
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setValue:subjects[@"token"] forKey:@"userToken"];
+        [userDefaults setValue:subjects[@"id"] forKey:@"userId"];
+        CAHomePageViewController *homePageVC = [[CAHomePageViewController alloc] init];
 
-//    NSDictionary *params = @{@"tid":self.accountTextField.text,@"password":[CAMD5Tool md5:self.passwordTextField.text]};
-//    NSDictionary *params = @{@"tid":self.accountTextField.text,@"password":self.passwordTextField.text};
+        UINavigationController *homePageNav = [[UINavigationController alloc] initWithRootViewController:homePageVC];
+        [self presentViewController:homePageNav animated:YES completion:^{
 
-    NSString *urlString = [baseURL stringByAppendingString:@"university/format"];
-#pragma mark ---GET
-//    [manager GET:urlString parameters:dict progress:^(NSProgress * _Nonnull downloadProgress) {
-//
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//
-//    }];
-#pragma mark --POST
-//    [manager POST:urlString parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-//
-//    } progress:^(NSProgress * _Nonnull uploadProgress) {
-//
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//
-//    }];
-#pragma mark --PUT
-//    [manager PUT:urlString parameters:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//
-//    }];
-#pragma mark --DELETE
-    [manager DELETE:urlString parameters:dict success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        }];
 
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showError:@"网络错误"];
     }];
-//         * 5.判断服务器返回字段
-//         */
-//
-//        [MBProgressHUD hideHUD];
-//        if(responseDict[@"token"]){
-//            [NSUserDefaults setValue:responseObject[@"token"] forKey:@"userToken"];
-//            [MBProgressHUD hideHUD];
-//            CAHomePageViewController *homePageVC = [[CAHomePageViewController alloc] init];
-//            //设置课程主页用户
-//            CACollege *college = [[CACollege alloc] init];
-//            college.name = @"外国语";
-//            CATeacher *teacher = [[CATeacher alloc] init];
-//            teacher.t_id = @"1928374";
-//            teacher.name = @"方世玉";
-//            teacher.college = college;
-//            teacher.is_manager = TRUE;
-//
-//            homePageVC.teacher = teacher;
-//            UINavigationController *homePageNav = [[UINavigationController alloc] initWithRootViewController:homePageVC];
-//            [self presentViewController:homePageNav animated:YES completion:^{
-//
-//            }];
-//        }else{
-//            [MBProgressHUD hideHUD];
-//            [MBProgressHUD showError:@"登录失败，请重新检查"];
-//        }
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        [MBProgressHUD hideHUD];
-//        [MBProgressHUD showError:@"未知错误"];
-//    }];
-//
-    
 }
+
+
+
+
+
+    
 
 #pragma mark - 注册
 //- (void)logon{
@@ -217,15 +181,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -7,16 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-@class CACollege;
 @interface CAMajor : NSObject
 //学院名
 @property (nonatomic,copy) NSString *name;
 //学院昵称
 @property (nonatomic,copy) NSString *shortname;
 //所在学院
-@property (nonatomic,weak) CACollege *college;
-//拥有学生组
-@property (nonatomic,strong) NSArray *students;
+@property (nonatomic,copy) NSString *college_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype) userWithDict:(NSDictionary *)dict;

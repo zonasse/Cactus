@@ -12,13 +12,12 @@
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
         self.name = dict[@"name"];
-        self.classes = dict[@"classes"];
-        self.titleGroups = dict[@"titleGroups"];
+        self.college_id = dict[@"college_id"];
     }
     return self;
 }
 
-+ (instancetype) userWithDict:(NSDictionary *)dict{
++ (instancetype) lessonWithDict:(NSDictionary *)dict{
     return [[self alloc] initWithDict:dict];
 }
 @end

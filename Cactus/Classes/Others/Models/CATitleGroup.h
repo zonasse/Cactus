@@ -8,18 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@class CALesson;
-
 @interface CATitleGroup : NSObject
 //大项名
 @property(nonatomic,copy) NSString *name;
 //所属课程
-@property(nonatomic,weak) CALesson *lesson;
+@property(nonatomic,copy) NSString *lesson_id;
 //大项权重
 @property(nonatomic,assign) NSInteger weight;
-//拥有小项组
-@property(nonatomic,strong) NSArray *titles;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
-+ (instancetype) userWithDict:(NSDictionary *)dict;
++ (instancetype) titleGroupWithDict:(NSDictionary *)dict;
 @end
