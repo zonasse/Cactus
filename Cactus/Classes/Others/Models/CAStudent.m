@@ -14,7 +14,7 @@
         self.sid = dict[@"sid"];
         self.name = dict[@"name"];
         self.year = dict[@"year"];
-        self.major_id = dict[@"major_id"];
+        self.major_id = [dict[@"major_id"] integerValue];
     }
     return self;
 }

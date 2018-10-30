@@ -15,7 +15,7 @@
 //教师密码，加密
 @property (nonatomic,copy) NSString *password;
 //教师所在院系
-@property (nonatomic,copy) NSString *college_id;
+@property (nonatomic,assign) NSInteger college_id;
 //教师是否为组长
 @property (nonatomic,assign) BOOL is_manager;
 //教师邮箱
@@ -23,7 +23,7 @@
 //教师电话
 @property (nonatomic,copy) NSString *mobile;
 //头像
-//@property (nonatomic,copy) NSString *avatar;
+@property (nonatomic,copy) NSString *avatar;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype) teacherWithDict:(NSDictionary *)dict;

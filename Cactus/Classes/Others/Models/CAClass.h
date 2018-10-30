@@ -9,11 +9,11 @@
 #import <Foundation/Foundation.h>
 @interface CAClass : NSObject
 //所属课程
-@property (nonatomic,copy) NSString *lesson_id;
+@property (nonatomic,assign) NSInteger lesson_id;
 //教学班信息
-@property (nonatomic,copy) NSString *classInfo_id;
+@property (nonatomic,assign) NSInteger classInfo_id;
 //拥有教师
-@property (nonatomic,copy) NSString *teacher_id;
+@property (nonatomic,assign) NSInteger teacher_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype) classWithDict:(NSDictionary *)dict;

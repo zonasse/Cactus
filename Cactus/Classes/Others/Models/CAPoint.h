@@ -10,9 +10,9 @@
 
 @interface CAPoint : NSObject
 //分数所属教学班
-@property (nonatomic,copy) NSString *classInfo_id;
+@property (nonatomic,assign) NSInteger classInfo_id;
 //分数所属学生
-@property (nonatomic,copy) NSString *student_id;
+@property (nonatomic,assign) NSInteger student_id;
 //分数
 @property (nonatomic,assign) NSInteger pointNumber;
 //时间戳
@@ -20,7 +20,7 @@
 //备注
 @property (nonatomic,copy) NSString *note;
 //所属分数列
-@property (nonatomic,copy) NSString *title_id;
+@property (nonatomic,assign) NSInteger title_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype) pointWithDict:(NSDictionary *)dict;

@@ -11,10 +11,9 @@
 		EA031A5221562F6100128829 /* CALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A5021562F6100128829 /* CALoginViewController.m */; };
 		EA031A57215631BD00128829 /* CALogonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A55215631BD00128829 /* CALogonViewController.m */; };
 		EA031A622156373D00128829 /* CAHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A602156373D00128829 /* CAHomePageViewController.m */; };
-		EA031A6621563DEC00128829 /* CALessonViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A6521563DEC00128829 /* CALessonViewCell.m */; };
-		EA031A692156580B00128829 /* CALessonManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A682156580B00128829 /* CALessonManagementViewController.m */; };
-		EA031A7821570F6A00128829 /* CADataAnalysesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7621570F6A00128829 /* CADataAnalysesViewController.m */; };
-		EA031A7B21570F7E00128829 /* CALessonHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7921570F7E00128829 /* CALessonHomePageViewController.m */; };
+		EA031A6621563DEC00128829 /* CAClassInfoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A6521563DEC00128829 /* CAClassInfoViewCell.m */; };
+		EA031A692156580B00128829 /* CAClassManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A682156580B00128829 /* CAClassManagementViewController.m */; };
+		EA031A7B21570F7E00128829 /* CAClassHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7921570F7E00128829 /* CAClassHomePageViewController.m */; };
 		EA031A7E21570FA300128829 /* CAScoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7D21570FA200128829 /* CAScoreListViewController.m */; };
 		EA031A8121570FC100128829 /* CAStudentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7F21570FC100128829 /* CAStudentListViewController.m */; };
 		EA031A832157478C00128829 /* iconfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA031A822157478C00128829 /* iconfont.ttf */; };
@@ -31,6 +30,16 @@
 		EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AB2163051500FFC473 /* CATitleGroup.m */; };
 		EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AE2163065500FFC473 /* CAMajor.m */; };
 		EA8B3F9F218300DC005E85A4 /* CAHomePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3F9E218300DC005E85A4 /* CAHomePageView.m */; };
+		EA8B3FBB218831D9005E85A4 /* CADataAnalysesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FBA218831D9005E85A4 /* CADataAnalysesViewController.m */; };
+		EA8B3FBE2188347A005E85A4 /* CAScoreListView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FBD2188347A005E85A4 /* CAScoreListView.m */; };
+		EA8B3FD021883BD7005E85A4 /* ExcelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8B3FC021883BD7005E85A4 /* ExcelView.xib */; };
+		EA8B3FD121883BD7005E85A4 /* ExcelHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8B3FC121883BD7005E85A4 /* ExcelHeaderView.xib */; };
+		EA8B3FD221883BD7005E85A4 /* ExcelHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FC221883BD7005E85A4 /* ExcelHeaderView.m */; };
+		EA8B3FD321883BD7005E85A4 /* ExcelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8B3FC321883BD7005E85A4 /* ExcelTableViewCell.xib */; };
+		EA8B3FD421883BD7005E85A4 /* ExcelView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FC421883BD7005E85A4 /* ExcelView.m */; };
+		EA8B3FD521883BD7005E85A4 /* UIView+category.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FC721883BD7005E85A4 /* UIView+category.m */; };
+		EA8B3FD621883BD7005E85A4 /* ExcelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FCB21883BD7005E85A4 /* ExcelModel.m */; };
+		EA8B3FD721883BD7005E85A4 /* ExcelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FCF21883BD7005E85A4 /* ExcelTableViewCell.m */; };
 		EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */; };
 		EAB2ED9C218090D2008E6DAD /* CAMD5Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED9B218090D2008E6DAD /* CAMD5Tool.m */; };
 		EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A3B2155D54F00C43599 /* AppDelegate.m */; };
@@ -112,14 +121,12 @@
 		EA031A55215631BD00128829 /* CALogonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CALogonViewController.m; sourceTree = "<group>"; };
 		EA031A5F2156373D00128829 /* CAHomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAHomePageViewController.h; sourceTree = "<group>"; };
 		EA031A602156373D00128829 /* CAHomePageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAHomePageViewController.m; sourceTree = "<group>"; };
-		EA031A6421563DEC00128829 /* CALessonViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CALessonViewCell.h; sourceTree = "<group>"; };
-		EA031A6521563DEC00128829 /* CALessonViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CALessonViewCell.m; sourceTree = "<group>"; };
-		EA031A672156580B00128829 /* CALessonManagementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CALessonManagementViewController.h; sourceTree = "<group>"; };
-		EA031A682156580B00128829 /* CALessonManagementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CALessonManagementViewController.m; sourceTree = "<group>"; };
-		EA031A7621570F6A00128829 /* CADataAnalysesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CADataAnalysesViewController.m; path = Cactus/Classes/Main/HomePage/LessonManagement/DataAnalyses/CADataAnalysesViewController.m; sourceTree = SOURCE_ROOT; };
-		EA031A7721570F6A00128829 /* CADataAnalysesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CADataAnalysesViewController.h; path = Cactus/Classes/Main/HomePage/LessonManagement/DataAnalyses/CADataAnalysesViewController.h; sourceTree = SOURCE_ROOT; };
-		EA031A7921570F7E00128829 /* CALessonHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CALessonHomePageViewController.m; sourceTree = "<group>"; };
-		EA031A7A21570F7E00128829 /* CALessonHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CALessonHomePageViewController.h; sourceTree = "<group>"; };
+		EA031A6421563DEC00128829 /* CAClassInfoViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAClassInfoViewCell.h; sourceTree = "<group>"; };
+		EA031A6521563DEC00128829 /* CAClassInfoViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAClassInfoViewCell.m; sourceTree = "<group>"; };
+		EA031A672156580B00128829 /* CAClassManagementViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAClassManagementViewController.h; sourceTree = "<group>"; };
+		EA031A682156580B00128829 /* CAClassManagementViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAClassManagementViewController.m; sourceTree = "<group>"; };
+		EA031A7921570F7E00128829 /* CAClassHomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAClassHomePageViewController.m; sourceTree = "<group>"; };
+		EA031A7A21570F7E00128829 /* CAClassHomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAClassHomePageViewController.h; sourceTree = "<group>"; };
 		EA031A7C21570FA200128829 /* CAScoreListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAScoreListViewController.h; sourceTree = "<group>"; };
 		EA031A7D21570FA200128829 /* CAScoreListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAScoreListViewController.m; sourceTree = "<group>"; };
 		EA031A7F21570FC100128829 /* CAStudentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAStudentListViewController.m; sourceTree = "<group>"; };
@@ -147,6 +154,24 @@
 		EA89A3AE2163065500FFC473 /* CAMajor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAMajor.m; sourceTree = "<group>"; };
 		EA8B3F9D218300DC005E85A4 /* CAHomePageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAHomePageView.h; sourceTree = "<group>"; };
 		EA8B3F9E218300DC005E85A4 /* CAHomePageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAHomePageView.m; sourceTree = "<group>"; };
+		EA8B3FB9218831D9005E85A4 /* CADataAnalysesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CADataAnalysesViewController.h; path = ../../../../../../../../../.Trash/CADataAnalysesViewController.h; sourceTree = "<group>"; };
+		EA8B3FBA218831D9005E85A4 /* CADataAnalysesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CADataAnalysesViewController.m; path = ../../../../../../../../../.Trash/CADataAnalysesViewController.m; sourceTree = "<group>"; };
+		EA8B3FBC2188347A005E85A4 /* CAScoreListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAScoreListView.h; sourceTree = "<group>"; };
+		EA8B3FBD2188347A005E85A4 /* CAScoreListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAScoreListView.m; sourceTree = "<group>"; };
+		EA8B3FC021883BD7005E85A4 /* ExcelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExcelView.xib; sourceTree = "<group>"; };
+		EA8B3FC121883BD7005E85A4 /* ExcelHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExcelHeaderView.xib; sourceTree = "<group>"; };
+		EA8B3FC221883BD7005E85A4 /* ExcelHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExcelHeaderView.m; sourceTree = "<group>"; };
+		EA8B3FC321883BD7005E85A4 /* ExcelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExcelTableViewCell.xib; sourceTree = "<group>"; };
+		EA8B3FC421883BD7005E85A4 /* ExcelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExcelView.m; sourceTree = "<group>"; };
+		EA8B3FC621883BD7005E85A4 /* Constant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constant.h; sourceTree = "<group>"; };
+		EA8B3FC721883BD7005E85A4 /* UIView+category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+category.m"; sourceTree = "<group>"; };
+		EA8B3FC821883BD7005E85A4 /* UIView+category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+category.h"; sourceTree = "<group>"; };
+		EA8B3FC921883BD7005E85A4 /* ExcelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExcelTableViewCell.h; sourceTree = "<group>"; };
+		EA8B3FCB21883BD7005E85A4 /* ExcelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExcelModel.m; sourceTree = "<group>"; };
+		EA8B3FCC21883BD7005E85A4 /* ExcelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExcelModel.h; sourceTree = "<group>"; };
+		EA8B3FCD21883BD7005E85A4 /* ExcelHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExcelHeaderView.h; sourceTree = "<group>"; };
+		EA8B3FCE21883BD7005E85A4 /* ExcelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExcelView.h; sourceTree = "<group>"; };
+		EA8B3FCF21883BD7005E85A4 /* ExcelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExcelTableViewCell.m; sourceTree = "<group>"; };
 		EAB2ED7B21802CF1008E6DAD /* UIResponder+CAFirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+CAFirstResponder.h"; sourceTree = "<group>"; };
 		EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+CAFirstResponder.m"; sourceTree = "<group>"; };
 		EAB2ED9A218090D2008E6DAD /* CAMD5Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMD5Tool.h; sourceTree = "<group>"; };
@@ -273,6 +298,67 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		EA8B3FB3218829E8005E85A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EA8B3FB721882A5E005E85A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EA8B3FBF21883BD7005E85A4 /* ExcelView */,
+				EA8B3FBC2188347A005E85A4 /* CAScoreListView.h */,
+				EA8B3FBD2188347A005E85A4 /* CAScoreListView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EA8B3FB821882A74005E85A4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EA8B3FBF21883BD7005E85A4 /* ExcelView */ = {
+			isa = PBXGroup;
+			children = (
+				EA8B3FC021883BD7005E85A4 /* ExcelView.xib */,
+				EA8B3FC121883BD7005E85A4 /* ExcelHeaderView.xib */,
+				EA8B3FC221883BD7005E85A4 /* ExcelHeaderView.m */,
+				EA8B3FC321883BD7005E85A4 /* ExcelTableViewCell.xib */,
+				EA8B3FC421883BD7005E85A4 /* ExcelView.m */,
+				EA8B3FC521883BD7005E85A4 /* ext */,
+				EA8B3FC921883BD7005E85A4 /* ExcelTableViewCell.h */,
+				EA8B3FCA21883BD7005E85A4 /* Model */,
+				EA8B3FCD21883BD7005E85A4 /* ExcelHeaderView.h */,
+				EA8B3FCE21883BD7005E85A4 /* ExcelView.h */,
+				EA8B3FCF21883BD7005E85A4 /* ExcelTableViewCell.m */,
+			);
+			path = ExcelView;
+			sourceTree = "<group>";
+		};
+		EA8B3FC521883BD7005E85A4 /* ext */ = {
+			isa = PBXGroup;
+			children = (
+				EA8B3FC621883BD7005E85A4 /* Constant.h */,
+				EA8B3FC721883BD7005E85A4 /* UIView+category.m */,
+				EA8B3FC821883BD7005E85A4 /* UIView+category.h */,
+			);
+			path = ext;
+			sourceTree = "<group>";
+		};
+		EA8B3FCA21883BD7005E85A4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EA8B3FCB21883BD7005E85A4 /* ExcelModel.m */,
+				EA8B3FCC21883BD7005E85A4 /* ExcelModel.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		EACE3A2E2155D54E00C43599 = {
 			isa = PBXGroup;
 			children = (
@@ -354,7 +440,7 @@
 			children = (
 				EAFB44972155E0CA0001931B /* Controller */,
 				EAFB44A72155E0CA0001931B /* View */,
-				EAFB44982155E0CA0001931B /* LessonManagement */,
+				EAFB44982155E0CA0001931B /* ClassManagement */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -368,51 +454,44 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		EAFB44982155E0CA0001931B /* LessonManagement */ = {
+		EAFB44982155E0CA0001931B /* ClassManagement */ = {
 			isa = PBXGroup;
 			children = (
 				EA4BDC962167005E003B446B /* View */,
 				EAFB44992155E0CA0001931B /* Controller */,
-				EAFB449A2155E0CA0001931B /* LessonHomePage */,
+				EAFB449A2155E0CA0001931B /* ClassHomePage */,
 				EAFB449D2155E0CA0001931B /* DataAnalyses */,
 				EAFB44A02155E0CA0001931B /* ScoreList */,
 				EAFB44A32155E0CA0001931B /* StudentList */,
 			);
-			path = LessonManagement;
+			path = ClassManagement;
 			sourceTree = "<group>";
 		};
 		EAFB44992155E0CA0001931B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				EA031A672156580B00128829 /* CALessonManagementViewController.h */,
-				EA031A682156580B00128829 /* CALessonManagementViewController.m */,
+				EA031A672156580B00128829 /* CAClassManagementViewController.h */,
+				EA031A682156580B00128829 /* CAClassManagementViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		EAFB449A2155E0CA0001931B /* LessonHomePage */ = {
+		EAFB449A2155E0CA0001931B /* ClassHomePage */ = {
 			isa = PBXGroup;
 			children = (
+				EA8B3FB3218829E8005E85A4 /* View */,
 				EAFB449B2155E0CA0001931B /* Controller */,
-				EAFB449C2155E0CA0001931B /* View */,
 			);
-			path = LessonHomePage;
+			path = ClassHomePage;
 			sourceTree = "<group>";
 		};
 		EAFB449B2155E0CA0001931B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				EA031A7A21570F7E00128829 /* CALessonHomePageViewController.h */,
-				EA031A7921570F7E00128829 /* CALessonHomePageViewController.m */,
+				EA031A7A21570F7E00128829 /* CAClassHomePageViewController.h */,
+				EA031A7921570F7E00128829 /* CAClassHomePageViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		EAFB449C2155E0CA0001931B /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		EAFB449D2155E0CA0001931B /* DataAnalyses */ = {
@@ -427,8 +506,8 @@
 		EAFB449E2155E0CA0001931B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				EA031A7721570F6A00128829 /* CADataAnalysesViewController.h */,
-				EA031A7621570F6A00128829 /* CADataAnalysesViewController.m */,
+				EA8B3FB9218831D9005E85A4 /* CADataAnalysesViewController.h */,
+				EA8B3FBA218831D9005E85A4 /* CADataAnalysesViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -447,8 +526,8 @@
 		EAFB44A02155E0CA0001931B /* ScoreList */ = {
 			isa = PBXGroup;
 			children = (
+				EA8B3FB721882A5E005E85A4 /* View */,
 				EAFB44A12155E0CA0001931B /* Controller */,
-				EAFB44A22155E0CA0001931B /* View */,
 			);
 			path = ScoreList;
 			sourceTree = "<group>";
@@ -462,18 +541,11 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		EAFB44A22155E0CA0001931B /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		EAFB44A32155E0CA0001931B /* StudentList */ = {
 			isa = PBXGroup;
 			children = (
+				EA8B3FB821882A74005E85A4 /* View */,
 				EAFB44A42155E0CA0001931B /* Controller */,
-				EAFB44A52155E0CA0001931B /* View */,
 			);
 			path = StudentList;
 			sourceTree = "<group>";
@@ -487,18 +559,11 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		EAFB44A52155E0CA0001931B /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		EAFB44A72155E0CA0001931B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EA031A6421563DEC00128829 /* CALessonViewCell.h */,
-				EA031A6521563DEC00128829 /* CALessonViewCell.m */,
+				EA031A6421563DEC00128829 /* CAClassInfoViewCell.h */,
+				EA031A6521563DEC00128829 /* CAClassInfoViewCell.m */,
 				EA8B3F9D218300DC005E85A4 /* CAHomePageView.h */,
 				EA8B3F9E218300DC005E85A4 /* CAHomePageView.m */,
 			);
@@ -715,7 +780,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA031A832157478C00128829 /* iconfont.ttf in Resources */,
+				EA8B3FD021883BD7005E85A4 /* ExcelView.xib in Resources */,
+				EA8B3FD321883BD7005E85A4 /* ExcelTableViewCell.xib in Resources */,
 				EACE3A472155D55000C43599 /* LaunchScreen.storyboard in Resources */,
+				EA8B3FD121883BD7005E85A4 /* ExcelHeaderView.xib in Resources */,
 				EACE3A442155D55000C43599 /* Assets.xcassets in Resources */,
 				EA16965E21635960005C3D48 /* MBProgressHUD.bundle in Resources */,
 			);
@@ -781,36 +849,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA031A6621563DEC00128829 /* CALessonViewCell.m in Sources */,
+				EA031A6621563DEC00128829 /* CAClassInfoViewCell.m in Sources */,
 				EA031A7E21570FA300128829 /* CAScoreListViewController.m in Sources */,
 				EA16966121646A30005C3D48 /* CADataAnalysesContentView.m in Sources */,
 				EA16965C21635960005C3D48 /* MBProgressHUD.m in Sources */,
+				EA8B3FBE2188347A005E85A4 /* CAScoreListView.m in Sources */,
 				EAE8E43C215B1FB70037420C /* CAPoint.m in Sources */,
 				EA031A57215631BD00128829 /* CALogonViewController.m in Sources */,
+				EA8B3FD721883BD7005E85A4 /* ExcelTableViewCell.m in Sources */,
+				EA8B3FD421883BD7005E85A4 /* ExcelView.m in Sources */,
 				EAE8E439215B1AD10037420C /* CAClassInfo.m in Sources */,
 				EAE8E43F215B212C0037420C /* CATitle.m in Sources */,
 				EA0740822182EBC000DAC570 /* CAHttpTool.m in Sources */,
 				EA89A3A9216301AC00FFC473 /* CAClass.m in Sources */,
-				EA031A7B21570F7E00128829 /* CALessonHomePageViewController.m in Sources */,
+				EA031A7B21570F7E00128829 /* CAClassHomePageViewController.m in Sources */,
 				EA031A622156373D00128829 /* CAHomePageViewController.m in Sources */,
 				EA031A8121570FC100128829 /* CAStudentListViewController.m in Sources */,
 				EA4BDC9A21670631003B446B /* UIView+CAExtension.m in Sources */,
 				EACE3A4A2155D55000C43599 /* main.m in Sources */,
 				EA16965D21635960005C3D48 /* MBProgressHUD+MJ.m in Sources */,
 				EA8B3F9F218300DC005E85A4 /* CAHomePageView.m in Sources */,
-				EA031A692156580B00128829 /* CALessonManagementViewController.m in Sources */,
+				EA031A692156580B00128829 /* CAClassManagementViewController.m in Sources */,
 				EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */,
 				EAE8E433215B174B0037420C /* CAStudent.m in Sources */,
+				EA8B3FD521883BD7005E85A4 /* UIView+category.m in Sources */,
 				EA031A5221562F6100128829 /* CALoginViewController.m in Sources */,
+				EA8B3FBB218831D9005E85A4 /* CADataAnalysesViewController.m in Sources */,
 				EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */,
-				EA031A7821570F6A00128829 /* CADataAnalysesViewController.m in Sources */,
 				EAE8E430215B0EE20037420C /* CATeacher.m in Sources */,
 				EAE8E442215B22470037420C /* CAUniversity.m in Sources */,
 				EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */,
+				EA8B3FD221883BD7005E85A4 /* ExcelHeaderView.m in Sources */,
 				EAB2ED9C218090D2008E6DAD /* CAMD5Tool.m in Sources */,
 				EAE8E445215B22B40037420C /* CACollege.m in Sources */,
 				EA4BDC952166FFD1003B446B /* CATest.swift in Sources */,
 				EAF42A1A2164A19F00B6668A /* XZMPieView.m in Sources */,
+				EA8B3FD621883BD7005E85A4 /* ExcelModel.m in Sources */,
 				EAE8E436215B19390037420C /* CALesson.m in Sources */,
 				EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */,
 			);

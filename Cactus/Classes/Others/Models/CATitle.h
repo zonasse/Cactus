@@ -15,7 +15,7 @@
 //列权重
 @property (nonatomic,assign) NSInteger weight;
 //所属大项
-@property (nonatomic,weak) NSString *titleGroup_id;
+@property (nonatomic,assign) NSInteger titleGroup_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype) titleWithDict:(NSDictionary *)dict;
