@@ -1,24 +1,24 @@
 //
-//  CALessonHomePageViewController.m
+//  CAClassHomePageViewController.m
 //  Cactus
 //
 //  Created by 钟奇龙 on 2018/9/22.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //
 
-#import "CALessonHomePageViewController.h"
+#import "CAClassHomePageViewController.h"
 #import "CATeacher.h"
 #import "CAClassInfo.h"
-@interface CALessonHomePageViewController ()
+@interface CAClassHomePageViewController ()
 @property (nonatomic,strong) UIImageView *classImageView;
 @property (nonatomic,strong) UILabel *teacherNameLabel;
 @property (nonatomic,strong) UILabel *studentNumberLabel;
 @property (nonatomic,strong) UILabel *lessonTimeLabel;
 @property (nonatomic,strong) UILabel *teachRoomLabel;
-
+@property (nonatomic,assign) BOOL firstAppear;
 @end
 
-@implementation CALessonHomePageViewController
+@implementation CAClassHomePageViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -33,6 +33,12 @@
     NSLog(@"show CALessonHomePageViewController");
     // Do any additional setup after loading the view.
 }
+- (void)viewWillAppear:(BOOL)animated{
+    if (!_firstAppear) {
+        _firstAppear = YES;
+        //获取数据
+    }
+}
 - (void)setLessonClass:(CAClass *)lessonClass{
     _lessonClass = lessonClass;
     NSLog(@"CALessonHomePageViewController setClass");
@@ -40,19 +46,19 @@
     [self.classImageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"课程占位"]];
     
     self.teacherNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(self.classImageView.frame) + 10, 150, 34)];
-    self.teacherNameLabel.text = [NSString stringWithFormat:@"任课教师 : %@", lessonClass.teacher.name];
+//    self.teacherNameLabel.text = [NSString stringWithFormat:@"任课教师 : %@", lessonClass.teacher.name];
     self.teacherNameLabel.textAlignment = NSTextAlignmentLeft;
     
     self.studentNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 150 - 20, self.teacherNameLabel.frame.origin.y, 100, self.teacherNameLabel.frame.size.height)];
-    self.studentNumberLabel.text = [NSString stringWithFormat:@"学生人数 : %lu", lessonClass.students.count];
+//    self.studentNumberLabel.text = [NSString stringWithFormat:@"学生人数 : %lu", lessonClass.students.count];
     self.studentNumberLabel.textAlignment = NSTextAlignmentLeft;
 
     self.lessonTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.teacherNameLabel.frame.origin.x, CGRectGetMaxY(self.teacherNameLabel.frame) + 10, self.teacherNameLabel.frame.size.width, self.teacherNameLabel.frame.size.height)];
-    self.lessonTimeLabel.text = [NSString stringWithFormat:@"上课时间 : %@",lessonClass.classInfo.date];
+//    self.lessonTimeLabel.text = [NSString stringWithFormat:@"上课时间 : %@",lessonClass.classInfo.date];
     self.lessonTimeLabel.textAlignment = NSTextAlignmentLeft;
 
     self.teachRoomLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.studentNumberLabel.frame.origin.x, self.lessonTimeLabel.frame.origin.y, self.lessonTimeLabel.frame.size.width, self.lessonTimeLabel.frame.size.height)];
-    self.teachRoomLabel.text = [NSString stringWithFormat:@"上课地点 : %@",lessonClass.classInfo.room];
+//    self.teachRoomLabel.text = [NSString stringWithFormat:@"上课地点 : %@",lessonClass.classInfo.room];
     self.teachRoomLabel.textAlignment = NSTextAlignmentLeft;
 
     

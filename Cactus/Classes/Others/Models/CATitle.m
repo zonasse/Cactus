@@ -14,7 +14,7 @@
 
         self.name = dict[@"name"];
         self.weight = (NSInteger)dict[@"weight"];
-        self.titleGroup_id = dict[@"titleGroup_id"];
+        self.titleGroup_id = [dict[@"titleGroup_id"] integerValue];
     }
     return self;
 }

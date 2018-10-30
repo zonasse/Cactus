@@ -13,7 +13,7 @@
 //学院昵称
 @property (nonatomic,copy) NSString *shortname;
 //所在学校
-@property (nonatomic,copy) NSString *university_id;
+@property (nonatomic,assign) NSInteger university_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype) collegeWithDict:(NSDictionary *)dict;

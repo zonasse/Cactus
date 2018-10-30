@@ -7,20 +7,14 @@
 //  
 
 #import "CAHomePageViewController.h"
-#import "CALessonManagementViewController.h"
-
+#import "CAClassManagementViewController.h"
+#import "CAClassInfo.h"
 #import "CAHomePageView.h"
-@interface CAHomePageViewController ()<UITableViewDelegate,UITableViewDataSource>
-//@property (weak, nonatomic) IBOutlet UIImageView *userPic;//用户头像
-//@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;//用户姓名
-//@property (weak, nonatomic) IBOutlet UILabel *useridLabel;//用户职工号
-//@property (weak, nonatomic) IBOutlet UILabel *userCollegeLabel;//用户所在学院
-//@property (weak, nonatomic) IBOutlet UIImageView *isManagerPic;//管理员标志图
-//@property (weak, nonatomic) IBOutlet UITableView *lessonListTableView;//课程列表
-
+@interface CAHomePageViewController ()
 @property (nonatomic,strong) CAHomePageView *homePageView;
+@property (strong, nonatomic) NSDictionary *teacherProfileData;
+@property (strong, nonatomic) NSArray *classInfoData;
 
-//@property (nonatomic,strong) NSArray *lessons;//课程组
 #pragma mark --添加其他组件
 @end
 
@@ -35,14 +29,18 @@
     _homePageView = [[CAHomePageView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-tabbarVCStartY)];
     [self.view addSubview:_homePageView];
     
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToLessonManagementViewController:) name:@"CAJumpToClassManagementViewControllerNotification" object:nil];
 #pragma mark --获取教师以及教学班数据，获取数据量较大
+    __unsafe_unretained typeof(self) weakSelf = self;
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     /*
      * 异步获取教师与教学班数据
      */
+    //同时获取到之后再刷新数据
     dispatch_group_async(group, queue, ^{
         NSString *urlString = [baseURL stringByAppendingString:@"user/info/format"];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -54,10 +52,15 @@
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
         } success:^(id responseObject) {
+
             NSArray *subjects = responseObject[@"subjects"];
-            [self.homePageView setTeacherProfileData:subjects[0]];
-            NSLog(@"teaherProfile:%@",subjects);
+            NSLog(@"%@",subjects[0]);
+            weakSelf.teacherProfileData = subjects[0];
+            dispatch_semaphore_signal(semaphore);
+
+//            [self.homePageView setTeacherProfileData:subjects[0]];
         } failure:^(NSError *error) {
+            dispatch_semaphore_signal(semaphore);
             [MBProgressHUD showError:@"个人信息获取失败"];
         }];
     });
@@ -73,10 +76,29 @@
             
         } success:^(id responseObject) {
             NSLog(@"class_info:%@",responseObject);
-            [self.homePageView setClassInfoData:responseObject[@"subjects"]];
+            weakSelf.classInfoData = responseObject[@"subjects"];
+            dispatch_semaphore_signal(semaphore);
+
+//            [self.homePageView setClassInfoData:responseObject[@"subjects"]];
         } failure:^(NSError *error) {
+            dispatch_semaphore_signal(semaphore);
+
             [MBProgressHUD showError:@"教学信息获取失败"];
         }];
+    });
+    dispatch_group_notify(group, queue, ^{
+        dispatch_async(queue, ^{
+            //两个请求对应两次信号等待
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.homePageView setTeacherProfileData:self.teacherProfileData];
+                [self.homePageView setClassInfoData:self.classInfoData];
+            });
+    
+        });
+        
+
     });
     
     
@@ -198,6 +220,12 @@
 //    lessonManagementVC.lessonClass = currentLesson.classes[indexPath.row];
 //    [self.navigationController pushViewController:lessonManagementVC animated:YES];
 //}
+#pragma mark --跳转控制器
+- (void)jumpToLessonManagementViewController:(NSNotification *)notification{
+    CAClassManagementViewController *classManagementVC = [[CAClassManagementViewController alloc] init];
+    classManagementVC.classInfo = (CAClassInfo*)notification.object;
+    [self.navigationController pushViewController:classManagementVC animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -12,7 +12,7 @@
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
         self.name = dict[@"name"];
-        self.lesson_id = dict[@"lesson_id"];
+        self.lesson_id = [dict[@"lesson_id"] integerValue];
         self.weight = (NSInteger)dict[@"weight"];
     }
     return self;

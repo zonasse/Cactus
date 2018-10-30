@@ -13,7 +13,7 @@
     if(self = [super init]){
         self.cid = dict[@"cid"];
         self.name = dict[@"name"];
-        self.teacher_id = dict[@"teacher_id"];
+        self.teacher_id = [dict[@"teacher_id"] integerValue];
         self.year = dict[@"year"];
         self.month = dict[@"month"];
         self.date = dict[@"date"];

@@ -1,42 +1,34 @@
 //
-//  CAScoreListViewController.m
+//  CAStudentListViewController.m
 //  Cactus
 //
 //  Created by 钟奇龙 on 2018/9/22.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //
 
-#import "CAScoreListViewController.h"
+#import "CAStudentListViewController.h"
 #import <YWExcelView.h>
-@interface CAScoreListViewController ()<YWExcelViewDataSource>
-@property (nonatomic,strong) NSMutableArray *list;
+#import "CAStudent.h"
+@interface CAStudentListViewController ()<YWExcelViewDataSource>
+@property (nonatomic,assign) BOOL firstAppear;
 @end
 
-@implementation CAScoreListViewController
+@implementation CAStudentListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"show CAScoreListViewController");
+    NSLog(@"show CAStudentListViewController");
 
-
-    self.view.backgroundColor = [UIColor whiteColor];
-    
-    _list = @[].mutableCopy;
-    
-    [_list addObject:@{@"grade":@"2015196852",@"score":@[@"李松",@"20",@"30",@"40",@"50",@"60",@"70"]}];
-    [_list addObject:@{@"grade":@"2015196853",@"score":@[@"张晶",@"201",@"301",@"401",@"501",@"601",@"701"]}];
-    [_list addObject:@{@"grade":@"2015196854",@"score":@[@"赵信",@"202",@"302",@"402",@"502",@"602",@"702"]}];
-    [_list addObject:@{@"grade":@"2015196855",@"score":@[@"文艺",@"203",@"303",@"403",@"503",@"603",@"703"]}];
-    [_list addObject:@{@"grade":@"2015196855",@"score":@[@"夏磊",@"204",@"304",@"404",@"504",@"604",@"704"]}];
-    [_list addObject:@{@"grade":@"2015196856",@"score":@[@"仙人",@"204",@"304",@"404",@"504",@"604",@"704"]}];
-    [_list addObject:@{@"grade":@"2015196857",@"score":@[@"kami",@"204",@"304",@"404",@"504",@"604",@"704"]}];
-    [_list addObject:@{@"grade":@"2015196858",@"score":@[@"haha",@"204",@"304",@"404",@"504",@"604",@"704"]}];
-
-    
-    [self test1];
-    
-    
+    // Do any additional setup after loading the view.
 }
+- (void)setLessonClass:(CAClass *)lessonClass{
+    _lessonClass = lessonClass;
+    
+    NSLog(@"CAStudentListViewController setClass");
+
+    [self test1];
+}
+
 - (void)test1{
     
     
@@ -44,7 +36,7 @@
     
     YWExcelViewMode *mode = [YWExcelViewMode new];
     mode.style = YWExcelViewStyleDefalut;
-    mode.headTexts = @[@"学号",@"姓名",@"听力",@"写作",@"阅读",@"期中",@"期末",@"总成绩"];
+    mode.headTexts = @[@"学号",@"姓名",@"性别",@"星座",@"年龄"];
     mode.defalutHeight = 40;
     //推荐使用这样初始化
     YWExcelView *exceView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY) mode:mode];
@@ -67,25 +59,30 @@
 
 //多少行
 - (NSInteger)excelView:(YWExcelView *)excelView numberOfRowsInSection:(NSInteger)section{
-    return _list.count;
+//    return self.lessonClass.students.count;
+    return 0;
 }
 //多少列
 - (NSInteger)itemOfRow:(YWExcelView *)excelView{
     return 8;
 }
 - (void)excelView:(YWExcelView *)excelView label:(UILabel *)label textAtIndexPath:(YWIndexPath *)indexPath{
-    if (indexPath.row < _list.count) {
-        NSDictionary *dict = _list[indexPath.row];
-        if (indexPath.item == 0) {
-            label.text = dict[@"grade"];
-        }else{
-            NSArray *values = dict[@"score"];
-            label.text = values[indexPath.item - 1];
-        }
-    }
+//    if (indexPath.row < self.lessonClass.students.count) {
+//        CAStudent *currentStudent = self.lessonClass.students[indexPath.row];
+//        if (indexPath.item == 0) {
+//            label.text = currentStudent.s_id;
+//        }else{
+            //NSArray *values = dict[@"score"];
+            //label.text = values[indexPath.item - 1];
+//            label.text = currentStudent.name;
+//        }
+//    }
 }
-- (void)setLessonClass:(CAClass *)lessonClass{
-    NSLog(@"CAScoreListViewController setClass");
+- (void)viewWillAppear:(BOOL)animated{
+    if (!_firstAppear) {
+        _firstAppear = YES;
+        //获取数据
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

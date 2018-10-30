@@ -12,7 +12,7 @@
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
         self.name = dict[@"name"];
-        self.college_id = dict[@"college_id"];
+        self.college_id = [dict[@"college_id"] integerValue];
     }
     return self;
 }

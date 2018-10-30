@@ -12,7 +12,7 @@
 //大项名
 @property(nonatomic,copy) NSString *name;
 //所属课程
-@property(nonatomic,copy) NSString *lesson_id;
+@property(nonatomic,assign) NSInteger lesson_id;
 //大项权重
 @property(nonatomic,assign) NSInteger weight;
 

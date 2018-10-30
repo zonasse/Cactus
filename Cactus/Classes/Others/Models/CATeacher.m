@@ -15,11 +15,11 @@
         self.tid = dict[@"tid"];
         self.name = dict[@"name"];
         self.password = dict[@"password"];
-        self.college_id = dict[@"college_id"];
-        self.is_manager = (BOOL)dict[@"is_manager"];
+        self.college_id = [dict[@"college_id"] integerValue];
+        self.is_manager = (BOOL)dict[@"isManager"];
         self.email = dict[@"email"];
         self.mobile = dict[@"mobile"];
-        //self.avatar = dict[@"avatar"];
+        self.avatar = dict[@"avatar"];
     } 
     return self;
 }

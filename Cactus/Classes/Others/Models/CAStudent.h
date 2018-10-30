@@ -15,7 +15,7 @@
 //学生学年
 @property (nonatomic,copy) NSString *year;
 //学生所在专业
-@property (nonatomic,copy) NSString *major_id;
+@property (nonatomic,assign) NSInteger major_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype) userWithDict:(NSDictionary *)dict;

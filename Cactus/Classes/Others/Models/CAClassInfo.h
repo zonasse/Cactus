@@ -13,7 +13,7 @@
 //教学班名称
 @property (nonatomic,copy) NSString *name;
 //教师
-@property (nonatomic,copy) NSString *teacher_id;
+@property (nonatomic,assign) NSInteger teacher_id;
 //学年
 @property (nonatomic,copy) NSString *year;
 //月

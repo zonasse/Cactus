@@ -6,18 +6,18 @@
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //
 
-#import "CALessonManagementViewController.h"
+#import "CAClassManagementViewController.h"
 #import <AxcAE_TabBar.h>
-#import "CALessonHomePageViewController.h"
+#import "CAClassHomePageViewController.h"
 #import "CADataAnalysesViewController.h"
 #import "CAScoreListViewController.h"
 #import "CAStudentListViewController.h"
 #import "CAStudent.h"
-@interface CALessonManagementViewController ()<AxcAE_TabBarDelegate>
+@interface CAClassManagementViewController ()<AxcAE_TabBarDelegate>
 @property(nonatomic,strong) AxcAE_TabBar *axcTabBar;
 @end
 
-@implementation CALessonManagementViewController
+@implementation CAClassManagementViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,61 +26,53 @@
      * 此处设置课程管理主页简略信息
      */
     
-    
-    // Do any additional setup after loading the view.
 }
-- (void)setLessonClass:(CAClass *)lessonClass{
-    _lessonClass = lessonClass;
-    self.title = self.lessonClass.classInfo.name;
-
-    /*
-     * 添加子页面
-     */
+#pragma mark --添加子页面
+- (void)setClassInfo:(CAClassInfo *)classInfo{
+    _classInfo = classInfo;
     [self addChildViewControllers];
 }
 #pragma mark --设置tabbar子页面
 - (void)addChildViewControllers{
 #pragma mark --添加虚拟数据
-    CAStudent *stu1 = [[CAStudent alloc] init];
-    stu1.name = @"赵丽";
-    stu1.s_id = @"20180001";
-    CAStudent *stu2 = [[CAStudent alloc] init];
-    stu2.name = @"刘信";
-    stu2.s_id = @"20180002";
-    CAStudent *stu3 = [[CAStudent alloc] init];
-    stu3.name = @"Kami";
-    stu3.s_id = @"20180003";
-    CAStudent *stu4 = [[CAStudent alloc] init];
-    stu4.name = @"zoro";
-    stu4.s_id = @"20180004";
-    CAStudent *stu5 = [[CAStudent alloc] init];
-    stu5.name = @"三笠";
-    stu5.s_id = @"20180005";
-    CAStudent *stu6 = [[CAStudent alloc] init];
-    stu6.name = @"Alice";
-    stu6.s_id = @"20180006";
-    NSArray *students = [NSArray arrayWithObjects:stu1,stu2,stu3,stu4,stu5,stu6, nil];
-    self.lessonClass.students = students;
-    
-    CALessonHomePageViewController *lessonHomePageVC = [[CALessonHomePageViewController alloc] init];
-    lessonHomePageVC.lessonClass = self.lessonClass;
-    
+//    CAStudent *stu1 = [[CAStudent alloc] init];
+//    stu1.name = @"赵丽";
+//    stu1.s_id = @"20180001";
+//    CAStudent *stu2 = [[CAStudent alloc] init];
+//    stu2.name = @"刘信";
+//    stu2.s_id = @"20180002";
+//    CAStudent *stu3 = [[CAStudent alloc] init];
+//    stu3.name = @"Kami";
+//    stu3.s_id = @"20180003";
+//    CAStudent *stu4 = [[CAStudent alloc] init];
+//    stu4.name = @"zoro";
+//    stu4.s_id = @"20180004";
+//    CAStudent *stu5 = [[CAStudent alloc] init];
+//    stu5.name = @"三笠";
+//    stu5.s_id = @"20180005";
+//    CAStudent *stu6 = [[CAStudent alloc] init];
+//    stu6.name = @"Alice";
+//    stu6.s_id = @"20180006";
+//    NSArray *students = [NSArray arrayWithObjects:stu1,stu2,stu3,stu4,stu5,stu6, nil];
+//    self.lessonClass.students = students;
+
+    CAClassHomePageViewController *classHomePageVC = [[CAClassHomePageViewController alloc] init];
+//    lessonHomePageVC.lessonClass = self.lessonClass;
+
     CADataAnalysesViewController *dataAnalysesVC = [[CADataAnalysesViewController alloc] init];
-    dataAnalysesVC.lessonClass = self.lessonClass;
+//    dataAnalysesVC.lessonClass = self.lessonClass;
 
     CAScoreListViewController *scoreListVC = [[CAScoreListViewController alloc] init];
-    scoreListVC.lessonClass = self.lessonClass;
+//    scoreListVC.lessonClass = self.lessonClass;
 
     CAStudentListViewController *studentListVC = [[CAStudentListViewController alloc] init];
-    studentListVC.lessonClass = self.lessonClass;
+//    studentListVC.lessonClass = self.lessonClass;
 
-    
+
     NSArray <NSDictionary *>*VCArray =
-    @[@{@"vc":lessonHomePageVC ,@"normalImg":@"\U0000ec82",@"selectImg":@"\U0000ec82",@"itemTitle":@"主页"},
-      @{@"vc":dataAnalysesVC,@"normalImg":@"\U0000ecf2",@"selectImg":@"\U0000ecf2",@"itemTitle":@"数据分析"},
-      @{@"vc":[[CALessonHomePageViewController alloc] init],@"normalImg":@"",@"selectImg":@"",@"itemTitle":@" "},
-      @{@"vc":studentListVC ,@"normalImg":@"\U0000ece3",@"selectImg":@"\U0000ece3",@"itemTitle":@"学生列表"},
-      @{@"vc":scoreListVC,@"normalImg":@"\U0000ed0e",@"selectImg":@"\U0000ed0e",@"itemTitle":@"分数列表"}];
+   @[@{@"vc":scoreListVC,@"normalImg":@"\U0000ed0e",@"selectImg":@"\U0000ed0e",@"itemTitle":@"分数列表"},
+    @{@"vc":studentListVC ,@"normalImg":@"\U0000ece3",@"selectImg":@"\U0000ece3",@"itemTitle":@"学生列表"},@{@"vc":dataAnalysesVC,@"normalImg":@"\U0000ecf2",@"selectImg":@"\U0000ecf2",@"itemTitle":@"数据分析"},@{@"vc":classHomePageVC ,@"normalImg":@"\U0000eb4f",@"selectImg":@"\U0000eb4f",@"itemTitle":@"班级信息"}
+      ];
     // 1.遍历这个集合
     // 1.1 设置一个保存构造器的数组
     NSMutableArray *tabBarConfs = @[].mutableCopy;
@@ -96,30 +88,30 @@
         // 4.设置单个选中item标题状态下的颜色
         model.selectColor = [UIColor orangeColor];
         model.normalColor = [UIColor lightGrayColor];
-        
+
         /***********************************/
-        if (idx == 2 ) { // 如果是中间的
-            // 设置凸出
-            model.bulgeStyle = AxcAE_TabBarConfigBulgeStyleSquare;
-            // 设置凸出高度
-            model.bulgeHeight = -5;
-            model.bulgeRoundedCorners = 2; // 修角
-            // 设置成纯文字展示
-            model.itemLayoutStyle = AxcAE_TabBarItemLayoutStyleTitle;
-            // 文字为加号
-            model.itemTitle = @"+";
-            // 字号大小
-            model.titleLabel.font = [UIFont systemFontOfSize:40];
-            model.normalColor = [UIColor whiteColor]; // 未选中
-            model.selectColor = [UIColor whiteColor];   // 选中后一致
-            // 让Label上下左右全边距
-            model.componentMargin = UIEdgeInsetsMake(-5, 0, 0, 0 );
-            // 未选中选中为橘里橘气
-            model.normalBackgroundColor = [UIColor greenColor];
-            model.selectBackgroundColor = [UIColor greenColor];
-            // 设置大小/边长
-            model.itemSize = CGSizeMake(self.tabBar.frame.size.width / 5 - 35.0 ,self.tabBar.frame.size.height - 10);
-        }
+//        if (idx == 2 ) { // 如果是中间的
+//            // 设置凸出
+//            model.bulgeStyle = AxcAE_TabBarConfigBulgeStyleSquare;
+//            // 设置凸出高度
+//            model.bulgeHeight = -5;
+//            model.bulgeRoundedCorners = 2; // 修角
+//            // 设置成纯文字展示
+//            model.itemLayoutStyle = AxcAE_TabBarItemLayoutStyleTitle;
+//            // 文字为加号
+//            model.itemTitle = @"+";
+//            // 字号大小
+//            model.titleLabel.font = [UIFont systemFontOfSize:40];
+//            model.normalColor = [UIColor whiteColor]; // 未选中
+//            model.selectColor = [UIColor whiteColor];   // 选中后一致
+//            // 让Label上下左右全边距
+//            model.componentMargin = UIEdgeInsetsMake(-5, 0, 0, 0 );
+//            // 未选中选中为橘里橘气
+//            model.normalBackgroundColor = [UIColor greenColor];
+//            model.selectBackgroundColor = [UIColor greenColor];
+//            // 设置大小/边长
+//            model.itemSize = CGSizeMake(self.tabBar.frame.size.width / 5 - 35.0 ,self.tabBar.frame.size.height - 10);
+//        }
         // 备注 如果一步设置的VC的背景颜色，VC就会提前绘制驻留，优化这方面的话最好不要这么写
         // 示例中为了方便就在这写了
         UIViewController *vc = [obj objectForKey:@"vc"];
@@ -154,21 +146,21 @@
 // 9.实现代理，如下：
 static NSInteger lastIdx = 0;
 - (void)axcAE_TabBar:(AxcAE_TabBar *)tabbar selectIndex:(NSInteger)index{
-    if (index != 2) { // 不是中间的就切换
+//    if (index != 2) { // 不是中间的就切换
         // 通知 切换视图控制器
         [self setSelectedIndex:index];
         lastIdx = index;
-    }else{ // 点击了中间的
-        [self.axcTabBar setSelectIndex:lastIdx WithAnimation:NO]; // 换回上一个选中状态
-        // 或者
-        //        self.axcTabBar.selectIndex = lastIdx; // 不去切换TabBar的选中状态
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"点击了中间的,不切换视图"
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        [alertController addAction:([UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            NSLog(@"好的！！！！");
-        }])];
-        [self presentViewController:alertController animated:YES completion:nil];
-    }
+//    }else{ // 点击了中间的
+//        [self.axcTabBar setSelectIndex:lastIdx WithAnimation:NO]; // 换回上一个选中状态
+//        // 或者
+//        //        self.axcTabBar.selectIndex = lastIdx; // 不去切换TabBar的选中状态
+//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"点击了中间的,不切换视图"
+//                                                                          preferredStyle:UIAlertControllerStyleAlert];
+//        [alertController addAction:([UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//            NSLog(@"好的！！！！");
+//        }])];
+//        [self presentViewController:alertController animated:YES completion:nil];
+//    }
 }
 - (void)setSelectedIndex:(NSUInteger)selectedIndex{
     [super setSelectedIndex:selectedIndex];

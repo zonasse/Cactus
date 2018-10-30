@@ -12,7 +12,7 @@
 //课程名
 @property (nonatomic,copy) NSString *name;
 //学院
-@property (nonatomic,copy) NSString *college_id;
+@property (nonatomic,assign) NSInteger college_id;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype) lessonWithDict:(NSDictionary *)dict;
