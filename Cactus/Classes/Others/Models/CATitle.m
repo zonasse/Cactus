@@ -13,7 +13,7 @@
     if(self = [super init]){
         self._id = [dict[@"id"] integerValue];
         self.name = dict[@"name"];
-        self.weight = (NSInteger)dict[@"weight"];
+        self.weight = [dict[@"weight"] integerValue];
         self.titleGroup_id = [dict[@"titleGroup_id"] integerValue];
     }
     return self;

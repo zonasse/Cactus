@@ -13,7 +13,7 @@
     if(self = [super init]){
         self.name = dict[@"name"];
         self.lesson_id = [dict[@"lesson_id"] integerValue];
-        self.weight = (NSInteger)dict[@"weight"];
+        self.weight = [dict[@"weight"] integerValue];
     }
     return self;
 }
