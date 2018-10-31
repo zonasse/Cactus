@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 @interface CAStudent : NSObject
+//主键
+@property (nonatomic,assign) NSInteger _id;
 //学号
 @property (nonatomic,copy) NSString *sid;
 //学生姓名

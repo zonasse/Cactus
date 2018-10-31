@@ -110,7 +110,7 @@
 }
 
 - (CAClassInfoViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellId = @"lessonCell";
+    static NSString *cellId = @"classInfoCell";
     CAClassInfoViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if(!cell){
         cell = [[CAClassInfoViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];

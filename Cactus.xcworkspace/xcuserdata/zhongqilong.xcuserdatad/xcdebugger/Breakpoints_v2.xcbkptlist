@@ -25,13 +25,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Cactus/Classes/Main/HomePage/ClassManagement/ScoreList/View/CAScoreListView.m"
-            timestampString = "562577597.695098"
+            filePath = "Cactus/Classes/Main/HomePage/ClassManagement/ScoreList/Controller/CAScoreListViewController.m"
+            timestampString = "562668668.4596"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "-drawRect:"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
+            landmarkName = "-getScoreData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cactus/Classes/Main/HomePage/ClassManagement/ScoreList/Controller/CAScoreListViewController.m"
+            timestampString = "562668668.460223"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "-getScoreData"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Cactus/Classes/Main/HomePage/ClassManagement/ScoreList/Controller/CAScoreListViewController.m"
+            timestampString = "562668668.460575"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "208"
+            endingLineNumber = "208"
+            landmarkName = "-getScoreData"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

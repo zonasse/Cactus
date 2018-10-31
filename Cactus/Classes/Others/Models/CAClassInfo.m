@@ -11,6 +11,7 @@
 @implementation CAClassInfo
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
+        self._id = [dict[@"id"] integerValue];
         self.cid = dict[@"cid"];
         self.name = dict[@"name"];
         self.teacher_id = [dict[@"teacher_id"] integerValue];

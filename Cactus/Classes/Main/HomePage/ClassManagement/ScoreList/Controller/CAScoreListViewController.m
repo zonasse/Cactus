@@ -7,58 +7,224 @@
 //
 
 #import "CAScoreListViewController.h"
-#import "CAScoreListView.h"
 #import "ExcelView.h"
-@interface CAScoreListViewController ()<ExcelViewDelegate>
-@property (nonatomic,strong) CAScoreListView *scoreListView;
+#import "CAPoint.h"
+#import "CATitle.h"
+#import "CAStudent.h"
+@interface CAScoreListViewController ()
 @property (nonatomic,strong) ExcelView *excelView;
-
+@property(nonatomic,strong) NSMutableArray *leftTableDataArray;//表格第一列数据
+@property(nonatomic,strong) NSMutableArray *excelDataArray;//表格数据
+@property(nonatomic,strong) NSMutableArray *rightTableHeadArray;//表格第一行表头数据
+@property(nonatomic,strong) NSMutableArray *allTableDataArray;//表格所有数据
 @property (nonatomic,assign) BOOL firstAppear;
+
+@property (nonatomic,strong) NSMutableArray *students;
+@property (nonatomic,strong) NSMutableArray *points;
+@property (nonatomic,strong) NSMutableArray *titles;
 
 @end
 
 @implementation CAScoreListViewController
+- (NSMutableArray *)students{
+    if (!_students) {
+        _students = [NSMutableArray array];
+    }
+    return _students;
+}
+- (NSMutableArray *)points{
+    if (!_points) {
+        _points = [NSMutableArray array];
+    }
+    return _points;
+}
+- (NSMutableArray *)titles{
+    if (!_titles) {
+        _titles = [NSMutableArray array];
+    }
+    return _titles;
+}
+- (NSMutableArray *)leftTableDataArray{
+    if (!_leftTableDataArray) {
+        _leftTableDataArray = [NSMutableArray array];
+    }
+    return _leftTableDataArray;
+}
+- (NSMutableArray *)rightTableHeadArray{
+    if (!_rightTableHeadArray) {
+        _rightTableHeadArray = [NSMutableArray array];
+    }
+    return _rightTableHeadArray;
+}
+- (NSMutableArray *)allTableDataArray{
+    if (!_allTableDataArray) {
+        _allTableDataArray = [NSMutableArray array];
+    }
+    return _allTableDataArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupExcelView];
+
 }
 - (void)viewWillAppear:(BOOL)animated{
     if (!_firstAppear) {
         _firstAppear = YES;
-        _excelView = [[ExcelView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        _excelView.delegate = self;
-        [self.view addSubview:_excelView];
-        ExcelModel *headerModel = [ExcelModel new];
-        headerModel.title = @"学生姓名";
-        headerModel.contentArray = @[@"年龄",@"爱好",@"工作",@"邮箱",@"对象",@"父母",
-                                     @"年龄",@"爱好",@"工作",@"邮箱",@"对象",@"父母"];
-        _excelView.headerModel = headerModel;
+
+        /*
+         * 同时请求分数、学生、列名数据
+         */
+        __unsafe_unretained typeof(self) weakSelf = self;
+        dispatch_group_t group = dispatch_group_create();
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
         
-        ExcelModel *contentModel = [ExcelModel new];
-        contentModel.title = @"小刘";
-        contentModel.contentArray = @[@"16",@"打游戏",@"开发",@"3944423@163.com",@"翠花",@"隐私",
-                                      @"16",@"打游戏",@"开发",@"3944423@163.com",@"翠花",@"隐私"];
-        _excelView.dataArray = @[contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel,contentModel];
-        
-        [_excelView drawExcel];
-        //获取数据
-//        _scoreListView = [[CAScoreListView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY)];
-//        [self.view addSubview:_scoreListView];
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *token = [userDefaults valueForKey:@"userToken"];
+        params[@"token"] = token;
+//        params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", weakSelf.classInfo._id];
+        params[@"classInfo_id"] = @"1";
+        //1.请求分数
+        dispatch_group_async(group, queue, ^{
+            NSString *urlString = [baseURL stringByAppendingString:@"point/display"];
+            [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSArray *subjects = responseObject[@"subjects"];
+                for (NSDictionary *dict in subjects) {
+                    CAPoint *point = [[CAPoint alloc] initWithDict:dict];
+                    [weakSelf.points addObject:point];
+                }
+                
+                dispatch_semaphore_signal(semaphore);
+            } failure:^(NSError *error) {
+                dispatch_semaphore_signal(semaphore);
+
+            }];
+        });
+        //2.请求学生列表
+        dispatch_group_async(group, queue, ^{
+            NSString *urlString = [baseURL stringByAppendingString:@"student/display"];
+
+            [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSArray *subjects = responseObject[@"subjects"];
+                for (NSDictionary *dict in subjects) {
+                    CAStudent *student = [[CAStudent alloc] initWithDict:dict];
+                    [weakSelf.students addObject:student];
+                }
+                
+                dispatch_semaphore_signal(semaphore);
+
+            } failure:^(NSError *error) {
+                dispatch_semaphore_signal(semaphore);
+
+            }];
+        });
+        //3.请求分数项
+        dispatch_group_async(group, queue, ^{
+            NSString *urlString = [baseURL stringByAppendingString:@"title/display"];
+
+            [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSArray *subjects = responseObject[@"subjects"];
+                for (NSDictionary *dict in subjects) {
+                    CATitle *title = [[CATitle alloc] initWithDict:dict];
+                    [weakSelf.titles addObject:title];
+                }
+                dispatch_semaphore_signal(semaphore);
+
+            } failure:^(NSError *error) {
+                dispatch_semaphore_signal(semaphore);
+
+            }];
+        });
+        dispatch_notify(group, queue, ^{
+            dispatch_async(queue, ^{
+                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //刷新UI
+                    [self getScoreData];
+                });
+            });
+        });
     }
+}
+#pragma mark --设置表格
+- (void)setupExcelView{
+//    self.leftTableDataArray=(NSMutableArray *)@[@"塔城",@"哈密",@"和田",@"阿勒泰",@"克州"];
+//    self.rightTableHeadArray=(NSMutableArray *)@[@"当日收入（万）",@"同比",@"环比",@"当月收入（万）",@"同比",@"环比",@"当年收入（万）",@"同比",@"环比"];
+//    self.excelDataArray=(NSMutableArray *)@[@[@"2.91111111111111111",@"2%",@"3%",@"3.0",@"4%",@"5%",@"18",@"4.5%",@"6.8%"],@[@"2.9",@"2%",@"3%",@"3.0",@"4%",@"5%",@"18",@"4.5%",@"6.8%"],@[@"2.9",@"2%",@"3%",@"3.0",@"4%",@"5%",@"18",@"4.5%",@"6.8%"],@[@"2.9",@"2%",@"3%",@"3.0",@"4%11111111111111111111",@"5%",@"18",@"4.5%",@"6.8%"],@[@"2.9",@"2%",@"3%",@"3.0",@"4%",@"5%",@"18",@"4.5%",@"6.8%"]];
+//
+    
+//    self.allTableDataArray=[NSMutableArray arrayWithCapacity:10];
+//    NSMutableArray *fristDatas=[NSMutableArray arrayWithCapacity:10];
+//    [fristDatas addObject:@"标题"];
+//    for (int i=0; i<22; i++) {
+//        [fristDatas addObject:[NSString stringWithFormat:@"标题%d",i]];
+//    }
+//    [self.allTableDataArray addObject:fristDatas];
+//    for (int i=0; i<22; i++) {
+//        NSMutableArray *rowDatas=[NSMutableArray arrayWithCapacity:10];
+//        [rowDatas addObject:[NSString stringWithFormat:@"标题%d",i]];
+//        for (int j=0; j<22;j++) {
+//            [rowDatas addObject:[NSString stringWithFormat:@"数据%d",j]];
+//        }
+//        [self.allTableDataArray addObject:rowDatas];
+//    }
+    
+    _excelView=[[ExcelView alloc]initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY)];
+
+    //    _excelView.allTableDatas = _allTableDataArray;
+    _excelView.isLockFristColumn=YES;
+    _excelView.isLockFristRow=YES;
+    _excelView.isColumnTitlte=YES;
+    _excelView.columnTitlte=@"地区";
+    [self.view addSubview:_excelView];
+}
+#pragma mark --获取分数数据
+- (void)getScoreData{
+    //列数
+    NSMutableArray *headTitles = [NSMutableArray array];
+    [headTitles addObject:@"学号"];
+    [headTitles addObject:@"姓名"];
+    for (CATitle *title in self.titles) {
+        [headTitles addObject:title.name];
+    }
+    [self.allTableDataArray addObject:headTitles];
+    //行数
+    for (CAStudent *student in self.students) {
+        NSMutableArray *rowArray = [NSMutableArray array];
+        [rowArray addObject:student.sid];
+        [rowArray addObject:student.name];
+        for (CATitle *title in self.titles) {
+            for (CAPoint *point in self.points) {
+                if (point.student_id == student._id && point.title_id == title._id) {
+                    [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
+                }
+            }
+        }
+        [self.allTableDataArray addObject:rowArray];
+        
+    }
+//    _excelView.topTableHeadDatas=self.rightTableHeadArray;
+//    _excelView.leftTabHeadDatas=self.leftTableDataArray;
+//    _excelView.tableDatas=self.excelDataArray;
+    _excelView.allTableDatas = self.allTableDataArray;
+    [_excelView show];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (void)itemOnClick:(UIButton *)sender indexPath:(NSIndexPath *)indexPath index:(NSInteger)index {
-    NSLog(@"点击了第%ld行第%ld个",indexPath.row + 1 , index + 1);
-}
-
-- (void)headerItemOnClick:(UIButton *)sender index:(NSInteger)index {
-    NSLog(@"点击了第%ld个", index + 1);
-}
 
 /*
 #pragma mark - Navigation
