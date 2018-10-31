@@ -1,0 +1,24 @@
+//
+//  ScrollViewCell.m
+//  ExcelViewDemo
+//
+//  Created by 郭翰林 on 2017/4/4.
+//  Copyright © 2017年 郭翰林. All rights reserved.
+//
+
+#import "ScrollViewCell.h"
+
+@implementation ScrollViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

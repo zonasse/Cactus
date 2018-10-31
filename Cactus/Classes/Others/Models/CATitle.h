@@ -10,6 +10,8 @@
 
 
 @interface CATitle : NSObject
+//主键
+@property (nonatomic,assign) NSInteger _id;
 //列名
 @property (nonatomic,copy) NSString *name;
 //列权重

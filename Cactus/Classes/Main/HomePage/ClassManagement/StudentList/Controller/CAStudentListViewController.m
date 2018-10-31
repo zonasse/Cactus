@@ -7,82 +7,123 @@
 //
 
 #import "CAStudentListViewController.h"
-#import <YWExcelView.h>
+#import "ExcelView.h"
 #import "CAStudent.h"
-@interface CAStudentListViewController ()<YWExcelViewDataSource>
+@interface CAStudentListViewController ()
+@property (nonatomic,strong) ExcelView *excelView;
+@property(nonatomic,strong) NSMutableArray *leftTableDataArray;//表格第一列数据
+@property(nonatomic,strong) NSMutableArray *excelDataArray;//表格数据
+@property(nonatomic,strong) NSMutableArray *rightTableHeadArray;//表格第一行表头数据
+@property(nonatomic,strong) NSMutableArray *allTableDataArray;//表格所有数据
 @property (nonatomic,assign) BOOL firstAppear;
+
+@property (nonatomic,strong) NSMutableArray *students;
 @end
 
 @implementation CAStudentListViewController
+#warning 懒加载必须使用self.xx才能调用
+- (NSMutableArray *)students{
+    if (!_students) {
+        _students = [NSMutableArray array];
+    }
+    return _students;
+}
+- (NSMutableArray *)leftTableDataArray{
+    if (!_leftTableDataArray) {
+        _leftTableDataArray = [NSMutableArray array];
+    }
+    return _leftTableDataArray;
+}
+- (NSMutableArray *)rightTableHeadArray{
+    if (!_rightTableHeadArray) {
+        _rightTableHeadArray = [NSMutableArray array];
+    }
+    return _rightTableHeadArray;
+}
+- (NSMutableArray *)allTableDataArray{
+    if (!_allTableDataArray) {
+        _allTableDataArray = [NSMutableArray array];
+    }
+    return _allTableDataArray;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"show CAStudentListViewController");
+    [self setupExcelView];
 
     // Do any additional setup after loading the view.
 }
-- (void)setLessonClass:(CAClass *)lessonClass{
-    _lessonClass = lessonClass;
-    
-    NSLog(@"CAStudentListViewController setClass");
 
-    [self test1];
-}
-
-- (void)test1{
-    
-    
-    //    YWExcelView *exceView = [[YWExcelView alloc] initWithFrame:CGRectMake(20, 74, CGRectGetWidth(self.view.frame) - 40, 250) style:YWExcelViewStyleDefalut headViewText:@[@"类目",@"语文",@"数学",@"物理",@"化学",@"生物",@"英语",@"政治"] height:40];
-    
-    YWExcelViewMode *mode = [YWExcelViewMode new];
-    mode.style = YWExcelViewStyleDefalut;
-    mode.headTexts = @[@"学号",@"姓名",@"性别",@"星座",@"年龄"];
-    mode.defalutHeight = 40;
-    //推荐使用这样初始化
-    YWExcelView *exceView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY) mode:mode];
-    
-    exceView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    exceView.dataSource = self;
-    exceView.showBorder = YES;
-    [self.view addSubview:exceView];
-    
-    
-    UILabel *menuLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(exceView.frame) + 10, CGRectGetWidth(self.view.frame) - 40, 20)];
-    menuLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    menuLabel.textColor = [UIColor redColor];
-    menuLabel.font = [UIFont systemFontOfSize:13];
-    menuLabel.textAlignment = NSTextAlignmentCenter;
-    menuLabel.text = @"test";
-    [self.view addSubview:menuLabel];
-    
-}
-
-//多少行
-- (NSInteger)excelView:(YWExcelView *)excelView numberOfRowsInSection:(NSInteger)section{
-//    return self.lessonClass.students.count;
-    return 0;
-}
-//多少列
-- (NSInteger)itemOfRow:(YWExcelView *)excelView{
-    return 8;
-}
-- (void)excelView:(YWExcelView *)excelView label:(UILabel *)label textAtIndexPath:(YWIndexPath *)indexPath{
-//    if (indexPath.row < self.lessonClass.students.count) {
-//        CAStudent *currentStudent = self.lessonClass.students[indexPath.row];
-//        if (indexPath.item == 0) {
-//            label.text = currentStudent.s_id;
-//        }else{
-            //NSArray *values = dict[@"score"];
-            //label.text = values[indexPath.item - 1];
-//            label.text = currentStudent.name;
-//        }
-//    }
-}
 - (void)viewWillAppear:(BOOL)animated{
     if (!_firstAppear) {
         _firstAppear = YES;
-        //获取数据
+        /*
+         * 请求学生列表数据
+         */
+        
+        
+        
+        NSString *urlString = [baseURL stringByAppendingString:@"student/display"];
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *token = [userDefaults valueForKey:@"userToken"];
+        params[@"token"] = token;
+//        params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", self.classInfo._id ];
+        params[@"classInfo_id"] = @"1";
+        
+        
+        
+        __unsafe_unretained typeof(self) weakSelf = self;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSArray *subjects = responseObject[@"subjects"];
+                NSLog(@"%@",subjects);
+                for (NSDictionary *dict in subjects) {
+                    CAStudent *student = [[CAStudent alloc] initWithDict:dict];
+                    [weakSelf.students addObject:student];
+                }
+                [self getScoreData];
+            } failure:^(NSError *error) {
+                
+            }];
+        });
+        
     }
+}
+
+#pragma mark --设置表格
+- (void)setupExcelView{
+    _excelView=[[ExcelView alloc]initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY)];
+    
+    _excelView.isLockFristColumn=YES;
+    _excelView.isLockFristRow=YES;
+    _excelView.isColumnTitlte=YES;
+    _excelView.columnTitlte=@"学生列表";
+//    [_excelView show];
+    [self.view addSubview:_excelView];
+}
+#pragma mark --获取分数数据
+- (void)getScoreData{
+    NSArray *headTitles = @[@"id",@"学号",@"姓名",@"学年",@"学院id"];
+    [self.allTableDataArray addObject:headTitles];
+    for (CAStudent *student in _students) {
+        NSMutableArray *rowArray = [NSMutableArray array];
+        [rowArray addObject:[NSString stringWithFormat:@"%ld", student._id]];
+        [rowArray addObject:student.sid];
+        [rowArray addObject:student.name];
+        [rowArray addObject:student.year];
+        [rowArray addObject:[NSString stringWithFormat:@"%ld", student.major_id]];
+        [_allTableDataArray addObject:rowArray];
+    }
+    
+    _excelView.allTableDatas = _allTableDataArray;
+
+//    _excelView.topTableHeadDatas=self.rightTableHeadArray;
+//    _excelView.leftTabHeadDatas=self.leftTableDataArray;
+//    _excelView.tableDatas=self.excelDataArray;
+    [_excelView show];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

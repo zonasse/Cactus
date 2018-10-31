@@ -7,7 +7,7 @@ target 'Cactus' do
 	
 	#excel
 	
-	pod 'YWExcel'
+	#pod 'YWExcel'
 	
 	#tabbar
 	

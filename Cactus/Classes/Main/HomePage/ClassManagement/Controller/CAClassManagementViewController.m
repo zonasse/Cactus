@@ -63,10 +63,10 @@
 //    dataAnalysesVC.lessonClass = self.lessonClass;
 
     CAScoreListViewController *scoreListVC = [[CAScoreListViewController alloc] init];
-//    scoreListVC.lessonClass = self.lessonClass;
+    scoreListVC.classInfo = self.classInfo;
 
     CAStudentListViewController *studentListVC = [[CAStudentListViewController alloc] init];
-//    studentListVC.lessonClass = self.lessonClass;
+    studentListVC.classInfo = self.classInfo;
 
 
     NSArray <NSDictionary *>*VCArray =

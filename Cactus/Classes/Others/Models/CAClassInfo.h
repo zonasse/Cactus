@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 @interface CAClassInfo : NSObject
+//主键
+@property (nonatomic,assign) NSInteger _id;
 //课程代号
 @property (nonatomic,copy) NSString *cid;
 //教学班名称

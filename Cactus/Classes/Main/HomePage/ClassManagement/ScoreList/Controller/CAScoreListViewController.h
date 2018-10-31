@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CAClass.h"
+#import "CAClassInfo.h"
 @interface CAScoreListViewController : UIViewController
-@property (nonatomic,strong) CAClass *lessonClass;
+@property (nonatomic,strong) CAClassInfo *classInfo;
 
 @end

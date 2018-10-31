@@ -11,7 +11,7 @@
 @implementation CATitle
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
-
+        self._id = [dict[@"id"] integerValue];
         self.name = dict[@"name"];
         self.weight = (NSInteger)dict[@"weight"];
         self.titleGroup_id = [dict[@"titleGroup_id"] integerValue];
