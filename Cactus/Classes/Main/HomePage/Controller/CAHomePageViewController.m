@@ -27,6 +27,7 @@
     self.title = @"课程主页";
     
     _homePageView = [[CAHomePageView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-tabbarVCStartY)];
+    _homePageView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:_homePageView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToLessonManagementViewController:) name:@"CAJumpToClassManagementViewControllerNotification" object:nil];

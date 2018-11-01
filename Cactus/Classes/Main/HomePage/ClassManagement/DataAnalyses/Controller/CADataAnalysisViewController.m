@@ -22,11 +22,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideRightItemNotification" object:nil];
     if (!_firstAppear) {
         _firstAppear = YES;
         _contentView = [[CADataAnalysisContentView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY)];
         _contentView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT + 600);
         _contentView.showsVerticalScrollIndicator = YES;
+        _contentView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_contentView];
     }
 }
