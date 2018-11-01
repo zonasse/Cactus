@@ -7,16 +7,14 @@
 //
 
 #import "CAScoreListViewController.h"
-#import "ExcelView.h"
+//#import "ExcelView.h"
+#import "YWExcelView.h"
 #import "CAPoint.h"
 #import "CATitle.h"
 #import "CAStudent.h"
-@interface CAScoreListViewController ()
-@property (nonatomic,strong) ExcelView *excelView;
-@property(nonatomic,strong) NSMutableArray *leftTableDataArray;//表格第一列数据
-@property(nonatomic,strong) NSMutableArray *excelDataArray;//表格数据
-@property(nonatomic,strong) NSMutableArray *rightTableHeadArray;//表格第一行表头数据
-@property(nonatomic,strong) NSMutableArray *allTableDataArray;//表格所有数据
+@interface CAScoreListViewController ()<YWExcelViewDelegate,YWExcelViewDataSource>
+@property (nonatomic,strong) YWExcelView *excelView;
+@property (nonatomic,strong) YWExcelViewMode *excelViewMode;
 @property (nonatomic,assign) BOOL firstAppear;
 
 @property (nonatomic,strong) NSMutableArray *students;
@@ -26,6 +24,11 @@
 @end
 
 @implementation CAScoreListViewController
+{
+    NSString *_ctl;
+    NSMutableArray *_list;
+}
+
 - (NSMutableArray *)students{
     if (!_students) {
         _students = [NSMutableArray array];
@@ -44,34 +47,15 @@
     }
     return _titles;
 }
-- (NSMutableArray *)leftTableDataArray{
-    if (!_leftTableDataArray) {
-        _leftTableDataArray = [NSMutableArray array];
-    }
-    return _leftTableDataArray;
-}
-- (NSMutableArray *)rightTableHeadArray{
-    if (!_rightTableHeadArray) {
-        _rightTableHeadArray = [NSMutableArray array];
-    }
-    return _rightTableHeadArray;
-}
-- (NSMutableArray *)allTableDataArray{
-    if (!_allTableDataArray) {
-        _allTableDataArray = [NSMutableArray array];
-    }
-    return _allTableDataArray;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupExcelView];
+    self.navigationItem.rightBarButtonItem.customView.hidden = YES;
 
 }
 - (void)viewWillAppear:(BOOL)animated{
     if (!_firstAppear) {
         _firstAppear = YES;
-
         /*
          * 同时请求分数、学生、列名数据
          */
@@ -150,62 +134,88 @@
                 dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
                 dispatch_async(dispatch_get_main_queue(), ^{
                     //刷新UI
-                    [self getScoreData];
+                    [self setupExcelView];
                 });
             });
         });
     }
 }
 #pragma mark --设置表格
-- (void)setupExcelView{
 
-    _excelView=[[ExcelView alloc]initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY)];
-    _excelView.isLockFristColumn=YES;
-    _excelView.isLockFristRow=YES;
-    _excelView.isColumnTitlte=YES;
-    _excelView.columnTitlte=@"地区";
-    [self.view addSubview:_excelView];
-}
-#pragma mark --获取分数数据
-- (void)getScoreData{
-    //列数
-    NSMutableArray *headTitles = [NSMutableArray array];
-    [headTitles addObject:@"学号"];
-    [headTitles addObject:@"姓名"];
+- (void)setupExcelView{
+    NSMutableArray *headTextsArray = [NSMutableArray array];
+    [headTextsArray addObject:@"学号"];
+    [headTextsArray addObject:@"姓名"];
     for (CATitle *title in self.titles) {
-        [headTitles addObject:title.name];
+        [headTextsArray addObject:title.name];
     }
-    [self.allTableDataArray addObject:headTitles];
-    //行数
-    for (CAStudent *student in self.students) {
-        NSMutableArray *rowArray = [NSMutableArray array];
-        [rowArray addObject:student.sid];
-        [rowArray addObject:student.name];
-        for (CATitle *title in self.titles) {
-            BOOL flag = NO;
-            for (CAPoint *point in self.points) {
-                if (point.student_id == student._id && point.title_id == title._id) {
-                    [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
-                    flag = YES;
-                    break;
+    
+    _excelViewMode = [YWExcelViewMode new];
+    _excelViewMode.headTexts = headTextsArray;
+    _excelViewMode.style = YWExcelViewStyleDefalut;
+    _excelViewMode.defalutHeight = 40;
+    //推荐使用这样初始化
+    _excelView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY) mode:_excelViewMode];
+    _excelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _excelView.dataSource = self;
+    _excelView.showBorder = YES;
+    [self.view addSubview:_excelView];
+    
+    
+    UILabel *menuLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_excelView.frame) + 10, CGRectGetWidth(self.view.frame) - 40, 20)];
+    menuLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    menuLabel.textColor = [UIColor redColor];
+    menuLabel.font = [UIFont systemFontOfSize:13];
+    menuLabel.textAlignment = NSTextAlignmentCenter;
+    menuLabel.text = _ctl;
+    [self.view addSubview:menuLabel];
+    
+   
+    _list = [NSMutableArray array];
+    for (int i=0; i<10; ++i) {
+        for (CAStudent *student in self.students) {
+            NSMutableArray *rowArray = [NSMutableArray array];
+            [rowArray addObject:student.sid];
+            [rowArray addObject:student.name];
+            for (CATitle *title in self.titles) {
+                BOOL flag = NO;
+                for (CAPoint *point in self.points) {
+                    if (point.student_id == student._id && point.title_id == title._id) {
+                        [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
+                        flag = YES;
+                        break;
+                    }
+                }
+                if (!flag) {
+                    [rowArray addObject:@""];
                 }
             }
-            if (!flag) {
-                [rowArray addObject:@""];
-            }
+            [_list addObject:rowArray];
         }
-        [self.allTableDataArray addObject:rowArray];
-        
     }
-    _excelView.allTableDatas = self.allTableDataArray;
-    [_excelView show];
+    [_excelView reloadData];
+
+}
+//多少行
+- (NSInteger)excelView:(YWExcelView *)excelView numberOfRowsInSection:(NSInteger)section{
+    return _list.count;
+}
+//多少列
+- (NSInteger)itemOfRow:(YWExcelView *)excelView{
     
-
+    return 2+_titles.count;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)excelView:(YWExcelView *)excelView label:(UILabel *)label textAtIndexPath:(YWIndexPath *)indexPath{
+//    if (indexPath.row < _list.count) {
+//        NSDictionary *dict = _list[indexPath.row];
+//        if (indexPath.item == 0) {
+//            label.text = dict[@"grade"];
+//        }else{
+//            NSArray *values = dict[@"score"];
+//            label.text = values[indexPath.item - 1];
+//        }
+        NSArray *arr = _list[indexPath.row];
+        label.text = arr[indexPath.item];
+//    }
 }
-
-
 @end

@@ -10,6 +10,7 @@
 #import "LockViewCell.h"
 #import "ScrollViewCell.h"
 #include <math.h>
+#import "CAPoint.h"
 @interface ExcelLockCell()
 @property(nonatomic,retain) NSMutableArray *mXTableDatas;//横向单行数据列表
 @property(nonatomic,retain) NSMutableArray *mYTableDatas;//如果锁定第一列则设置第一列数据集合
@@ -142,7 +143,12 @@
             for (int i=0; i<rowDatas.count; i++) {
                 UIView *view=[[UIView alloc]initWithFrame:CGRectMake(x, 0, [self.mColumeMaxWidths[i+1] floatValue], [self.mRowMaxHeights[indexPath.row] floatValue])];
                 UILabel *dataView=[[UILabel alloc]initWithFrame:view.bounds];
-                dataView.text=rowDatas[i];
+//                if ([[rowDatas[i] class] isEqual:[CAPoint class]]) {
+//                    CAPoint *point = rowDatas[i];
+//                    dataView.text= [NSString stringWithFormat:@"ld", point.pointNumber];
+//                }else{
+                    dataView.text=rowDatas[i];
+//                }
                 dataView.textColor=RGB(94, 153, 251);
                 dataView.textAlignment=NSTextAlignmentCenter;
                 dataView.numberOfLines=0;
