@@ -25,6 +25,7 @@ PODS:
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
+  - YWExcel (1.1.0)
 
 DEPENDENCIES:
   - AFNetworking
@@ -35,6 +36,7 @@ DEPENDENCIES:
   - MJExtension
   - MJRefresh (= 3.1.15)
   - SDWebImage
+  - YWExcel
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -46,6 +48,7 @@ SPEC REPOS:
     - MJExtension
     - MJRefresh
     - SDWebImage
+    - YWExcel
 
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
@@ -56,7 +59,8 @@ SPEC CHECKSUMS:
   MJExtension: 19bc33ce2eee2d319760f5622562cf581a6ff756
   MJRefresh: 9af70f5f9327a2cf87f0fb5929f35fcc2fa638ea
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  YWExcel: 2c2cbe2a4e6e68ebebe84569701ebfcbded4f620
 
-PODFILE CHECKSUM: 04d6f2a7d85d10e427985fc4be20117b8c196b7e
+PODFILE CHECKSUM: 2037d03fc8c94dd9096fcca2a54f568ab65b1355
 
 COCOAPODS: 1.5.3

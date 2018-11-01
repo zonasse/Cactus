@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C1AFC2F5BA3F709D1B98F9636B379F3A"
-               BlueprintName = "Pods-Cactus"
+               BlueprintIdentifier = "51437DAE07515A94A1220D8006113EE1"
+               BlueprintName = "YWExcel"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "libPods-Cactus.a">
+               BuildableName = "libYWExcel.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

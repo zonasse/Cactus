@@ -108,15 +108,18 @@
 - (void)getScoreData{
     NSArray *headTitles = @[@"id",@"学号",@"姓名",@"学年",@"专业id"];
     [self.allTableDataArray addObject:headTitles];
-    for (CAStudent *student in _students) {
-        NSMutableArray *rowArray = [NSMutableArray array];
-        [rowArray addObject:[NSString stringWithFormat:@"%ld", student._id]];
-        [rowArray addObject:student.sid];
-        [rowArray addObject:student.name];
-        [rowArray addObject:student.year];
-        [rowArray addObject:[NSString stringWithFormat:@"%ld", student.major_id]];
-        [_allTableDataArray addObject:rowArray];
+    for (int i=0; i<10; ++i) {
+        for (CAStudent *student in _students) {
+            NSMutableArray *rowArray = [NSMutableArray array];
+            [rowArray addObject:[NSString stringWithFormat:@"%ld", student._id]];
+            [rowArray addObject:student.sid];
+            [rowArray addObject:student.name];
+            [rowArray addObject:student.year];
+            [rowArray addObject:[NSString stringWithFormat:@"%ld", student.major_id]];
+            [_allTableDataArray addObject:rowArray];
+        }
     }
+    
     
     _excelView.allTableDatas = _allTableDataArray;
 
