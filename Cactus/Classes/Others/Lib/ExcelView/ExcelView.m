@@ -428,6 +428,8 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UITableViewCell *cell =  [tableView cellForRowAtIndexPath:indexPath];
+    cell.textLabel.text = @"文字";
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{

@@ -183,6 +183,8 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    cell.textLabel.text = @"gaigaigai";
 }
 
 #pragma mark 滚动视图回调监听
