@@ -97,7 +97,7 @@
         [MBProgressHUD showError:@"账号或密码不能为空"];
         return;
     }
-    if (self.accountTextField.text.length < 8) {
+    if (self.accountTextField.text.length < 4) {
         [MBProgressHUD showError:@"账号长度需要8位以上"];
         return;
     }
@@ -111,9 +111,9 @@
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"tid"] = self.accountTextField.text;
 #warning 此处做密码加密
-//    params[@"password"] = self.passwordTextField.text;
+    params[@"password"] = self.passwordTextField.text;
 
-    params[@"password"] = [CAMD5Tool md5:self.passwordTextField.text];
+//    params[@"password"] = [CAMD5Tool md5:self.passwordTextField.text];
     /*
      * 2.发送请求
      */

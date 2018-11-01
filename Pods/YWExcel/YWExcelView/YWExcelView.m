@@ -48,6 +48,11 @@
 @end
 
 @implementation YWExcelView
+#pragma mark --自添加方法jaccob
+- (void)resetMode:(YWExcelViewMode*)mode{
+    [self initSetingInMode:mode];
+}
+
 //MARK: --- public
 - (instancetype)initWithFrame:(CGRect)frame mode:(YWExcelViewMode *)mode{
     self = [super initWithFrame:frame];

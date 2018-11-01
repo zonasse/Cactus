@@ -34,6 +34,8 @@
     // Do any additional setup after loading the view.
 }
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideRightItemNotification" object:nil];
     if (!_firstAppear) {
         _firstAppear = YES;
         //获取数据

@@ -50,10 +50,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem.customView.hidden = YES;
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTitle) name:@"addTitleNotification" object:nil];
+    
 }
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showRightItemNotification" object:nil];
     if (!_firstAppear) {
         _firstAppear = YES;
         /*
@@ -161,6 +163,10 @@
     _excelView.showBorder = YES;
     [self.view addSubview:_excelView];
     
+    ////////
+    [headTextsArray addObject:@"其它"];
+    _excelViewMode.headTexts = headTextsArray;
+    [_excelView resetMode:_excelViewMode];
     
     UILabel *menuLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_excelView.frame) + 10, CGRectGetWidth(self.view.frame) - 40, 20)];
     menuLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -189,6 +195,7 @@
                 if (!flag) {
                     [rowArray addObject:@""];
                 }
+                [rowArray addObject:@""];
             }
             [_list addObject:rowArray];
         }
@@ -202,8 +209,8 @@
 }
 //多少列
 - (NSInteger)itemOfRow:(YWExcelView *)excelView{
-    
-    return 2+_titles.count;
+    return 20;
+//    return 3+_titles.count;
 }
 - (void)excelView:(YWExcelView *)excelView label:(UILabel *)label textAtIndexPath:(YWIndexPath *)indexPath{
 //    if (indexPath.row < _list.count) {
@@ -215,7 +222,15 @@
 //            label.text = values[indexPath.item - 1];
 //        }
         NSArray *arr = _list[indexPath.row];
+    if (indexPath.item < 6) {
         label.text = arr[indexPath.item];
+
+    }
 //    }
+}
+
+#pragma mark --增加一列
+- (void)addTitle{
+    NSLog(@"touched");
 }
 @end

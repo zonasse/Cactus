@@ -65,4 +65,6 @@
 
 /** 刷新列表 */
 - (void)reloadData;
+
+- (void)resetMode:(YWExcelViewMode*) mode;
 @end

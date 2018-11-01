@@ -23,13 +23,27 @@
     [super viewDidLoad];
     UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
     [rightButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb31", 34, [UIColor orangeColor])] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(addTitle) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    
     self.navigationItem.rightBarButtonItem = rightItem;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideRightItem) name:@"hideRightItemNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRightItem) name:@"showRightItemNotification" object:nil];
+
 //    self.title = @"c++ 19999班";
     /*
      * 此处设置课程管理主页简略信息
      */
     
+}
+- (void)hideRightItem{
+    self.navigationItem.rightBarButtonItem.customView.hidden = YES;
+}
+- (void)showRightItem{
+    self.navigationItem.rightBarButtonItem.customView.hidden = NO;
+}
+- (void)addTitle{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"addTitleNotification" object:nil];
 }
 #pragma mark --添加子页面
 - (void)setClassInfo:(CAClassInfo *)classInfo{

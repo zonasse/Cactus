@@ -55,6 +55,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"hideRightItemNotification" object:nil];
     if (!_firstAppear) {
         _firstAppear = YES;
         /*
