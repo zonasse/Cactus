@@ -16,7 +16,7 @@
         self.name = dict[@"name"];
         self.year = dict[@"year"];
 #warning 此处属性记得更改为major_id
-        self.major_id = [dict[@"college_id"] integerValue];
+        self.major_id = [dict[@"major_id"] integerValue];
     }
     return self;
 }

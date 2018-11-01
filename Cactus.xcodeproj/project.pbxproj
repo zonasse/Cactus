@@ -21,7 +21,6 @@
 		EA16965C21635960005C3D48 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EA16965721635960005C3D48 /* MBProgressHUD.m */; };
 		EA16965D21635960005C3D48 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = EA16965A21635960005C3D48 /* MBProgressHUD+MJ.m */; };
 		EA16965E21635960005C3D48 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA16965B21635960005C3D48 /* MBProgressHUD.bundle */; };
-		EA16966121646A30005C3D48 /* CADataAnalysesContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA16966021646A30005C3D48 /* CADataAnalysesContentView.m */; };
 		EA4BDC8E2166FFB4003B446B /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA4BDC8B2166FE75003B446B /* Charts.framework */; };
 		EA4BDC8F2166FFB4003B446B /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA4BDC8B2166FE75003B446B /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA4BDC952166FFD1003B446B /* CATest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA4BDC942166FFD1003B446B /* CATest.swift */; };
@@ -30,7 +29,6 @@
 		EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AB2163051500FFC473 /* CATitleGroup.m */; };
 		EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AE2163065500FFC473 /* CAMajor.m */; };
 		EA8B3F9F218300DC005E85A4 /* CAHomePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3F9E218300DC005E85A4 /* CAHomePageView.m */; };
-		EA8B3FBB218831D9005E85A4 /* CADataAnalysesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FBA218831D9005E85A4 /* CADataAnalysesViewController.m */; };
 		EA8B3FF621884DC8005E85A4 /* ExcelLockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8B3FE021884DC7005E85A4 /* ExcelLockCell.xib */; };
 		EA8B3FF721884DC8005E85A4 /* ExcelLockSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8B3FE321884DC7005E85A4 /* ExcelLockSection.xib */; };
 		EA8B3FF821884DC8005E85A4 /* LockViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FE421884DC7005E85A4 /* LockViewCell.m */; };
@@ -45,6 +43,8 @@
 		EA8B400121884DC8005E85A4 /* ExcelLockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FF321884DC7005E85A4 /* ExcelLockCell.m */; };
 		EA8B400221884DC8005E85A4 /* UILabel+FitWitdhAndHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3FF421884DC7005E85A4 /* UILabel+FitWitdhAndHeight.m */; };
 		EA8B400321884DC8005E85A4 /* ScrollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8B3FF521884DC7005E85A4 /* ScrollViewCell.xib */; };
+		EA8B4015218A8BB9005E85A4 /* CADataAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4013218A8BB9005E85A4 /* CADataAnalysisViewController.m */; };
+		EA8B401A218A8CDD005E85A4 /* CADataAnalysisContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4019218A8CDD005E85A4 /* CADataAnalysisContentView.m */; };
 		EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */; };
 		EAB2ED9C218090D2008E6DAD /* CAMD5Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED9B218090D2008E6DAD /* CAMD5Tool.m */; };
 		EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A3B2155D54F00C43599 /* AppDelegate.m */; };
@@ -144,8 +144,6 @@
 		EA16965921635960005C3D48 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		EA16965A21635960005C3D48 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
 		EA16965B21635960005C3D48 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
-		EA16965F21646A30005C3D48 /* CADataAnalysesContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CADataAnalysesContentView.h; path = Cactus/Classes/Others/CADataAnalysesContentView.h; sourceTree = SOURCE_ROOT; };
-		EA16966021646A30005C3D48 /* CADataAnalysesContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CADataAnalysesContentView.m; path = Cactus/Classes/Others/CADataAnalysesContentView.m; sourceTree = SOURCE_ROOT; };
 		EA4BDC852166FE75003B446B /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		EA4BDC932166FFD1003B446B /* Cactus-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cactus-Bridging-Header.h"; sourceTree = "<group>"; };
 		EA4BDC942166FFD1003B446B /* CATest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CATest.swift; sourceTree = "<group>"; };
@@ -159,8 +157,6 @@
 		EA89A3AE2163065500FFC473 /* CAMajor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAMajor.m; sourceTree = "<group>"; };
 		EA8B3F9D218300DC005E85A4 /* CAHomePageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAHomePageView.h; sourceTree = "<group>"; };
 		EA8B3F9E218300DC005E85A4 /* CAHomePageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAHomePageView.m; sourceTree = "<group>"; };
-		EA8B3FB9218831D9005E85A4 /* CADataAnalysesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CADataAnalysesViewController.h; path = ../../../../../../../../../.Trash/CADataAnalysesViewController.h; sourceTree = "<group>"; };
-		EA8B3FBA218831D9005E85A4 /* CADataAnalysesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CADataAnalysesViewController.m; path = ../../../../../../../../../.Trash/CADataAnalysesViewController.m; sourceTree = "<group>"; };
 		EA8B3FE021884DC7005E85A4 /* ExcelLockCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExcelLockCell.xib; sourceTree = "<group>"; };
 		EA8B3FE121884DC7005E85A4 /* ExcelLockSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExcelLockSection.h; sourceTree = "<group>"; };
 		EA8B3FE221884DC7005E85A4 /* ExcelUnLockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExcelUnLockCell.h; sourceTree = "<group>"; };
@@ -183,6 +179,10 @@
 		EA8B3FF321884DC7005E85A4 /* ExcelLockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExcelLockCell.m; sourceTree = "<group>"; };
 		EA8B3FF421884DC7005E85A4 /* UILabel+FitWitdhAndHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+FitWitdhAndHeight.m"; sourceTree = "<group>"; };
 		EA8B3FF521884DC7005E85A4 /* ScrollViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScrollViewCell.xib; sourceTree = "<group>"; };
+		EA8B4013218A8BB9005E85A4 /* CADataAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADataAnalysisViewController.m; sourceTree = "<group>"; };
+		EA8B4014218A8BB9005E85A4 /* CADataAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADataAnalysisViewController.h; sourceTree = "<group>"; };
+		EA8B4018218A8CDD005E85A4 /* CADataAnalysisContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADataAnalysisContentView.h; sourceTree = "<group>"; };
+		EA8B4019218A8CDD005E85A4 /* CADataAnalysisContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADataAnalysisContentView.m; sourceTree = "<group>"; };
 		EAB2ED7B21802CF1008E6DAD /* UIResponder+CAFirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+CAFirstResponder.h"; sourceTree = "<group>"; };
 		EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+CAFirstResponder.m"; sourceTree = "<group>"; };
 		EAB2ED9A218090D2008E6DAD /* CAMD5Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMD5Tool.h; sourceTree = "<group>"; };
@@ -334,30 +334,39 @@
 		EA8B3FDF21884DC7005E85A4 /* ExcelView */ = {
 			isa = PBXGroup;
 			children = (
-				EA8B3FE021884DC7005E85A4 /* ExcelLockCell.xib */,
-				EA8B3FE121884DC7005E85A4 /* ExcelLockSection.h */,
 				EA8B3FE221884DC7005E85A4 /* ExcelUnLockCell.h */,
-				EA8B3FE321884DC7005E85A4 /* ExcelLockSection.xib */,
+				EA8B3FEB21884DC7005E85A4 /* ExcelUnLockCell.m */,
+				EA8B3FEF21884DC7005E85A4 /* LockViewCell.h */,
 				EA8B3FE421884DC7005E85A4 /* LockViewCell.m */,
-				EA8B3FE521884DC7005E85A4 /* ScrollViewCell.m */,
+				EA8B3FF121884DC7005E85A4 /* ExcelSection.h */,
 				EA8B3FE621884DC7005E85A4 /* ExcelSection.m */,
-				EA8B3FE721884DC7005E85A4 /* ExcelSection.xib */,
+				EA8B3FF021884DC7005E85A4 /* ExcelView.h */,
 				EA8B3FE821884DC7005E85A4 /* ExcelView.m */,
 				EA8B3FE921884DC7005E85A4 /* UILabel+FitWitdhAndHeight.h */,
-				EA8B3FEA21884DC7005E85A4 /* ExcelLockCell.h */,
-				EA8B3FEB21884DC7005E85A4 /* ExcelUnLockCell.m */,
-				EA8B3FEC21884DC7005E85A4 /* ExcelUnLockCell.xib */,
+				EA8B3FF421884DC7005E85A4 /* UILabel+FitWitdhAndHeight.m */,
+				EA8B3FE121884DC7005E85A4 /* ExcelLockSection.h */,
 				EA8B3FED21884DC7005E85A4 /* ExcelLockSection.m */,
 				EA8B3FEE21884DC7005E85A4 /* ScrollViewCell.h */,
-				EA8B3FEF21884DC7005E85A4 /* LockViewCell.h */,
-				EA8B3FF021884DC7005E85A4 /* ExcelView.h */,
-				EA8B3FF121884DC7005E85A4 /* ExcelSection.h */,
-				EA8B3FF221884DC7005E85A4 /* LockViewCell.xib */,
+				EA8B3FE521884DC7005E85A4 /* ScrollViewCell.m */,
+				EA8B3FEA21884DC7005E85A4 /* ExcelLockCell.h */,
 				EA8B3FF321884DC7005E85A4 /* ExcelLockCell.m */,
-				EA8B3FF421884DC7005E85A4 /* UILabel+FitWitdhAndHeight.m */,
+				EA8B3FE321884DC7005E85A4 /* ExcelLockSection.xib */,
+				EA8B3FE721884DC7005E85A4 /* ExcelSection.xib */,
+				EA8B3FEC21884DC7005E85A4 /* ExcelUnLockCell.xib */,
+				EA8B3FE021884DC7005E85A4 /* ExcelLockCell.xib */,
+				EA8B3FF221884DC7005E85A4 /* LockViewCell.xib */,
 				EA8B3FF521884DC7005E85A4 /* ScrollViewCell.xib */,
 			);
 			path = ExcelView;
+			sourceTree = "<group>";
+		};
+		EA8B4012218A8BB9005E85A4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EA8B4014218A8BB9005E85A4 /* CADataAnalysisViewController.h */,
+				EA8B4013218A8BB9005E85A4 /* CADataAnalysisViewController.m */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		EACE3A2E2155D54E00C43599 = {
@@ -498,19 +507,10 @@
 		EAFB449D2155E0CA0001931B /* DataAnalyses */ = {
 			isa = PBXGroup;
 			children = (
-				EAFB449E2155E0CA0001931B /* Controller */,
+				EA8B4012218A8BB9005E85A4 /* Controller */,
 				EAFB449F2155E0CA0001931B /* View */,
 			);
 			path = DataAnalyses;
-			sourceTree = "<group>";
-		};
-		EAFB449E2155E0CA0001931B /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				EA8B3FB9218831D9005E85A4 /* CADataAnalysesViewController.h */,
-				EA8B3FBA218831D9005E85A4 /* CADataAnalysesViewController.m */,
-			);
-			path = Controller;
 			sourceTree = "<group>";
 		};
 		EAFB449F2155E0CA0001931B /* View */ = {
@@ -518,8 +518,8 @@
 			children = (
 				EAF42A192164A19F00B6668A /* XZMPieView.h */,
 				EAF42A182164A19F00B6668A /* XZMPieView.m */,
-				EA16965F21646A30005C3D48 /* CADataAnalysesContentView.h */,
-				EA16966021646A30005C3D48 /* CADataAnalysesContentView.m */,
+				EA8B4018218A8CDD005E85A4 /* CADataAnalysisContentView.h */,
+				EA8B4019218A8CDD005E85A4 /* CADataAnalysisContentView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -856,7 +856,6 @@
 				EA031A6621563DEC00128829 /* CAClassInfoViewCell.m in Sources */,
 				EA8B3FFF21884DC8005E85A4 /* ExcelLockSection.m in Sources */,
 				EA031A7E21570FA300128829 /* CAScoreListViewController.m in Sources */,
-				EA16966121646A30005C3D48 /* CADataAnalysesContentView.m in Sources */,
 				EA8B3FFD21884DC8005E85A4 /* ExcelUnLockCell.m in Sources */,
 				EA8B400221884DC8005E85A4 /* UILabel+FitWitdhAndHeight.m in Sources */,
 				EA16965C21635960005C3D48 /* MBProgressHUD.m in Sources */,
@@ -868,6 +867,7 @@
 				EA89A3A9216301AC00FFC473 /* CAClass.m in Sources */,
 				EA8B3FFA21884DC8005E85A4 /* ExcelSection.m in Sources */,
 				EA8B3FF821884DC8005E85A4 /* LockViewCell.m in Sources */,
+				EA8B401A218A8CDD005E85A4 /* CADataAnalysisContentView.m in Sources */,
 				EA031A7B21570F7E00128829 /* CAClassHomePageViewController.m in Sources */,
 				EA8B3FFC21884DC8005E85A4 /* ExcelView.m in Sources */,
 				EA031A622156373D00128829 /* CAHomePageViewController.m in Sources */,
@@ -879,8 +879,8 @@
 				EA031A692156580B00128829 /* CAClassManagementViewController.m in Sources */,
 				EA89A3AC2163051500FFC473 /* CATitleGroup.m in Sources */,
 				EAE8E433215B174B0037420C /* CAStudent.m in Sources */,
+				EA8B4015218A8BB9005E85A4 /* CADataAnalysisViewController.m in Sources */,
 				EA031A5221562F6100128829 /* CALoginViewController.m in Sources */,
-				EA8B3FBB218831D9005E85A4 /* CADataAnalysesViewController.m in Sources */,
 				EA8B400121884DC8005E85A4 /* ExcelLockCell.m in Sources */,
 				EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */,
 				EAE8E430215B0EE20037420C /* CATeacher.m in Sources */,

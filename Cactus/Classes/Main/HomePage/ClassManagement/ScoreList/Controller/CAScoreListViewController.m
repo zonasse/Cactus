@@ -158,30 +158,8 @@
 }
 #pragma mark --设置表格
 - (void)setupExcelView{
-//    self.leftTableDataArray=(NSMutableArray *)@[@"塔城",@"哈密",@"和田",@"阿勒泰",@"克州"];
-//    self.rightTableHeadArray=(NSMutableArray *)@[@"当日收入（万）",@"同比",@"环比",@"当月收入（万）",@"同比",@"环比",@"当年收入（万）",@"同比",@"环比"];
-//    self.excelDataArray=(NSMutableArray *)@[@[@"2.91111111111111111",@"2%",@"3%",@"3.0",@"4%",@"5%",@"18",@"4.5%",@"6.8%"],@[@"2.9",@"2%",@"3%",@"3.0",@"4%",@"5%",@"18",@"4.5%",@"6.8%"],@[@"2.9",@"2%",@"3%",@"3.0",@"4%",@"5%",@"18",@"4.5%",@"6.8%"],@[@"2.9",@"2%",@"3%",@"3.0",@"4%11111111111111111111",@"5%",@"18",@"4.5%",@"6.8%"],@[@"2.9",@"2%",@"3%",@"3.0",@"4%",@"5%",@"18",@"4.5%",@"6.8%"]];
-//
-    
-//    self.allTableDataArray=[NSMutableArray arrayWithCapacity:10];
-//    NSMutableArray *fristDatas=[NSMutableArray arrayWithCapacity:10];
-//    [fristDatas addObject:@"标题"];
-//    for (int i=0; i<22; i++) {
-//        [fristDatas addObject:[NSString stringWithFormat:@"标题%d",i]];
-//    }
-//    [self.allTableDataArray addObject:fristDatas];
-//    for (int i=0; i<22; i++) {
-//        NSMutableArray *rowDatas=[NSMutableArray arrayWithCapacity:10];
-//        [rowDatas addObject:[NSString stringWithFormat:@"标题%d",i]];
-//        for (int j=0; j<22;j++) {
-//            [rowDatas addObject:[NSString stringWithFormat:@"数据%d",j]];
-//        }
-//        [self.allTableDataArray addObject:rowDatas];
-//    }
-    
-    _excelView=[[ExcelView alloc]initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY)];
 
-    //    _excelView.allTableDatas = _allTableDataArray;
+    _excelView=[[ExcelView alloc]initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY)];
     _excelView.isLockFristColumn=YES;
     _excelView.isLockFristRow=YES;
     _excelView.isColumnTitlte=YES;
@@ -204,20 +182,24 @@
         [rowArray addObject:student.sid];
         [rowArray addObject:student.name];
         for (CATitle *title in self.titles) {
+            BOOL flag = NO;
             for (CAPoint *point in self.points) {
                 if (point.student_id == student._id && point.title_id == title._id) {
                     [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
+                    flag = YES;
+                    break;
                 }
+            }
+            if (!flag) {
+                [rowArray addObject:@""];
             }
         }
         [self.allTableDataArray addObject:rowArray];
         
     }
-//    _excelView.topTableHeadDatas=self.rightTableHeadArray;
-//    _excelView.leftTabHeadDatas=self.leftTableDataArray;
-//    _excelView.tableDatas=self.excelDataArray;
     _excelView.allTableDatas = self.allTableDataArray;
     [_excelView show];
+    
 
 }
 - (void)didReceiveMemoryWarning {
@@ -225,15 +207,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

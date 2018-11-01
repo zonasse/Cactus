@@ -106,7 +106,7 @@
 }
 #pragma mark --获取分数数据
 - (void)getScoreData{
-    NSArray *headTitles = @[@"id",@"学号",@"姓名",@"学年",@"学院id"];
+    NSArray *headTitles = @[@"id",@"学号",@"姓名",@"学年",@"专业id"];
     [self.allTableDataArray addObject:headTitles];
     for (CAStudent *student in _students) {
         NSMutableArray *rowArray = [NSMutableArray array];

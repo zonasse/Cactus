@@ -6,12 +6,12 @@
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //
 
-#import "CADataAnalysesContentView.h"
+#import "CADataAnalysisContentView.h"
 //#import "XZMPieView.h"
 #import "Masonry.h"
 #import "Cactus-Bridging-Header.h"
 #import <Charts/Charts.h>
-@interface CADataAnalysesContentView()<ChartViewDelegate>
+@interface CADataAnalysisContentView()<ChartViewDelegate>
 @property(nonatomic,strong) PieChartView *pieView;//饼图
 @property(nonatomic,strong) PieChartData *pieData;//饼图数据
 @property(nonatomic,strong) BarChartView *barView;//柱状图
@@ -21,7 +21,7 @@
 @property(nonatomic,assign) BOOL firstBuild;
 
 @end
-@implementation CADataAnalysesContentView
+@implementation CADataAnalysisContentView
 
 - (void)drawRect:(CGRect)rect{
     if(_firstBuild == NO){
