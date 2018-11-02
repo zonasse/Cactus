@@ -15,6 +15,7 @@
 @interface CAScoreListViewController ()<YWExcelViewDelegate,YWExcelViewDataSource>
 @property (nonatomic,strong) YWExcelView *excelView;
 @property (nonatomic,strong) YWExcelViewMode *excelViewMode;
+@property (nonatomic,strong) NSMutableArray *headTextsArray;
 @property (nonatomic,assign) BOOL firstAppear;
 
 @property (nonatomic,strong) NSMutableArray *students;
@@ -47,7 +48,12 @@
     }
     return _titles;
 }
-
+- (NSMutableArray *)headTextsArray{
+    if (!_headTextsArray) {
+        _headTextsArray = [NSMutableArray array];
+    }
+    return _headTextsArray;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTitle) name:@"addTitleNotification" object:nil];
@@ -145,15 +151,14 @@
 #pragma mark --设置表格
 
 - (void)setupExcelView{
-    NSMutableArray *headTextsArray = [NSMutableArray array];
-    [headTextsArray addObject:@"学号"];
-    [headTextsArray addObject:@"姓名"];
+    [self.headTextsArray addObject:@"学号"];
+    [_headTextsArray addObject:@"姓名"];
     for (CATitle *title in self.titles) {
-        [headTextsArray addObject:title.name];
+        [_headTextsArray addObject:title.name];
     }
     
-    _excelViewMode = [YWExcelViewMode new];
-    _excelViewMode.headTexts = headTextsArray;
+    self.excelViewMode = [YWExcelViewMode new];
+    _excelViewMode.headTexts = _headTextsArray;
     _excelViewMode.style = YWExcelViewStyleDefalut;
     _excelViewMode.defalutHeight = 40;
     //推荐使用这样初始化
@@ -163,10 +168,7 @@
     _excelView.showBorder = YES;
     [self.view addSubview:_excelView];
     
-    ////////
-    [headTextsArray addObject:@"其它"];
-    _excelViewMode.headTexts = headTextsArray;
-    [_excelView resetMode:_excelViewMode];
+    
     
     UILabel *menuLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_excelView.frame) + 10, CGRectGetWidth(self.view.frame) - 40, 20)];
     menuLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -195,7 +197,6 @@
                 if (!flag) {
                     [rowArray addObject:@""];
                 }
-                [rowArray addObject:@""];
             }
             [_list addObject:rowArray];
         }
@@ -209,8 +210,7 @@
 }
 //多少列
 - (NSInteger)itemOfRow:(YWExcelView *)excelView{
-    return 20;
-//    return 3+_titles.count;
+    return 2+_titles.count;
 }
 - (void)excelView:(YWExcelView *)excelView label:(UILabel *)label textAtIndexPath:(YWIndexPath *)indexPath{
 //    if (indexPath.row < _list.count) {
@@ -221,16 +221,25 @@
 //            NSArray *values = dict[@"score"];
 //            label.text = values[indexPath.item - 1];
 //        }
-        NSArray *arr = _list[indexPath.row];
-    if (indexPath.item < 6) {
-        label.text = arr[indexPath.item];
-
-    }
+    NSArray *arr = _list[indexPath.row];
+    label.text = arr[indexPath.item];
+    label.tag = indexPath.row * (2+_titles.count) + indexPath.item;
 //    }
 }
-
 #pragma mark --增加一列
 - (void)addTitle{
-    NSLog(@"touched");
+//    for (UIView *view in self.view.subviews) {
+//        [view removeFromSuperview];
+//    }
+//
+//    CATitle *newTitle = [[CATitle alloc] init];
+//    newTitle.name = @"";
+//    [self.titles addObject:newTitle];
+//    [_headTextsArray addObject:@""];
+//    [self setupExcelView];  
+
+//    _excelViewMode.headTexts = _headTextsArray;
+//    [_excelView resetMode:_excelViewMode];
+    
 }
 @end
