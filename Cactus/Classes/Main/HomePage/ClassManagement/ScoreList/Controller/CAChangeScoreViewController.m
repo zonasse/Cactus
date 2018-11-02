@@ -50,9 +50,46 @@
         [MBProgressHUD showError:@"没有待提交的修改"];
         return;
     }
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+    [MBProgressHUD showMessage:@"修改中..."];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-    }];
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *token = [userDefaults valueForKey:@"userToken"];
+        params[@"token"] = token;
+        
+        NSString *urlString = [baseURL stringByAppendingString:@"point/format"];
+        NSMutableArray *subjects = [NSMutableArray array];
+        for (CAPoint *point in self.modifiedPoints) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+            dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber ];
+            dict[@"student_id"] = [NSString stringWithFormat:@"%ld",point.student_id];
+            dict[@"title_id"] = [NSString stringWithFormat:@"%ld",point.title_id];
+            [subjects addObject:dict];
+        }
+        params[@"subjects"] = subjects;
+
+        [ShareDefaultHttpTool PUTWithCompleteURL:urlString parameters:params progress:^(id progress) {
+            
+        } success:^(id responseObject) {
+            NSDictionary *responseDict = responseObject;
+            [MBProgressHUD hideHUD];
+
+            if([responseDict[@"code"] isEqualToString:@"1033"]){
+                [MBProgressHUD showSuccess:@"修改成功"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModefySuccessNotification" object:nil];
+
+                [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                }];
+            }else{
+                [MBProgressHUD showError:@"修改失败，请稍后重试"];
+            }
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideHUD];
+
+        }];
+    });
+
 }
 #pragma mark - Table view data source
 
@@ -80,6 +117,8 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.textLabel.text = @"学生姓名";
@@ -151,9 +190,6 @@
     } else {
         _saveAction.enabled = NO;
     }
-}
-- (void)dealloc{
-    
 }
 /*
 // Override to support conditional editing of the table view.

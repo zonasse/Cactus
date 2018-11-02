@@ -35,6 +35,11 @@
                   success:(void (^)(id responseObject))success
                   failure:(void (^)(NSError *error))failure;
 
+-(void)PUTWithCompleteURL:(NSString *)URLString
+               parameters:(id)parameters
+                 progress:(void(^)(id progress))progress
+                  success:(void (^)(id responseObject))success
+                  failure:(void (^)(NSError *error))failure;
 /**
  *  图片上传
  *

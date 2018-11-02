@@ -61,95 +61,16 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTitle) name:@"addTitleNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(touchPointCell:) name:@"pointCellTouched" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"pointModefySuccessNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showRightItemNotification" object:nil];
+
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"showRightItemNotification" object:nil];
     if (!_firstAppear) {
         _firstAppear = YES;
-        /*
-         * 同时请求分数、学生、列名数据
-         */
-        __unsafe_unretained typeof(self) weakSelf = self;
-        dispatch_group_t group = dispatch_group_create();
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-        
-        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *token = [userDefaults valueForKey:@"userToken"];
-        params[@"token"] = token;
-//        params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", weakSelf.classInfo._id];
-        params[@"classInfo_id"] = @"1";
-        //1.请求分数
-        dispatch_group_async(group, queue, ^{
-            NSString *urlString = [baseURL stringByAppendingString:@"point/display"];
-            [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
-                
-            } success:^(id responseObject) {
-                NSArray *subjects = responseObject[@"subjects"];
-                for (NSDictionary *dict in subjects) {
-                    CAPoint *point = [[CAPoint alloc] initWithDict:dict];
-                    [weakSelf.points addObject:point];
-                }
-                
-                dispatch_semaphore_signal(semaphore);
-            } failure:^(NSError *error) {
-                dispatch_semaphore_signal(semaphore);
-
-            }];
-        });
-        //2.请求学生列表
-        dispatch_group_async(group, queue, ^{
-            NSString *urlString = [baseURL stringByAppendingString:@"student/display"];
-
-            [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
-                
-            } success:^(id responseObject) {
-                NSArray *subjects = responseObject[@"subjects"];
-                for (NSDictionary *dict in subjects) {
-                    CAStudent *student = [[CAStudent alloc] initWithDict:dict];
-                    [weakSelf.students addObject:student];
-                }
-                
-                dispatch_semaphore_signal(semaphore);
-
-            } failure:^(NSError *error) {
-                dispatch_semaphore_signal(semaphore);
-
-            }];
-        });
-        //3.请求分数项
-        dispatch_group_async(group, queue, ^{
-            NSString *urlString = [baseURL stringByAppendingString:@"title/display"];
-
-            [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
-                
-            } success:^(id responseObject) {
-                NSArray *subjects = responseObject[@"subjects"];
-                for (NSDictionary *dict in subjects) {
-                    CATitle *title = [[CATitle alloc] initWithDict:dict];
-                    [weakSelf.titles addObject:title];
-                }
-                dispatch_semaphore_signal(semaphore);
-
-            } failure:^(NSError *error) {
-                dispatch_semaphore_signal(semaphore);
-
-            }];
-        });
-        dispatch_notify(group, queue, ^{
-            dispatch_async(queue, ^{
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    //刷新UI
-                    [self setupExcelView];
-                });
-            });
-        });
+        [self refresh];
+       
     }
 }
 #pragma mark --设置表格
@@ -240,14 +161,6 @@
     return 2+_titles.count;
 }
 - (void)excelView:(YWExcelView *)excelView label:(UILabel *)label textAtIndexPath:(YWIndexPath *)indexPath{
-//    if (indexPath.row < _list.count) {
-//        NSDictionary *dict = _list[indexPath.row];
-//        if (indexPath.item == 0) {
-//            label.text = dict[@"grade"];
-//        }else{
-//            NSArray *values = dict[@"score"];
-//            label.text = values[indexPath.item - 1];
-//        }
     NSArray *arr = _list[indexPath.row];
     label.text = arr[indexPath.item];
     if (indexPath.item > 1) {
@@ -255,7 +168,6 @@
     }else{
         label.tag = -1;
     }
-//    }
 }
 #pragma mark --增加一列
 - (void)addTitle{
@@ -296,5 +208,101 @@
     [self presentViewController:nav animated:YES completion:^{
         
     }];
+}
+- (void)refresh{
+    [self clearOriginData];
+    /*
+     * 同时请求分数、学生、列名数据
+     */
+    __unsafe_unretained typeof(self) weakSelf = self;
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDefaults valueForKey:@"userToken"];
+    params[@"token"] = token;
+    //        params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", weakSelf.classInfo._id];
+    params[@"classInfo_id"] = @"1";
+    //1.请求分数
+    dispatch_group_async(group, queue, ^{
+        NSString *urlString = [baseURL stringByAppendingString:@"point/display"];
+        [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
+            
+        } success:^(id responseObject) {
+            NSArray *subjects = responseObject[@"subjects"];
+            for (NSDictionary *dict in subjects) {
+                CAPoint *point = [[CAPoint alloc] initWithDict:dict];
+                [weakSelf.points addObject:point];
+            }
+            
+            dispatch_semaphore_signal(semaphore);
+        } failure:^(NSError *error) {
+            dispatch_semaphore_signal(semaphore);
+            
+        }];
+    });
+    //2.请求学生列表
+    dispatch_group_async(group, queue, ^{
+        NSString *urlString = [baseURL stringByAppendingString:@"student/display"];
+        
+        [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
+            
+        } success:^(id responseObject) {
+            NSArray *subjects = responseObject[@"subjects"];
+            for (NSDictionary *dict in subjects) {
+                CAStudent *student = [[CAStudent alloc] initWithDict:dict];
+                [weakSelf.students addObject:student];
+            }
+            
+            dispatch_semaphore_signal(semaphore);
+            
+        } failure:^(NSError *error) {
+            dispatch_semaphore_signal(semaphore);
+            
+        }];
+    });
+    //3.请求分数项
+    dispatch_group_async(group, queue, ^{
+        NSString *urlString = [baseURL stringByAppendingString:@"title/display"];
+        
+        [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
+            
+        } success:^(id responseObject) {
+            NSArray *subjects = responseObject[@"subjects"];
+            for (NSDictionary *dict in subjects) {
+                CATitle *title = [[CATitle alloc] initWithDict:dict];
+                [weakSelf.titles addObject:title];
+            }
+            dispatch_semaphore_signal(semaphore);
+            
+        } failure:^(NSError *error) {
+            dispatch_semaphore_signal(semaphore);
+            
+        }];
+    });
+    dispatch_notify(group, queue, ^{
+        dispatch_async(queue, ^{
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //刷新UI
+                [self setupExcelView];
+            });
+        });
+    });
+}
+- (void)clearOriginData{
+    for (UIView *view in self.view.subviews) {
+        [view removeFromSuperview];
+    }
+    [self.headTextsArray removeAllObjects];
+    [self.students removeAllObjects];
+    [self.points removeAllObjects];
+    [self.titles removeAllObjects];
+    [self.hashMap removeAllObjects];
+    [_list removeAllObjects];
 }
 @end
