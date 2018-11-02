@@ -7,7 +7,6 @@
 //
 
 #import "CAPoint.h"
-
 @implementation CAPoint
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
@@ -23,5 +22,27 @@
 
 + (instancetype) pointWithDict:(NSDictionary *)dict{
     return [[self alloc] initWithDict:dict];
+}
+#pragma mark 重写父类的方法
+
+- (id)copyWithZone:(NSZone *)zone{
+    CAPoint *copy = [[self class] allocWithZone:zone];
+    copy.classInfo_id = self.classInfo_id;
+    copy.student_id = self.student_id;
+    copy.pointNumber = self.pointNumber;
+    copy.date = self.date;
+    copy.note = self.note;
+    copy.title_id = self.title_id;
+    return copy;
+}
+- (id)mutableCopyWithZone:(NSZone *)zone{
+    CAPoint *copy = [[CAPoint alloc] init];
+    copy.classInfo_id = self.classInfo_id;
+    copy.student_id = self.student_id;
+    copy.pointNumber = self.pointNumber;
+    copy.date = self.date;
+    copy.note = self.note;
+    copy.title_id = self.title_id;
+    return copy;
 }
 @end
