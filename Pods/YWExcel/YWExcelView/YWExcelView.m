@@ -94,6 +94,7 @@
     }
     return nil;
 }
+
 //MARK: --- privated
 - (void)initSetingInMode:(YWExcelViewMode *)mode{
     _headHeight = mode.defalutHeight;

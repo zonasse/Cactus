@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "CAClassInfo.h"
-@interface CAClassHomePageViewController : UIViewController
+@interface CAClassInfoDisplayMViewController : UIViewController
 @property (nonatomic,strong) CAClassInfo *classInfo;
 @end

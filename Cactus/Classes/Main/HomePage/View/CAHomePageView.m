@@ -17,6 +17,7 @@
 @property(strong, nonatomic)  UIImageView *userPic;//用户头像
 @property(strong, nonatomic)  UILabel *usernameLabel;//用户姓名
 @property(strong, nonatomic)  UILabel *userTidLabel;//用户职工号
+@property(strong, nonatomic)  UILabel *userUniversityLabel;//用户所在学校
 @property(strong, nonatomic)  UILabel *userCollegeLabel;//用户所在学院
 @property(strong, nonatomic)  UIImageView *isManagerPic;//管理员标志图
 
@@ -40,30 +41,39 @@
 }
 #pragma mark ----设置内部子控件
 - (void) setupSubViews{
-    _teacherProfileView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 200)];
-    _classInfoTableView = [[UITableView alloc] initWithFrame:CGRectMake(10,_teacherProfileView.getMaxY + 10, _teacherProfileView.width, self.height - _teacherProfileView.height - 3*10)];
+    _teacherProfileView = [[UIView alloc] initWithFrame:CGRectMake(0, 10, self.width-20, 230)];
+    _classInfoTableView = [[UITableView alloc] initWithFrame:CGRectMake(10,_teacherProfileView.getMaxY + 10, _teacherProfileView.width, self.height - _teacherProfileView.height - 3*10) style:UITableViewStyleGrouped];
+    _classInfoTableView.backgroundColor = [UIColor whiteColor];
     _classInfoTableView.delegate = self;
     _classInfoTableView.dataSource = self;
-    _classInfoTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    _teacherProfileView.backgroundColor = [UIColor redColor];
-//    _classInfoTableView.backgroundColor = [UIColor greenColor];
+
     
-    _userPic = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 150, _teacherProfileView.height - 2*10)];
+    _userPic = [[UIImageView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH*0.5-60, 10, 120, 120)];
+    _userPic.layer.masksToBounds = YES;
+    _userPic.layer.cornerRadius =_userPic.width / 2 ;
     
-    _usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_userPic.getMaxX + 10, 10, _teacherProfileView.width - 10*3 - _userPic.width, 30)];
+    _usernameLabel = [[UILabel alloc] initWithFrame:CGRectMake(_userPic.x, _userPic.getMaxY+10, _userPic.width, 30)];
+    _usernameLabel.textAlignment = NSTextAlignmentCenter;
     
-    _userTidLabel = [[UILabel alloc] initWithFrame:CGRectMake(_usernameLabel.x, _usernameLabel.getMaxY+10, _usernameLabel.width, _usernameLabel.height)];
+    _userUniversityLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, _teacherProfileView.height-30, SCREEN_WIDTH/3, 30)];
+    _userUniversityLabel.textAlignment = NSTextAlignmentCenter;
+
+    _userCollegeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_userUniversityLabel.getMaxX, _userUniversityLabel.y, _userUniversityLabel.width, _userUniversityLabel.height)];
+    _userCollegeLabel.textAlignment = NSTextAlignmentCenter;
+
     
-    _userCollegeLabel = [[UILabel alloc] initWithFrame:CGRectMake(_usernameLabel.x, _userTidLabel.getMaxY+10, _usernameLabel.width, _usernameLabel.height)];
+    _userTidLabel = [[UILabel alloc] initWithFrame:CGRectMake(_userCollegeLabel.getMaxX, _userCollegeLabel.y, _userCollegeLabel.width, _userCollegeLabel.height)];
+    _userTidLabel.textAlignment = NSTextAlignmentCenter;
     
-    _isManagerPic = [[UIImageView alloc] initWithFrame:CGRectMake(_usernameLabel.x, _userCollegeLabel.getMaxY+10, 30, _usernameLabel.height)];
+//    _isManagerPic = [[UIImageView alloc] initWithFrame:CGRectMake(_usernameLabel.x, _userCollegeLabel.getMaxY+10, 30, _usernameLabel.height)];
 
     
     [_teacherProfileView addSubview:_userPic];
     [_teacherProfileView addSubview:_usernameLabel];
+    [_teacherProfileView addSubview:_userUniversityLabel];
     [_teacherProfileView addSubview:_userTidLabel];
     [_teacherProfileView addSubview:_userCollegeLabel];
-    [_teacherProfileView addSubview:_isManagerPic];
+//    [_teacherProfileView addSubview:_isManagerPic];
     
     [self addSubview:_teacherProfileView];
     [self addSubview:_classInfoTableView];
@@ -80,13 +90,14 @@
     [_userPic sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"头像占位"]];
     _usernameLabel.text = _teacher.name;
     _userTidLabel.text = _teacher.tid;
-    _userCollegeLabel.text = [NSString stringWithFormat:@"学院代号:%ld", _teacher.college_id ];
-    if (_teacher.is_manager) {
-        _isManagerPic.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec1d", 34, [UIColor orangeColor])];
-    }else{
-        _isManagerPic.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec1d", 34, [UIColor grayColor])];
-        
-    }
+    _userCollegeLabel.text = [NSString stringWithFormat:@"外国语学院"];
+    _userUniversityLabel.text = [NSString stringWithFormat:@"北京邮电大学"];
+//    if (_teacher.is_manager) {
+//        _isManagerPic.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec1d", 34, [UIColor orangeColor])];
+//    }else{
+//        _isManagerPic.image = [UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec1d", 34, [UIColor grayColor])];
+//
+//    }
 }
 #pragma mark ----- set lessonTableView data
 - (void)setClassInfoData:(NSArray *)classInfoArray{
@@ -114,6 +125,7 @@
     CAClassInfoViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if(!cell){
         cell = [[CAClassInfoViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         CAClassInfo *currentClassInfo = self.classInfos[indexPath.row];
         [cell setCellContentInformationWithClassInfoImage:@"" classInfoName:currentClassInfo.name classInfoRoom:currentClassInfo.room];
     }

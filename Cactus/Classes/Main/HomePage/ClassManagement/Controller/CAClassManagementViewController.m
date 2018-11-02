@@ -8,7 +8,7 @@
 
 #import "CAClassManagementViewController.h"
 #import <AxcAE_TabBar.h>
-#import "CAClassHomePageViewController.h"
+#import "CAClassInfoDisplayMViewController.h"
 #import "CADataAnalysisViewController.h"
 #import "CAScoreListViewController.h"
 #import "CAStudentListViewController.h"
@@ -74,8 +74,8 @@
 //    NSArray *students = [NSArray arrayWithObjects:stu1,stu2,stu3,stu4,stu5,stu6, nil];
 //    self.lessonClass.students = students;
 
-    CAClassHomePageViewController *classHomePageVC = [[CAClassHomePageViewController alloc] init];
-    classHomePageVC.classInfo = self.classInfo;
+    CAClassInfoDisplayMViewController *classInfoDisplayVC = [[CAClassInfoDisplayMViewController alloc] init];
+    classInfoDisplayVC.classInfo = self.classInfo;
 
     CADataAnalysisViewController *dataAnalysisVC = [[CADataAnalysisViewController alloc] init];
 //    dataAnalysesVC.lessonClass = self.lessonClass;
@@ -89,7 +89,7 @@
 
     NSArray <NSDictionary *>*VCArray =
    @[@{@"vc":scoreListVC,@"normalImg":@"\U0000ed0e",@"selectImg":@"\U0000ed0e",@"itemTitle":@"分数列表"},
-    @{@"vc":studentListVC ,@"normalImg":@"\U0000ece3",@"selectImg":@"\U0000ece3",@"itemTitle":@"学生列表"},@{@"vc":dataAnalysisVC,@"normalImg":@"\U0000ecf2",@"selectImg":@"\U0000ecf2",@"itemTitle":@"数据分析"},@{@"vc":classHomePageVC ,@"normalImg":@"\U0000eb4f",@"selectImg":@"\U0000eb4f",@"itemTitle":@"班级信息"}
+  @{@"vc":studentListVC ,@"normalImg":@"\U0000ece3",@"selectImg":@"\U0000ece3",@"itemTitle":@"学生列表"},@{@"vc":dataAnalysisVC,@"normalImg":@"\U0000ecf2",@"selectImg":@"\U0000ecf2",@"itemTitle":@"数据分析"},@{@"vc":classInfoDisplayVC ,@"normalImg":@"\U0000eb4f",@"selectImg":@"\U0000eb4f",@"itemTitle":@"班级信息"}
       ];
     // 1.遍历这个集合
     // 1.1 设置一个保存构造器的数组
