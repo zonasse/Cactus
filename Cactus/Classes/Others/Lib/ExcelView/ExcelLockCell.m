@@ -143,16 +143,12 @@
             for (int i=0; i<rowDatas.count; i++) {
                 UIView *view=[[UIView alloc]initWithFrame:CGRectMake(x, 0, [self.mColumeMaxWidths[i+1] floatValue], [self.mRowMaxHeights[indexPath.row] floatValue])];
                 UILabel *dataView=[[UILabel alloc]initWithFrame:view.bounds];
-//                if ([[rowDatas[i] class] isEqual:[CAPoint class]]) {
-//                    CAPoint *point = rowDatas[i];
-//                    dataView.text= [NSString stringWithFormat:@"ld", point.pointNumber];
-//                }else{
-                    dataView.text=rowDatas[i];
-//                }
+                dataView.text=rowDatas[i];
                 dataView.textColor=RGB(94, 153, 251);
                 dataView.textAlignment=NSTextAlignmentCenter;
                 dataView.numberOfLines=0;
                 dataView.font=self.textFont;
+                
                 [view addSubview:dataView];
                 view.layer.borderWidth=0.6;
                 view.layer.borderColor=[UIColor whiteColor].CGColor;
@@ -181,6 +177,7 @@
     }
     return nil;
 }
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.mRowMaxHeights.count;
 }
@@ -189,8 +186,6 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.textLabel.text = @"gaigaigai";
 }
 
 #pragma mark 滚动视图回调监听

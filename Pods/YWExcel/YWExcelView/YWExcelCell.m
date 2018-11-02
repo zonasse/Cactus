@@ -111,9 +111,6 @@
         [self.rightScrollView addSubview:label1];
         
         
-                UITapGestureRecognizer *sigleTapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapGesture:)];
-                sigleTapRecognizer.numberOfTapsRequired = 1;
-                [label1 addGestureRecognizer:sigleTapRecognizer];
         totalWidth += w;
     }
     self.rightScrollView.contentSize = CGSizeMake(totalWidth, 0);
@@ -134,30 +131,29 @@
         _rightScrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _rightScrollView.showsVerticalScrollIndicator = NO;
         _rightScrollView.showsHorizontalScrollIndicator = NO;
-#warning modified
-//        UITapGestureRecognizer *sigleTapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapGesture:)];
-//        sigleTapRecognizer.numberOfTapsRequired = 1;
-//        [_rightScrollView addGestureRecognizer:sigleTapRecognizer];
-        _rightScrollView.panGestureRecognizer.delaysTouchesBegan = YES;
         _rightScrollView.delegate = self;
         _rightScrollView.bounces = NO;
+        
+        UITapGestureRecognizer *sigleTapRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(handleTapGesture:)];
+        sigleTapRecognizer.numberOfTapsRequired = 1;
+        [_rightScrollView addGestureRecognizer:sigleTapRecognizer];
     }
     return _rightScrollView;
 }
 -(void)handleTapGesture:( UITapGestureRecognizer *)tapRecognizer
 {
-    NSLog(@"%@",tapRecognizer.self.view);
-    int tapCount = tapRecognizer.numberOfTapsRequired;
+//    int tapCount = tapRecognizer.numberOfTapsRequired;
     // 先取消任何操作???????这句话存在的意义？？？
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    switch (tapCount){
-        case 1:
-//            [self performSelector:@selector(handleSingleTap) withObject:nil afterDelay:0.22];
-            break;
-            //        case 2:
-            //           [self handleDoubleTap:tapRecognizer];
-            break;
-    }
+//    switch (tapCount){
+//        case 1:
+////            [self performSelector:@selector(handleSingleTap) withObject:nil afterDelay:0.22];
+//            break;
+//            //        case 2:
+//            //           [self handleDoubleTap:tapRecognizer];
+//            break;
+//    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pointCellTouched" object:tapRecognizer.self.view.subviews];
 }
 
 #pragma mark - UIScrollViewDelegate

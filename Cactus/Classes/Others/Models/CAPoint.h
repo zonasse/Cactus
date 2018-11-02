@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CAPoint : NSObject
+@interface CAPoint : NSObject<NSCopying,NSMutableCopying>
 //分数所属教学班
 @property (nonatomic,assign) NSInteger classInfo_id;
 //分数所属学生

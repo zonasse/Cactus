@@ -7,11 +7,13 @@
 //
 
 #import "CAScoreListViewController.h"
+#import "CAChangeScoreViewController.h"
 //#import "ExcelView.h"
 #import "YWExcelView.h"
 #import "CAPoint.h"
 #import "CATitle.h"
 #import "CAStudent.h"
+#import "NSDictionary+CADictionaryDeepCopy.h"
 @interface CAScoreListViewController ()<YWExcelViewDelegate,YWExcelViewDataSource>
 @property (nonatomic,strong) YWExcelView *excelView;
 @property (nonatomic,strong) YWExcelViewMode *excelViewMode;
@@ -22,6 +24,7 @@
 @property (nonatomic,strong) NSMutableArray *points;
 @property (nonatomic,strong) NSMutableArray *titles;
 
+@property (nonatomic,strong) NSMutableDictionary *hashMap;
 @end
 
 @implementation CAScoreListViewController
@@ -57,6 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTitle) name:@"addTitleNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(touchPointCell:) name:@"pointCellTouched" object:nil];
     
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -177,7 +181,21 @@
     menuLabel.textAlignment = NSTextAlignmentCenter;
     menuLabel.text = _ctl;
     [self.view addSubview:menuLabel];
-    
+    _hashMap = [NSMutableDictionary dictionary];
+    for (CAStudent *student in self.students) {
+        NSMutableDictionary *inner = [NSMutableDictionary dictionary];
+        for (CATitle *title in self.titles) {
+            for (CAPoint *point in self.points) {
+                if (point.student_id == student._id && point.title_id == title._id) {
+                    NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
+                    [inner setValue:point forKey:title_id_str];
+                }
+            }
+        }
+        NSString *student_id_str = [NSString stringWithFormat:@"%ld",student._id];
+
+        [_hashMap setValue:inner forKey:student_id_str];
+    }
    
     _list = [NSMutableArray array];
     for (int i=0; i<10; ++i) {
@@ -186,17 +204,26 @@
             [rowArray addObject:student.sid];
             [rowArray addObject:student.name];
             for (CATitle *title in self.titles) {
-                BOOL flag = NO;
-                for (CAPoint *point in self.points) {
-                    if (point.student_id == student._id && point.title_id == title._id) {
-                        [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
-                        flag = YES;
-                        break;
-                    }
-                }
-                if (!flag) {
+//                BOOL flag = NO;
+                NSString *student_id_str = [NSString stringWithFormat:@"%ld",student._id];
+                NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
+                CAPoint *point = _hashMap[student_id_str][title_id_str];
+                if (point.pointNumber) {
+                    [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
+                }else{
                     [rowArray addObject:@""];
+
                 }
+//                for (CAPoint *point in self.points) {
+//                    if (point.student_id == student._id && point.title_id == title._id) {
+//                        [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
+//                        flag = YES;
+//                        break;
+//                    }
+////                }
+//                if (!flag) {
+//                    [rowArray addObject:@""];
+//                }
             }
             [_list addObject:rowArray];
         }
@@ -223,7 +250,11 @@
 //        }
     NSArray *arr = _list[indexPath.row];
     label.text = arr[indexPath.item];
-    label.tag = indexPath.row * (2+_titles.count) + indexPath.item;
+    if (indexPath.item > 1) {
+        label.tag = indexPath.row * (_titles.count) + indexPath.item-2;
+    }else{
+        label.tag = -1;
+    }
 //    }
 }
 #pragma mark --增加一列
@@ -241,5 +272,29 @@
 //    _excelViewMode.headTexts = _headTextsArray;
 //    [_excelView resetMode:_excelViewMode];
     
+}
+- (void)touchPointCell:(NSNotification*) noti{
+    NSArray *labels = noti.object;
+    CAStudent *currentStudent;
+    NSMutableArray *currentTitles = [NSMutableArray array];
+    for (UILabel *label in labels) {
+        if (label.tag == -1) {
+            continue;
+        }
+        currentStudent = self.students[label.tag/self.titles.count];
+        CATitle *title = self.titles[label.tag%self.titles.count];
+        [currentTitles addObject:title];
+        NSLog(@"%@ %@",currentStudent.name,title.name);
+
+    }
+    CAChangeScoreViewController *changeScoreVC = [[CAChangeScoreViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:changeScoreVC];
+    changeScoreVC.student = currentStudent;
+    changeScoreVC.titles = currentTitles;
+    changeScoreVC.hashMap = [_hashMap mutableDeepCopy];
+
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
 }
 @end

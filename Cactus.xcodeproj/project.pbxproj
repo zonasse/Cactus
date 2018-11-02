@@ -45,7 +45,8 @@
 		EA8B400321884DC8005E85A4 /* ScrollViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8B3FF521884DC7005E85A4 /* ScrollViewCell.xib */; };
 		EA8B4015218A8BB9005E85A4 /* CADataAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4013218A8BB9005E85A4 /* CADataAnalysisViewController.m */; };
 		EA8B401A218A8CDD005E85A4 /* CADataAnalysisContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4019218A8CDD005E85A4 /* CADataAnalysisContentView.m */; };
-		EA8B4029218AF9A7005E85A4 /* CAExcelLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4028218AF9A7005E85A4 /* CAExcelLabel.m */; };
+		EA8B402C218C1EB7005E85A4 /* CAChangeScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B402B218C1EB7005E85A4 /* CAChangeScoreViewController.m */; };
+		EA8B4030218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B402F218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m */; };
 		EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */; };
 		EAB2ED9C218090D2008E6DAD /* CAMD5Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED9B218090D2008E6DAD /* CAMD5Tool.m */; };
 		EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A3B2155D54F00C43599 /* AppDelegate.m */; };
@@ -184,8 +185,10 @@
 		EA8B4014218A8BB9005E85A4 /* CADataAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADataAnalysisViewController.h; sourceTree = "<group>"; };
 		EA8B4018218A8CDD005E85A4 /* CADataAnalysisContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CADataAnalysisContentView.h; sourceTree = "<group>"; };
 		EA8B4019218A8CDD005E85A4 /* CADataAnalysisContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CADataAnalysisContentView.m; sourceTree = "<group>"; };
-		EA8B4027218AF9A7005E85A4 /* CAExcelLabel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAExcelLabel.h; sourceTree = "<group>"; };
-		EA8B4028218AF9A7005E85A4 /* CAExcelLabel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAExcelLabel.m; sourceTree = "<group>"; };
+		EA8B402A218C1EB7005E85A4 /* CAChangeScoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAChangeScoreViewController.h; sourceTree = "<group>"; };
+		EA8B402B218C1EB7005E85A4 /* CAChangeScoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAChangeScoreViewController.m; sourceTree = "<group>"; };
+		EA8B402E218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CADictionaryDeepCopy.h"; sourceTree = "<group>"; };
+		EA8B402F218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CADictionaryDeepCopy.m"; sourceTree = "<group>"; };
 		EAB2ED7B21802CF1008E6DAD /* UIResponder+CAFirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+CAFirstResponder.h"; sourceTree = "<group>"; };
 		EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+CAFirstResponder.m"; sourceTree = "<group>"; };
 		EAB2ED9A218090D2008E6DAD /* CAMD5Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMD5Tool.h; sourceTree = "<group>"; };
@@ -368,8 +371,6 @@
 		EA8B4026218AF998005E85A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EA8B4027218AF9A7005E85A4 /* CAExcelLabel.h */,
-				EA8B4028218AF9A7005E85A4 /* CAExcelLabel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -543,6 +544,10 @@
 			children = (
 				EA031A7C21570FA200128829 /* CAScoreListViewController.h */,
 				EA031A7D21570FA200128829 /* CAScoreListViewController.m */,
+				EA8B402A218C1EB7005E85A4 /* CAChangeScoreViewController.h */,
+				EA8B402B218C1EB7005E85A4 /* CAChangeScoreViewController.m */,
+				EA8B402E218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.h */,
+				EA8B402F218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -861,7 +866,6 @@
 				EA031A6621563DEC00128829 /* CAClassInfoViewCell.m in Sources */,
 				EA8B3FFF21884DC8005E85A4 /* ExcelLockSection.m in Sources */,
 				EA031A7E21570FA300128829 /* CAScoreListViewController.m in Sources */,
-				EA8B4029218AF9A7005E85A4 /* CAExcelLabel.m in Sources */,
 				EA8B3FFD21884DC8005E85A4 /* ExcelUnLockCell.m in Sources */,
 				EA8B400221884DC8005E85A4 /* UILabel+FitWitdhAndHeight.m in Sources */,
 				EA16965C21635960005C3D48 /* MBProgressHUD.m in Sources */,
@@ -894,9 +898,11 @@
 				EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */,
 				EA8B3FF921884DC8005E85A4 /* ScrollViewCell.m in Sources */,
 				EAB2ED9C218090D2008E6DAD /* CAMD5Tool.m in Sources */,
+				EA8B4030218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m in Sources */,
 				EAE8E445215B22B40037420C /* CACollege.m in Sources */,
 				EA4BDC952166FFD1003B446B /* CATest.swift in Sources */,
 				EAF42A1A2164A19F00B6668A /* XZMPieView.m in Sources */,
+				EA8B402C218C1EB7005E85A4 /* CAChangeScoreViewController.m in Sources */,
 				EAE8E436215B19390037420C /* CALesson.m in Sources */,
 				EA89A3AF2163065500FFC473 /* CAMajor.m in Sources */,
 			);
