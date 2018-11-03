@@ -175,7 +175,6 @@
     CAAddPointTitleViewController *addPointTitleVC = [[CAAddPointTitleViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addPointTitleVC];
     addPointTitleVC.students = self.students;
-//    addPointTitleVC.title = currentTitles;
     addPointTitleVC.hashMap = [_hashMap mutableDeepCopy];
     
     [self presentViewController:nav animated:YES completion:^{
@@ -279,7 +278,7 @@
             
         }];
     });
-    dispatch_notify(group, queue, ^{
+    dispatch_group_notify(group, queue, ^{
         dispatch_async(queue, ^{
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);

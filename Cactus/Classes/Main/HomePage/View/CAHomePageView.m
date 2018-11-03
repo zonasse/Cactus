@@ -133,6 +133,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     CAClassInfo *currentClassInfo = self.classInfos[indexPath.row];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setValue:[NSString stringWithFormat:@"%ld", currentClassInfo._id] forKey:@"currentClassInfo_id"];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CAJumpToClassManagementViewControllerNotification" object:currentClassInfo];
     
 }
