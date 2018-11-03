@@ -47,6 +47,8 @@
 		EA8B401A218A8CDD005E85A4 /* CADataAnalysisContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4019218A8CDD005E85A4 /* CADataAnalysisContentView.m */; };
 		EA8B402C218C1EB7005E85A4 /* CAChangeScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B402B218C1EB7005E85A4 /* CAChangeScoreViewController.m */; };
 		EA8B4030218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B402F218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m */; };
+		EA8B4038218D45B5005E85A4 /* CAAddPointTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4037218D45B5005E85A4 /* CAAddPointTitleViewController.m */; };
+		EA8B403C218D45DB005E85A4 /* CAAddPointTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B403B218D45DB005E85A4 /* CAAddPointTitleCell.m */; };
 		EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */; };
 		EAB2ED9C218090D2008E6DAD /* CAMD5Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED9B218090D2008E6DAD /* CAMD5Tool.m */; };
 		EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A3B2155D54F00C43599 /* AppDelegate.m */; };
@@ -189,6 +191,10 @@
 		EA8B402B218C1EB7005E85A4 /* CAChangeScoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAChangeScoreViewController.m; sourceTree = "<group>"; };
 		EA8B402E218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CADictionaryDeepCopy.h"; sourceTree = "<group>"; };
 		EA8B402F218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CADictionaryDeepCopy.m"; sourceTree = "<group>"; };
+		EA8B4036218D45B5005E85A4 /* CAAddPointTitleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAAddPointTitleViewController.h; sourceTree = "<group>"; };
+		EA8B4037218D45B5005E85A4 /* CAAddPointTitleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAAddPointTitleViewController.m; sourceTree = "<group>"; };
+		EA8B403A218D45DB005E85A4 /* CAAddPointTitleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAAddPointTitleCell.h; sourceTree = "<group>"; };
+		EA8B403B218D45DB005E85A4 /* CAAddPointTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAAddPointTitleCell.m; sourceTree = "<group>"; };
 		EAB2ED7B21802CF1008E6DAD /* UIResponder+CAFirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+CAFirstResponder.h"; sourceTree = "<group>"; };
 		EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+CAFirstResponder.m"; sourceTree = "<group>"; };
 		EAB2ED9A218090D2008E6DAD /* CAMD5Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMD5Tool.h; sourceTree = "<group>"; };
@@ -371,6 +377,8 @@
 		EA8B4026218AF998005E85A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EA8B403A218D45DB005E85A4 /* CAAddPointTitleCell.h */,
+				EA8B403B218D45DB005E85A4 /* CAAddPointTitleCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -546,6 +554,8 @@
 				EA031A7D21570FA200128829 /* CAScoreListViewController.m */,
 				EA8B402A218C1EB7005E85A4 /* CAChangeScoreViewController.h */,
 				EA8B402B218C1EB7005E85A4 /* CAChangeScoreViewController.m */,
+				EA8B4036218D45B5005E85A4 /* CAAddPointTitleViewController.h */,
+				EA8B4037218D45B5005E85A4 /* CAAddPointTitleViewController.m */,
 				EA8B402E218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.h */,
 				EA8B402F218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m */,
 			);
@@ -868,6 +878,7 @@
 				EA031A7E21570FA300128829 /* CAScoreListViewController.m in Sources */,
 				EA8B3FFD21884DC8005E85A4 /* ExcelUnLockCell.m in Sources */,
 				EA8B400221884DC8005E85A4 /* UILabel+FitWitdhAndHeight.m in Sources */,
+				EA8B403C218D45DB005E85A4 /* CAAddPointTitleCell.m in Sources */,
 				EA16965C21635960005C3D48 /* MBProgressHUD.m in Sources */,
 				EAE8E43C215B1FB70037420C /* CAPoint.m in Sources */,
 				EA031A57215631BD00128829 /* CALogonViewController.m in Sources */,
@@ -875,6 +886,7 @@
 				EAE8E43F215B212C0037420C /* CATitle.m in Sources */,
 				EA0740822182EBC000DAC570 /* CAHttpTool.m in Sources */,
 				EA89A3A9216301AC00FFC473 /* CAClass.m in Sources */,
+				EA8B4038218D45B5005E85A4 /* CAAddPointTitleViewController.m in Sources */,
 				EA8B3FFA21884DC8005E85A4 /* ExcelSection.m in Sources */,
 				EA8B3FF821884DC8005E85A4 /* LockViewCell.m in Sources */,
 				EA8B401A218A8CDD005E85A4 /* CADataAnalysisContentView.m in Sources */,

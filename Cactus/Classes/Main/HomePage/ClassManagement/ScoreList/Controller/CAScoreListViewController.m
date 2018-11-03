@@ -8,7 +8,7 @@
 
 #import "CAScoreListViewController.h"
 #import "CAChangeScoreViewController.h"
-//#import "ExcelView.h"
+#import "CAAddPointTitleViewController.h"
 #import "YWExcelView.h"
 #import "CAPoint.h"
 #import "CATitle.h"
@@ -171,19 +171,16 @@
 }
 #pragma mark --增加一列
 - (void)addTitle{
-//    for (UIView *view in self.view.subviews) {
-//        [view removeFromSuperview];
-//    }
-//
-//    CATitle *newTitle = [[CATitle alloc] init];
-//    newTitle.name = @"";
-//    [self.titles addObject:newTitle];
-//    [_headTextsArray addObject:@""];
-//    [self setupExcelView];  
-
-//    _excelViewMode.headTexts = _headTextsArray;
-//    [_excelView resetMode:_excelViewMode];
     
+    CAAddPointTitleViewController *addPointTitleVC = [[CAAddPointTitleViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addPointTitleVC];
+    addPointTitleVC.students = self.students;
+//    addPointTitleVC.title = currentTitles;
+    addPointTitleVC.hashMap = [_hashMap mutableDeepCopy];
+    
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
 }
 - (void)touchPointCell:(NSNotification*) noti{
     NSArray *labels = noti.object;
