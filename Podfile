@@ -2,7 +2,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 
 target 'Cactus' do
-	
+    
+	pod 'YCXMenu', '~> 0.0.11'
+    
 	pod 'IconFont', '~> 0.0.2'
 	
 	#excel

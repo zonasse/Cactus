@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "94236DC7780A2B847EADEF9B2EF2D659"
-               BlueprintName = "SDWebImage"
+               BlueprintIdentifier = "12B95DBFC469D84A7280E4A30DBE266E"
+               BlueprintName = "YCXMenu"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "libSDWebImage.a">
+               BuildableName = "libYCXMenu.a">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

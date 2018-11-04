@@ -10,6 +10,7 @@
 #import "CAChangeScoreViewController.h"
 #import "CAAddPointTitleViewController.h"
 #import "YWExcelView.h"
+#import "YCXMenu.h"
 #import "CAPoint.h"
 #import "CATitle.h"
 #import "CAStudent.h"
@@ -171,15 +172,55 @@
 }
 #pragma mark --增加一列
 - (void)addTitle{
-    
-    CAAddPointTitleViewController *addPointTitleVC = [[CAAddPointTitleViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addPointTitleVC];
-    addPointTitleVC.students = self.students;
-    addPointTitleVC.hashMap = [_hashMap mutableDeepCopy];
-    
-    [self presentViewController:nav animated:YES completion:^{
+    [YCXMenu setTintColor:[UIColor colorWithRed:0.118 green:0.573 blue:0.820 alpha:1]];
+    [YCXMenu setSelectedColor:[UIColor redColor]];
+    if ([YCXMenu isShow]){
+        [YCXMenu dismissMenu];
+    } else {
+        NSMutableArray *items = [NSMutableArray array];
+
+        // set title
+        YCXMenuItem *menuTitle = [YCXMenuItem menuTitle:@"Menu" WithIcon:nil];
+        menuTitle.foreColor = [UIColor whiteColor];
+        menuTitle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
         
-    }];
+        //set logout button
+//        YCXMenuItem *logoutItem = [YCXMenuItem menuItem:@"退出" image:nil target:self action:@selector(logout:)];
+//        logoutItem.foreColor = [UIColor redColor];
+//        logoutItem.alignment = NSTextAlignmentCenter;
+        
+        //set item
+        items = [@[menuTitle,
+                   [YCXMenuItem menuItem:@"个人中心" image:nil target:self action:@selector(test)]
+                    ,
+                    [YCXMenuItem menuItem:@"ACTION 133"
+                                    image:nil
+                                      tag:101
+                                 userInfo:@{@"title":@"Menu"}],
+                    [YCXMenuItem menuItem:@"检查更新"
+                                    image:nil
+                                      tag:102
+                                 userInfo:@{@"title":@"Menu"}]
+//                    logoutItem
+                    ] mutableCopy];
+        
+        
+        [YCXMenu showMenuInView:self.view fromRect:CGRectMake(self.view.frame.size.width - 50, tabbarVCStartY, 50, 0) menuItems:items selected:^(NSInteger index, YCXMenuItem *item) {
+            NSLog(@"%@",item);
+        }];
+    }
+    
+//    CAAddPointTitleViewController *addPointTitleVC = [[CAAddPointTitleViewController alloc] init];
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addPointTitleVC];
+//    addPointTitleVC.students = self.students;
+//    addPointTitleVC.hashMap = [_hashMap mutableDeepCopy];
+//
+//    [self presentViewController:nav animated:YES completion:^{
+//
+//    }];
+}
+- (void) test{
+    
 }
 - (void)touchPointCell:(NSNotification*) noti{
     NSArray *labels = noti.object;
