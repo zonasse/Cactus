@@ -97,6 +97,21 @@
         failure(error);
     }];
 }
+
+-(void)DELETEWithCompleteURL:(NSString *)URLString
+                  parameters:(id)parameters
+                    progress:(void(^)(id progress))progress
+                     success:(void (^)(id responseObject))success
+                     failure:(void (^)(NSError *error))failure{
+    _manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:ACCEPTTYPENORMAL];
+    _manager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD", nil];
+
+    [_manager DELETE:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        success(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        failure(error);
+    }];
+}
 /**
  *  图片上传
  *

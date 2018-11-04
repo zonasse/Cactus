@@ -9,6 +9,7 @@
 #import "CAScoreListViewController.h"
 #import "CAChangeScoreViewController.h"
 #import "CAAddPointTitleViewController.h"
+#import "CADeletePointTitleViewController.h"
 #import "YWExcelView.h"
 #import "YCXMenu.h"
 #import "CAPoint.h"
@@ -60,9 +61,9 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTitle) name:@"addTitleNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rightNavigationItemClicked) name:@"rightNavigationItemClickedNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(touchPointCell:) name:@"pointCellTouched" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"pointModefySuccessNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"pointModifySuccessNotification" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showRightItemNotification" object:nil];
 
 }
@@ -134,18 +135,7 @@
                     [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
                 }else{
                     [rowArray addObject:@""];
-
                 }
-//                for (CAPoint *point in self.points) {
-//                    if (point.student_id == student._id && point.title_id == title._id) {
-//                        [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
-//                        flag = YES;
-//                        break;
-//                    }
-////                }
-//                if (!flag) {
-//                    [rowArray addObject:@""];
-//                }
             }
             [_list addObject:rowArray];
         }
@@ -171,56 +161,42 @@
     }
 }
 #pragma mark --增加一列
-- (void)addTitle{
+- (void)rightNavigationItemClicked{
     [YCXMenu setTintColor:[UIColor colorWithRed:0.118 green:0.573 blue:0.820 alpha:1]];
     [YCXMenu setSelectedColor:[UIColor redColor]];
     if ([YCXMenu isShow]){
         [YCXMenu dismissMenu];
     } else {
         NSMutableArray *items = [NSMutableArray array];
-
-        // set title
-        YCXMenuItem *menuTitle = [YCXMenuItem menuTitle:@"Menu" WithIcon:nil];
-        menuTitle.foreColor = [UIColor whiteColor];
-        menuTitle.titleFont = [UIFont boldSystemFontOfSize:20.0f];
-        
-        //set logout button
-//        YCXMenuItem *logoutItem = [YCXMenuItem menuItem:@"退出" image:nil target:self action:@selector(logout:)];
-//        logoutItem.foreColor = [UIColor redColor];
-//        logoutItem.alignment = NSTextAlignmentCenter;
-        
-        //set item
-        items = [@[menuTitle,
-                   [YCXMenuItem menuItem:@"个人中心" image:nil target:self action:@selector(test)]
-                    ,
-                    [YCXMenuItem menuItem:@"ACTION 133"
-                                    image:nil
-                                      tag:101
-                                 userInfo:@{@"title":@"Menu"}],
-                    [YCXMenuItem menuItem:@"检查更新"
-                                    image:nil
-                                      tag:102
-                                 userInfo:@{@"title":@"Menu"}]
-//                    logoutItem
-                    ] mutableCopy];
-        
+        YCXMenuItem *addTitleItem = [YCXMenuItem menuItem:@"增加分数列" image:nil target:self action:@selector(addTitle)];
+        YCXMenuItem *deleteTitleItem = [YCXMenuItem menuItem:@"删除分数列" image:nil target:self action:@selector(deleteTitle)];
+        [items addObject:addTitleItem];
+        [items addObject:deleteTitleItem];
         
         [YCXMenu showMenuInView:self.view fromRect:CGRectMake(self.view.frame.size.width - 50, tabbarVCStartY, 50, 0) menuItems:items selected:^(NSInteger index, YCXMenuItem *item) {
             NSLog(@"%@",item);
         }];
     }
     
-//    CAAddPointTitleViewController *addPointTitleVC = [[CAAddPointTitleViewController alloc] init];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addPointTitleVC];
-//    addPointTitleVC.students = self.students;
-//    addPointTitleVC.hashMap = [_hashMap mutableDeepCopy];
-//
-//    [self presentViewController:nav animated:YES completion:^{
-//
-//    }];
 }
-- (void) test{
+- (void)addTitle{
+        CAAddPointTitleViewController *addPointTitleVC = [[CAAddPointTitleViewController alloc] init];
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addPointTitleVC];
+        addPointTitleVC.students = self.students;
+        addPointTitleVC.hashMap = [_hashMap mutableDeepCopy];
     
+        [self presentViewController:nav animated:YES completion:^{
+    
+        }];
+}
+- (void)deleteTitle{
+    CADeletePointTitleViewController *deletePointTitleVC = [[CADeletePointTitleViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:deletePointTitleVC];
+    deletePointTitleVC.titles = [self.titles mutableCopy];
+    
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
 }
 - (void)touchPointCell:(NSNotification*) noti{
     NSArray *labels = noti.object;

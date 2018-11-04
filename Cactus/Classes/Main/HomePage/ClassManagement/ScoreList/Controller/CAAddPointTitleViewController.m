@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"编辑分数列";
+    self.title = @"增加分数列";
     UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
     [rightButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb29", 34, [UIColor orangeColor])] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
@@ -55,6 +55,7 @@
     }];
 }
 - (void)save{
+    [self.view endEditing:YES];
     [self.modifiedPoints removeAllObjects];
     for (int i=0; i<self.textFields.count; ++i) {
         UITextField *currentTextField = self.textFields[i];
@@ -154,7 +155,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUD];
                 [MBProgressHUD showSuccess:@"提交成功"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModefySuccessNotification" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
                 [self.navigationController dismissViewControllerAnimated:YES completion:^{
                     
                 }];

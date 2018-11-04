@@ -77,7 +77,7 @@
 
             if([responseDict[@"code"] isEqualToString:@"1033"]){
                 [MBProgressHUD showSuccess:@"修改成功"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModefySuccessNotification" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
 
                 [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 }];

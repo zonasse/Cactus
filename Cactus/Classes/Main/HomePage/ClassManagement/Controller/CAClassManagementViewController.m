@@ -23,7 +23,7 @@
     [super viewDidLoad];
     UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
     [rightButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb31", 34, [UIColor orangeColor])] forState:UIControlStateNormal];
-    [rightButton addTarget:self action:@selector(addTitle) forControlEvents:UIControlEventTouchUpInside];
+    [rightButton addTarget:self action:@selector(rightNavigationItemClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -42,8 +42,8 @@
 - (void)showRightItem{
     self.navigationItem.rightBarButtonItem.customView.hidden = NO;
 }
-- (void)addTitle{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"addTitleNotification" object:nil];
+- (void)rightNavigationItemClicked{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"rightNavigationItemClickedNotification" object:nil];
 }
 #pragma mark --添加子页面
 - (void)setClassInfo:(CAClassInfo *)classInfo{
