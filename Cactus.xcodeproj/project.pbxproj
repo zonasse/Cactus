@@ -50,6 +50,7 @@
 		EA8B4038218D45B5005E85A4 /* CAAddPointTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4037218D45B5005E85A4 /* CAAddPointTitleViewController.m */; };
 		EA8B403C218D45DB005E85A4 /* CAAddPointTitleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B403B218D45DB005E85A4 /* CAAddPointTitleCell.m */; };
 		EA8B4041218ECBCD005E85A4 /* CADeletePointTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4040218ECBCD005E85A4 /* CADeletePointTitleViewController.m */; };
+		EAA0BE9E219042CE00831AB2 /* CAEditPointTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA0BE9D219042CE00831AB2 /* CAEditPointTitleViewController.m */; };
 		EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */; };
 		EAB2ED9C218090D2008E6DAD /* CAMD5Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED9B218090D2008E6DAD /* CAMD5Tool.m */; };
 		EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A3B2155D54F00C43599 /* AppDelegate.m */; };
@@ -198,6 +199,8 @@
 		EA8B403B218D45DB005E85A4 /* CAAddPointTitleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAAddPointTitleCell.m; sourceTree = "<group>"; };
 		EA8B403F218ECBCD005E85A4 /* CADeletePointTitleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CADeletePointTitleViewController.h; sourceTree = "<group>"; };
 		EA8B4040218ECBCD005E85A4 /* CADeletePointTitleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CADeletePointTitleViewController.m; sourceTree = "<group>"; };
+		EAA0BE9C219042CE00831AB2 /* CAEditPointTitleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAEditPointTitleViewController.h; sourceTree = "<group>"; };
+		EAA0BE9D219042CE00831AB2 /* CAEditPointTitleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CAEditPointTitleViewController.m; sourceTree = "<group>"; };
 		EAB2ED7B21802CF1008E6DAD /* UIResponder+CAFirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+CAFirstResponder.h"; sourceTree = "<group>"; };
 		EAB2ED7C21802CF1008E6DAD /* UIResponder+CAFirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+CAFirstResponder.m"; sourceTree = "<group>"; };
 		EAB2ED9A218090D2008E6DAD /* CAMD5Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAMD5Tool.h; sourceTree = "<group>"; };
@@ -561,6 +564,8 @@
 				EA8B4037218D45B5005E85A4 /* CAAddPointTitleViewController.m */,
 				EA8B403F218ECBCD005E85A4 /* CADeletePointTitleViewController.h */,
 				EA8B4040218ECBCD005E85A4 /* CADeletePointTitleViewController.m */,
+				EAA0BE9C219042CE00831AB2 /* CAEditPointTitleViewController.h */,
+				EAA0BE9D219042CE00831AB2 /* CAEditPointTitleViewController.m */,
 				EA8B402E218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.h */,
 				EA8B402F218C3E10005E85A4 /* NSDictionary+CADictionaryDeepCopy.m */,
 			);
@@ -894,6 +899,7 @@
 				EA8B4038218D45B5005E85A4 /* CAAddPointTitleViewController.m in Sources */,
 				EA8B3FFA21884DC8005E85A4 /* ExcelSection.m in Sources */,
 				EA8B3FF821884DC8005E85A4 /* LockViewCell.m in Sources */,
+				EAA0BE9E219042CE00831AB2 /* CAEditPointTitleViewController.m in Sources */,
 				EA8B401A218A8CDD005E85A4 /* CADataAnalysisContentView.m in Sources */,
 				EA031A7B21570F7E00128829 /* CAClassInfoDisplayMViewController.m in Sources */,
 				EA8B3FFC21884DC8005E85A4 /* ExcelView.m in Sources */,

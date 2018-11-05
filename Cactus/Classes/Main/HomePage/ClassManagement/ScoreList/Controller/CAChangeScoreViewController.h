@@ -13,9 +13,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAChangeScoreViewController : UITableViewController
-@property (nonatomic,strong)CAStudentModel *student;
-@property (nonatomic,strong)NSArray *titles;
-@property (nonatomic,strong)NSDictionary *hashMap;
+///学生对象
+@property (nonatomic,strong) CAStudentModel *student;
+///分数列数组
+@property (nonatomic,strong) NSArray *titles;
+///学生-分数列-分数字典
+@property (nonatomic,strong) NSDictionary *hashMap;
 @end
 
 NS_ASSUME_NONNULL_END

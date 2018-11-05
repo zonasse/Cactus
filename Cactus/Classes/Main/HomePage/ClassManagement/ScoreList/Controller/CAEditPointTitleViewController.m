@@ -1,20 +1,20 @@
 //
-//  CAAddPointTitleViewController.m
+//  CAEditPointTitleViewController.m
 //  Cactus
 //
 //  Created by 钟奇龙 on 2018/11/3.
 //  Copyright © 2018 钟奇龙. All rights reserved.
 //
 
-#import "CAAddPointTitleViewController.h"
+#import "CAEditPointTitleViewController.h"
 #import "CAAddPointTitleCell.h"
 #import "CAStudentModel.h"
 #import "CAPointModel.h"
-@interface CAAddPointTitleViewController ()<UITextFieldDelegate>
+@interface CAEditPointTitleViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong) NSMutableArray *modifiedPoints;
 @property (nonatomic,strong) NSMutableArray *textFields;
 @end
-@implementation CAAddPointTitleViewController
+@implementation CAEditPointTitleViewController
 
 - (NSMutableArray *)modifiedPoints{
     if (!_modifiedPoints) {
@@ -78,14 +78,14 @@
             newPoint.pointNumber = [currentTextField.text integerValue];
             [self.modifiedPoints addObject:newPoint];
         }
-
+        
     }
     [MBProgressHUD showMessage:@"提交中..."];
     //发送请求,先请求插入分数列
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
+    
     __block BOOL tag = YES;
     dispatch_group_async(group, queue, ^{
         //1.插入分数列
@@ -96,7 +96,7 @@
         params[@"token"] = token;
         params[@"subjects"] = @[@{@"name":self.pointTitle.name,@"titleGroup_id":@"1"}];
         [ShareDefaultHttpTool POSTWithCompleteURL:urlString parameters:params progress:^(id progress) {
-
+            
         } success:^(id responseObject) {
             NSDictionary *responseDict = responseObject;
             if ([responseDict[@"code"] isEqualToString:@"1042"]) {
@@ -107,16 +107,16 @@
                 self.pointTitle._id = [responseDict[@"subjects"][0] integerValue];
             }
             dispatch_semaphore_signal(semaphore);
-
+            
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUD];
             [MBProgressHUD showError:@"分数列提交失败，请稍后重试"];
             tag = NO;
             dispatch_semaphore_signal(semaphore);
         }];
-
-
-
+        
+        
+        
     });
     dispatch_group_async(group, queue, ^{
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -130,7 +130,7 @@
             
             //2.插入每个分数
             NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];
-
+            
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSString *token = [userDefaults valueForKey:@"userToken"];
@@ -147,7 +147,7 @@
             }
             params[@"subjects"] = subjects;
             [ShareDefaultHttpTool POSTWithCompleteURL:urlString parameters:params progress:^(id progress) {
-
+                
             } success:^(id responseObject) {
                 NSDictionary *responseDict = responseObject;
                 if ([responseDict[@"code"] isEqualToString:@"1042"]) {
@@ -160,17 +160,17 @@
                     [MBProgressHUD showSuccess:@"提交成功"];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
                     [self.navigationController dismissViewControllerAnimated:YES completion:^{
-
+                        
                     }];
                 });
-
+                
             } failure:^(NSError *error) {
                 [MBProgressHUD hideHUD];
                 [MBProgressHUD showError:@"分数值提交失败，请稍后重试"];
             }];
         });
     });
-
+    
 }
 
 #pragma mark - Table view data source
@@ -192,38 +192,38 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellID = @"pointTitleCell";
-//    CAAddPointTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    //    CAAddPointTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-
+    
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        if (indexPath.section == 0) {
-//            cell.studentSidLabel.text = @"设置新的分数列";
-//        }else{
-//            CAStudent *student = self.students[indexPath.row];
-//            cell.studentSidLabel.text = student.sid;
-//            cell.studentNameLabel.text = student.name;
-//        }
+        //        if (indexPath.section == 0) {
+        //            cell.studentSidLabel.text = @"设置新的分数列";
+        //        }else{
+        //            CAStudent *student = self.students[indexPath.row];
+        //            cell.studentSidLabel.text = student.sid;
+        //            cell.studentNameLabel.text = student.name;
+        //        }
         if (indexPath.section == 0) {
             UITextField *inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, kSCREEN_WIDTH-20, cell.height-10)];
             inputTextField.borderStyle = UITextBorderStyleRoundedRect;
             inputTextField.delegate = self;
             [self.textFields addObject:inputTextField];
-//            inputTextField.tag = -10;
-//            inputTextField.backgroundColor = [UIColor lightGrayColor];
+            //            inputTextField.tag = -10;
+            //            inputTextField.backgroundColor = [UIColor lightGrayColor];
             [cell.contentView addSubview:inputTextField];
         }else{
             UILabel *studentSidLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 100, cell.height-10)];
             UILabel *studentNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(studentSidLabel.getMaxX + 5, studentSidLabel.y, studentSidLabel.width, studentSidLabel.height)];
             UITextField *inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(kSCREEN_WIDTH-100-10, 5, 100, cell.height-10)];
-//            inputTextField.backgroundColor = [UIColor lightGrayColor];
+            //            inputTextField.backgroundColor = [UIColor lightGrayColor];
             inputTextField.borderStyle = UITextBorderStyleRoundedRect;
             inputTextField.delegate = self;
             [self.textFields addObject:inputTextField];
-
             
-//            inputTextField.tag = indexPath.row;
+            
+            //            inputTextField.tag = indexPath.row;
             [cell.contentView addSubview:inputTextField];
             [cell.contentView addSubview:studentSidLabel];
             [cell.contentView addSubview:studentNameLabel];
@@ -258,47 +258,47 @@
     
 }
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
 /*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
 
 /*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ }
+ */
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

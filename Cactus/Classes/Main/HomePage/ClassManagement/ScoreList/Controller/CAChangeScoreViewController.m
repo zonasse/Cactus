@@ -9,19 +9,19 @@
 #import "CAChangeScoreViewController.h"
 
 @interface CAChangeScoreViewController ()
+///更改过的分数值
 @property (nonatomic,strong) NSMutableArray *modifiedPoints;
+///提示框输入框
 @property (nonatomic,strong) UITextField *pointTextField;
+///保存按钮
 @property (nonatomic,strong) UIAlertAction *saveAction;
+
 @end
 
 @implementation CAChangeScoreViewController
 
-- (NSMutableArray *)modifiedPoints{
-    if (!_modifiedPoints) {
-        _modifiedPoints = [NSMutableArray array];
-    }
-    return _modifiedPoints;
-}
+#pragma mark - life cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"修改成绩";
@@ -40,6 +40,8 @@
     
     self.navigationItem.leftBarButtonItem = leftItem;
 }
+#pragma mark - event response
+
 - (void)cancel{
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
@@ -68,17 +70,17 @@
             [subjects addObject:dict];
         }
         params[@"subjects"] = subjects;
-
+        
         [ShareDefaultHttpTool PUTWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
         } success:^(id responseObject) {
             NSDictionary *responseDict = responseObject;
             [MBProgressHUD hideHUD];
-
+            
             if([responseDict[@"code"] isEqualToString:@"1033"]){
                 [MBProgressHUD showSuccess:@"修改成功"];
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
-
+                
                 [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 }];
             }else{
@@ -86,12 +88,14 @@
             }
         } failure:^(NSError *error) {
             [MBProgressHUD hideHUD];
-
+            
         }];
     });
-
+    
 }
-#pragma mark - Table view data source
+#pragma mark - delegete and datasource methods
+
+#pragma mark -- table view delegate/datasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -118,7 +122,7 @@
         }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
+    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.textLabel.text = @"学生姓名";
@@ -182,7 +186,9 @@
         }];
     }
 }
-// 监听文字改变的方法
+/**
+ 监听文字改变
+ */
 - (void)textFieldDidChange:(UITextField *)textField {
     
     if (_pointTextField.text.length > 0) {
@@ -191,48 +197,16 @@
         _saveAction.enabled = NO;
     }
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+
+#pragma mark - getters and setters
+
+- (NSMutableArray *)modifiedPoints{
+    if (!_modifiedPoints) {
+        _modifiedPoints = [NSMutableArray array];
+    }
+    return _modifiedPoints;
 }
-*/
+#pragma mark - private
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
+#pragma mark - notification methods
 @end
