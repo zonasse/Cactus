@@ -1,14 +1,14 @@
 //
-//  CATeacher.m
+//  CATeacherModel.m
 //  Cactus
 //
 //  Created by 钟奇龙 on 2018/9/26.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //  
 
-#import "CATeacher.h"
+#import "CATeacherModel.h"
 
-@implementation CATeacher
+@implementation CATeacherModel
 
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){

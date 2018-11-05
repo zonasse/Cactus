@@ -8,7 +8,7 @@
 
 #import "CAStudentListViewController.h"
 #import "ExcelView.h"
-#import "CAStudent.h"
+#import "CAStudentModel.h"
 @interface CAStudentListViewController ()
 @property (nonatomic,strong) ExcelView *excelView;
 @property(nonatomic,strong) NSMutableArray *leftTableDataArray;//表格第一列数据
@@ -65,7 +65,7 @@
         
         
         
-        NSString *urlString = [baseURL stringByAppendingString:@"student/display"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"student/display"];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDefaults valueForKey:@"userToken"];
@@ -83,7 +83,7 @@
                 NSArray *subjects = responseObject[@"subjects"];
                 NSLog(@"%@",subjects);
                 for (NSDictionary *dict in subjects) {
-                    CAStudent *student = [[CAStudent alloc] initWithDict:dict];
+                    CAStudentModel *student = [[CAStudentModel alloc] initWithDict:dict];
                     [weakSelf.students addObject:student];
                 }
                 [self getScoreData];
@@ -97,7 +97,7 @@
 
 #pragma mark --设置表格
 - (void)setupExcelView{
-    _excelView=[[ExcelView alloc]initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY)];
+    _excelView=[[ExcelView alloc]initWithFrame:CGRectMake(0, kTABBAR_START_Y, kSCREEN_WIDTH, kSCREEN_HEIGHT-44-kTABBAR_START_Y)];
     
     _excelView.isLockFristColumn=YES;
     _excelView.isLockFristRow=YES;
@@ -111,7 +111,7 @@
     NSArray *headTitles = @[@"id",@"学号",@"姓名",@"学年",@"专业id"];
     [self.allTableDataArray addObject:headTitles];
     for (int i=0; i<10; ++i) {
-        for (CAStudent *student in _students) {
+        for (CAStudentModel *student in _students) {
             NSMutableArray *rowArray = [NSMutableArray array];
             [rowArray addObject:[NSString stringWithFormat:@"%ld", student._id]];
             [rowArray addObject:student.sid];

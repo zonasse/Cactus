@@ -1,15 +1,15 @@
 //
-//  CATitle.m
+//  CATitleModel.m
 //  Cactus
 //
 //  Created by 钟奇龙 on 2018/9/26.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //
 
-#import "CATitle.h"
-@interface CATitle()<NSMutableCopying>
+#import "CATitleModel.h"
+@interface CATitleModel()<NSMutableCopying>
 @end
-@implementation CATitle
+@implementation CATitleModel
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
         self._id = [dict[@"id"] integerValue];
@@ -24,7 +24,7 @@
     return [[self alloc] initWithDict:dict];
 }
 - (id)mutableCopyWithZone:(NSZone *)zone{
-    CATitle *copy = [[CATitle alloc] init];
+    CATitleModel *copy = [[CATitleModel alloc] init];
     copy._id = self._id;
     copy.name = self.name;
     copy.weight = self.weight;

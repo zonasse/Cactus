@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CAStudent.h"
-#import "CATitle.h"
-#import "CAPoint.h"
+#import "CAStudentModel.h"
+#import "CATitleModel.h"
+#import "CAPointModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAChangeScoreViewController : UITableViewController
-@property (nonatomic,strong)CAStudent *student;
+@property (nonatomic,strong)CAStudentModel *student;
 @property (nonatomic,strong)NSArray *titles;
 @property (nonatomic,strong)NSDictionary *hashMap;
 @end

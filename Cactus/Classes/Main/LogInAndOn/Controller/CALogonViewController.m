@@ -86,7 +86,7 @@ const CGFloat INTERVAL_KEYBOARD = 50;
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSDictionary *params = @{@"username":self.accountTextField.text,@"password":self.passwordTextField.text};
-    [manager POST:[baseURL stringByAppendingString:@"/user/logout"] parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+    [manager POST:[kBASE_URL stringByAppendingString:@"/user/logout"] parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *responseDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
@@ -98,7 +98,7 @@ const CGFloat INTERVAL_KEYBOARD = 50;
             [MBProgressHUD showSuccess:@"注册成功"];
             CAHomePageViewController *homePageVC = [[CAHomePageViewController alloc] init];
             //设置课程主页用户
-            homePageVC.teacher = [[CATeacher alloc] initWithDict:@{}];
+            homePageVC.teacher = [[CATeacherModel alloc] initWithDict:@{}];
             UINavigationController *homePageNav = [[UINavigationController alloc] initWithRootViewController:homePageVC];
             [self presentViewController:homePageNav animated:YES completion:^{
                 
@@ -117,13 +117,14 @@ const CGFloat INTERVAL_KEYBOARD = 50;
 #pragma mark --设置子控件
 - (void)setupSubView{
     //设置位置
-    self.backgroundScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    static int leftEdge = 20;
+    self.backgroundScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT)];
     UITapGestureRecognizer *tapGeature = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(exitKeyboard)];
     tapGeature.cancelsTouchesInView = NO;//设置成NO表示当前控件响应后会传播到其他控件上，默认为YES。
     [_backgroundScrollView addGestureRecognizer:tapGeature];
     
     self.backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 100, 50)];
-    self.accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, _backButton.getMaxY+20, SCREEN_WIDTH-2*leftEdge, 44)];
+    self.accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, _backButton.getMaxY+20, kSCREEN_WIDTH-2*leftEdge, 44)];
     self.passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, _accountTextField.getMaxY+20, _accountTextField.width, _accountTextField.height)];
     self.confirmPasswordTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, _passwordTextField.getMaxY+20, _accountTextField.width, _accountTextField.height)];
     self.nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, _confirmPasswordTextField.getMaxY+20, _accountTextField.width, _accountTextField.height)];
@@ -144,7 +145,7 @@ const CGFloat INTERVAL_KEYBOARD = 50;
     [self.backgroundScrollView addSubview:_logonButton];
     //设置内容
     self.backgroundScrollView.delegate = self;
-    self.backgroundScrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+100);
+    self.backgroundScrollView.contentSize = CGSizeMake(kSCREEN_WIDTH, kSCREEN_HEIGHT+100);
     [self.backButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ec91", 34, [UIColor grayColor])] forState:UIControlStateNormal];
     self.backButton.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 60);
     self.backButton.titleEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 0);

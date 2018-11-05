@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CATitle.h"
+#import "CATitleModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAAddPointTitleViewController : UITableViewController
 
 @property (nonatomic,strong)NSArray *students;
-@property (nonatomic,strong)CATitle *pointTitle;
+@property (nonatomic,strong)CATitleModel *pointTitle;
 @property (nonatomic,strong)NSDictionary *hashMap;
 @end
 

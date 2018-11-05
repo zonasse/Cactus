@@ -1,13 +1,13 @@
 //
-//  CAPoint.m
+//  CAPointModel.m
 //  Cactus
 //
 //  Created by 钟奇龙 on 2018/9/26.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //
 
-#import "CAPoint.h"
-@implementation CAPoint
+#import "CAPointModel.h"
+@implementation CAPointModel
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
         self.classInfo_id = [dict[@"classInfo_id"] integerValue];
@@ -26,7 +26,7 @@
 #pragma mark 重写父类的方法
 
 - (id)copyWithZone:(NSZone *)zone{
-    CAPoint *copy = [[self class] allocWithZone:zone];
+    CAPointModel *copy = [[self class] allocWithZone:zone];
     copy.classInfo_id = self.classInfo_id;
     copy.student_id = self.student_id;
     copy.pointNumber = self.pointNumber;
@@ -36,7 +36,7 @@
     return copy;
 }
 - (id)mutableCopyWithZone:(NSZone *)zone{
-    CAPoint *copy = [[CAPoint alloc] init];
+    CAPointModel *copy = [[CAPointModel alloc] init];
     copy.classInfo_id = self.classInfo_id;
     copy.student_id = self.student_id;
     copy.pointNumber = self.pointNumber;

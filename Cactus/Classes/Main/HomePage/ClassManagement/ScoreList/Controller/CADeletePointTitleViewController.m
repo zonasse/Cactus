@@ -7,7 +7,7 @@
 //
 
 #import "CADeletePointTitleViewController.h"
-#import "CATitle.h"
+#import "CATitleModel.h"
 @interface CADeletePointTitleViewController ()
 @property (nonatomic,strong) NSMutableArray *deletedTitles;
 @end
@@ -49,13 +49,13 @@
     }
     [MBProgressHUD showMessage:@"删除请求提交中"];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *urlString = [baseURL stringByAppendingString:@"title/format"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"title/format"];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDefaults valueForKey:@"userToken"];
         params[@"token"] = token;
         NSMutableArray *subjects = [NSMutableArray array];
-        for (CATitle *title in self.deletedTitles) {
+        for (CATitleModel *title in self.deletedTitles) {
             [subjects addObject:@{@"id":[NSString stringWithFormat:@"%ld",title._id ]}];
         }
         params[@"subjects"] = subjects;
@@ -101,14 +101,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellID = @"deletePointTitleCell";
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
-        CATitle *title = self.titles[indexPath.row];
+        CATitleModel *title = self.titles[indexPath.row];
         cell.textLabel.text = title.name;
         cell.detailTextLabel.text = @"删除";
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    CATitle *title = self.titles[indexPath.row];
+    CATitleModel *title = self.titles[indexPath.row];
     [self.deletedTitles addObject:title];
     [self.titles removeObject:title];
     [self.tableView reloadData];

@@ -9,9 +9,9 @@
 #import "CALoginViewController.h"
 #import "CALogonViewController.h"
 #import "CAHomePageViewController.h"
-#import "CATeacher.h"
-#import "CACollege.h"
-#import "CAClass.h"
+#import "CATeacherModel.h"
+#import "CACollegeModel.h"
+#import "CAClassModel.h"
 #import "CAMD5Tool.h"
 @interface CALoginViewController ()
 @property (strong, nonatomic) UIImageView *backgroundImageView;
@@ -40,8 +40,9 @@
 #pragma mark ------ 设置子控件
 - (void)setupSubView{
     //1.设置子控件位置
-    self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    self.AvatarView = [[UIImageView alloc] initWithFrame:CGRectMake(leftEdge, 44, SCREEN_WIDTH-2*leftEdge, 100)];
+    static int leftEdge = 20;
+    self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,kSCREEN_WIDTH, kSCREEN_HEIGHT)];
+    self.AvatarView = [[UIImageView alloc] initWithFrame:CGRectMake(leftEdge, 44, kSCREEN_WIDTH-2*leftEdge, 100)];
     self.accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, self.AvatarView.getMaxY + 20, self.AvatarView.width, 50)];
     self.passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, _accountTextField.getMaxY + 20, _accountTextField.width, _accountTextField.height)];
     self.loginButton = [[UIButton alloc] initWithFrame:CGRectMake(leftEdge, _passwordTextField.getMaxY + 30, _passwordTextField.width , 50)];
@@ -107,7 +108,7 @@
     }
     [MBProgressHUD showMessage:@"登录中..."];
     
-    NSString *urlString = [baseURL stringByAppendingString:@"user/login"];
+    NSString *urlString = [kBASE_URL stringByAppendingString:@"user/login"];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"tid"] = self.accountTextField.text;
 #warning 此处做密码加密

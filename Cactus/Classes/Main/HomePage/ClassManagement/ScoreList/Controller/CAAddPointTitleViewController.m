@@ -8,13 +8,12 @@
 
 #import "CAAddPointTitleViewController.h"
 #import "CAAddPointTitleCell.h"
-#import "CAStudent.h"
-#import "CAPoint.h"
+#import "CAStudentModel.h"
+#import "CAPointModel.h"
 @interface CAAddPointTitleViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong) NSMutableArray *modifiedPoints;
 @property (nonatomic,strong) NSMutableArray *textFields;
 @end
-
 @implementation CAAddPointTitleViewController
 
 - (NSMutableArray *)modifiedPoints{
@@ -64,15 +63,15 @@
                 [MBProgressHUD showError:@"请输入合适的分数列名称"];
                 return;
             }
-            self.pointTitle = [[CATitle alloc] init];
+            self.pointTitle = [[CATitleModel alloc] init];
             self.pointTitle.name = currentTextField.text;
         }else{
             if ([currentTextField.text isEqualToString:@""]) {
                 continue;
             }
-            CAStudent *currentStudent = self.students[i-1];
+            CAStudentModel *currentStudent = self.students[i-1];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            CAPoint *newPoint = [[CAPoint alloc] init];
+            CAPointModel *newPoint = [[CAPointModel alloc] init];
             newPoint.classInfo_id = [[userDefaults valueForKey:@"currentClassInfo_id"] integerValue];
             newPoint.student_id = currentStudent._id;
             newPoint.pointNumber = [currentTextField.text integerValue];
@@ -89,7 +88,7 @@
     __block BOOL tag = YES;
     dispatch_group_async(group, queue, ^{
         //1.插入分数列
-        NSString *urlString = [baseURL stringByAppendingString:@"title/format"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"title/format"];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDefaults valueForKey:@"userToken"];
@@ -126,14 +125,14 @@
             return;
         }
         //2.插入每个分数
-        NSString *urlString = [baseURL stringByAppendingString:@"point/format"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];
 
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDefaults valueForKey:@"userToken"];
         params[@"token"] = token;
         NSMutableArray *subjects = [NSMutableArray array];
-        for (CAPoint *point in self.modifiedPoints) {
+        for (CAPointModel *point in self.modifiedPoints) {
             point.title_id = self.pointTitle._id;
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             dict[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", point.classInfo_id];
@@ -201,7 +200,7 @@
 //            cell.studentNameLabel.text = student.name;
 //        }
         if (indexPath.section == 0) {
-            UITextField *inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, SCREEN_WIDTH-20, cell.height-10)];
+            UITextField *inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, kSCREEN_WIDTH-20, cell.height-10)];
             inputTextField.borderStyle = UITextBorderStyleRoundedRect;
             inputTextField.delegate = self;
             [self.textFields addObject:inputTextField];
@@ -211,7 +210,7 @@
         }else{
             UILabel *studentSidLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 100, cell.height-10)];
             UILabel *studentNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(studentSidLabel.getMaxX + 5, studentSidLabel.y, studentSidLabel.width, studentSidLabel.height)];
-            UITextField *inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-100-10, 5, 100, cell.height-10)];
+            UITextField *inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(kSCREEN_WIDTH-100-10, 5, 100, cell.height-10)];
 //            inputTextField.backgroundColor = [UIColor lightGrayColor];
             inputTextField.borderStyle = UITextBorderStyleRoundedRect;
             inputTextField.delegate = self;
@@ -222,7 +221,7 @@
             [cell.contentView addSubview:inputTextField];
             [cell.contentView addSubview:studentSidLabel];
             [cell.contentView addSubview:studentNameLabel];
-            CAStudent *student = self.students[indexPath.row];
+            CAStudentModel *student = self.students[indexPath.row];
             studentSidLabel.text = student.sid;
             studentNameLabel.text = student.name;
         }

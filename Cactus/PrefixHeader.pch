@@ -20,17 +20,12 @@
 #import "CAHttpTool.h"
 
 #pragma mark --公共变量
-//#define baseURL @"http://119.29.63.216:8000/api/"
-#define baseURL @"http://127.0.0.1:8000/api/"
+//#define kBASE_URL @"http://119.29.63.216:8000/api/"
+#define kBASE_URL @"http://127.0.0.1:8000/api/"
 
-#define classInfoCellHeight 88
-#define tabbarVCStartY 64
-#define leftEdge 20
-#define rightEdge 20
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-#define RGB(r,g,b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0]
-// Include any system framework and library headers here that should be included in all compilation units.
-// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#define kTABBAR_START_Y 64
+#define kSCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define kSCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define kRGB(r,g,b) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:1.0]
 
 #endif /* PrefixHeader_pch */

@@ -58,9 +58,9 @@
         NSString *token = [userDefaults valueForKey:@"userToken"];
         params[@"token"] = token;
         
-        NSString *urlString = [baseURL stringByAppendingString:@"point/format"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];
         NSMutableArray *subjects = [NSMutableArray array];
-        for (CAPoint *point in self.modifiedPoints) {
+        for (CAPointModel *point in self.modifiedPoints) {
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber ];
             dict[@"student_id"] = [NSString stringWithFormat:@"%ld",point.student_id];
@@ -128,10 +128,10 @@
             cell.detailTextLabel.text = self.student.sid;
         }
     }else{
-        CATitle *title = self.titles[indexPath.row];
+        CATitleModel *title = self.titles[indexPath.row];
         NSString *student_id_str = [NSString stringWithFormat:@"%ld",_student._id];
         NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
-        CAPoint *point = _hashMap[student_id_str][title_id_str];
+        CAPointModel *point = _hashMap[student_id_str][title_id_str];
         cell.textLabel.text = title.name;
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",point.pointNumber];
     }
@@ -142,10 +142,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section != 0) {
-        CATitle *title = self.titles[indexPath.row];
+        CATitleModel *title = self.titles[indexPath.row];
         NSString *student_id_str = [NSString stringWithFormat:@"%ld",_student._id];
         NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
-        CAPoint *point = _hashMap[student_id_str][title_id_str];
+        CAPointModel *point = _hashMap[student_id_str][title_id_str];
         /*
          * 弹出分数修改提示框
          */

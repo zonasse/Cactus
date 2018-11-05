@@ -1,14 +1,14 @@
 //
-//  CAClassInfo.m
+//  CAClassInfoModel.m
 //  Cactus
 //
 //  Created by 钟奇龙 on 2018/9/26.
 //  Copyright © 2018年 钟奇龙. All rights reserved.
 //
 
-#import "CAClassInfo.h"
+#import "CAClassInfoModel.h"
 
-@implementation CAClassInfo
+@implementation CAClassInfoModel
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
         self._id = [dict[@"id"] integerValue];

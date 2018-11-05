@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CAClassInfo.h"
+#import "CAClassInfoModel.h"
 @interface CAStudentListViewController : UIViewController
-@property(nonatomic, strong) CAClassInfo *classInfo;
+@property(nonatomic, strong) CAClassInfoModel *classInfo;
 @end

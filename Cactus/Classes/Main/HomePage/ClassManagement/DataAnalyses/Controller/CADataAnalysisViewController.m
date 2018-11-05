@@ -9,11 +9,13 @@
 #import "CADataAnalysisViewController.h"
 #import "CADataAnalysisContentView.h"
 @interface CADataAnalysisViewController ()
+///替换视图
 @property (nonatomic,strong) CADataAnalysisContentView *contentView;
 @property (nonatomic,assign) BOOL firstAppear;
 @end
 
 @implementation CADataAnalysisViewController
+#pragma mark - life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,21 +27,22 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"hideRightItemNotification" object:nil];
     if (!_firstAppear) {
         _firstAppear = YES;
-        _contentView = [[CADataAnalysisContentView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY)];
-        _contentView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT + 600);
+        //添加替换视图
+        _contentView = [[CADataAnalysisContentView alloc] initWithFrame:CGRectMake(0, kTABBAR_START_Y, kSCREEN_WIDTH, kSCREEN_HEIGHT-44-kTABBAR_START_Y)];
+        _contentView.contentSize = CGSizeMake(kSCREEN_WIDTH, kSCREEN_HEIGHT + 600);
         _contentView.showsVerticalScrollIndicator = YES;
         _contentView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_contentView];
     }
 }
-/*
-#pragma mark - Navigation
+#pragma mark - event response
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+#pragma mark - delegete and datasource methods
+
+#pragma mark - getters and setters
+
+#pragma mark - private
+
+#pragma mark - notification methods
 
 @end

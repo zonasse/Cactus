@@ -12,21 +12,28 @@
 #import "CADeletePointTitleViewController.h"
 #import "YWExcelView.h"
 #import "YCXMenu.h"
-#import "CAPoint.h"
-#import "CATitle.h"
-#import "CAStudent.h"
+#import "CAPointModel.h"
+#import "CATitleModel.h"
+#import "CAStudentModel.h"
 #import "NSDictionary+CADictionaryDeepCopy.h"
 @interface CAScoreListViewController ()<YWExcelViewDelegate,YWExcelViewDataSource>
+///excel视图
 @property (nonatomic,strong) YWExcelView *excelView;
+///excel视图模式
 @property (nonatomic,strong) YWExcelViewMode *excelViewMode;
+///excel视图表头标题数组
 @property (nonatomic,strong) NSMutableArray *headTextsArray;
+///学生对象数组
+@property (nonatomic,strong) NSMutableArray *students;
+///分数对象数组
+@property (nonatomic,strong) NSMutableArray *points;
+///分数列对象数组
+@property (nonatomic,strong) NSMutableArray *titles;
+///学生-分数-分数列字典
+@property (nonatomic,strong) NSMutableDictionary *hashMap;
+
 @property (nonatomic,assign) BOOL firstAppear;
 
-@property (nonatomic,strong) NSMutableArray *students;
-@property (nonatomic,strong) NSMutableArray *points;
-@property (nonatomic,strong) NSMutableArray *titles;
-
-@property (nonatomic,strong) NSMutableDictionary *hashMap;
 @end
 
 @implementation CAScoreListViewController
@@ -80,7 +87,7 @@
 - (void)setupExcelView{
     [self.headTextsArray addObject:@"学号"];
     [_headTextsArray addObject:@"姓名"];
-    for (CATitle *title in self.titles) {
+    for (CATitleModel *title in self.titles) {
         [_headTextsArray addObject:title.name];
     }
     
@@ -89,7 +96,7 @@
     _excelViewMode.style = YWExcelViewStyleDefalut;
     _excelViewMode.defalutHeight = 40;
     //推荐使用这样初始化
-    _excelView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, tabbarVCStartY, SCREEN_WIDTH, SCREEN_HEIGHT-44-tabbarVCStartY) mode:_excelViewMode];
+    _excelView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, kTABBAR_START_Y, kSCREEN_WIDTH, kSCREEN_HEIGHT-44-kTABBAR_START_Y) mode:_excelViewMode];
     _excelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _excelView.dataSource = self;
     _excelView.showBorder = YES;
@@ -105,10 +112,10 @@
     menuLabel.text = _ctl;
     [self.view addSubview:menuLabel];
     _hashMap = [NSMutableDictionary dictionary];
-    for (CAStudent *student in self.students) {
+    for (CAStudentModel *student in self.students) {
         NSMutableDictionary *inner = [NSMutableDictionary dictionary];
-        for (CATitle *title in self.titles) {
-            for (CAPoint *point in self.points) {
+        for (CATitleModel *title in self.titles) {
+            for (CAPointModel *point in self.points) {
                 if (point.student_id == student._id && point.title_id == title._id) {
                     NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
                     [inner setValue:point forKey:title_id_str];
@@ -122,15 +129,15 @@
    
     _list = [NSMutableArray array];
     for (int i=0; i<10; ++i) {
-        for (CAStudent *student in self.students) {
+        for (CAStudentModel *student in self.students) {
             NSMutableArray *rowArray = [NSMutableArray array];
             [rowArray addObject:student.sid];
             [rowArray addObject:student.name];
-            for (CATitle *title in self.titles) {
+            for (CATitleModel *title in self.titles) {
 //                BOOL flag = NO;
                 NSString *student_id_str = [NSString stringWithFormat:@"%ld",student._id];
                 NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
-                CAPoint *point = _hashMap[student_id_str][title_id_str];
+                CAPointModel *point = _hashMap[student_id_str][title_id_str];
                 if (point.pointNumber) {
                     [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
                 }else{
@@ -173,7 +180,7 @@
         [items addObject:addTitleItem];
         [items addObject:deleteTitleItem];
         
-        [YCXMenu showMenuInView:self.view fromRect:CGRectMake(self.view.frame.size.width - 50, tabbarVCStartY, 50, 0) menuItems:items selected:^(NSInteger index, YCXMenuItem *item) {
+        [YCXMenu showMenuInView:self.view fromRect:CGRectMake(self.view.frame.size.width - 50, kTABBAR_START_Y, 50, 0) menuItems:items selected:^(NSInteger index, YCXMenuItem *item) {
             NSLog(@"%@",item);
         }];
     }
@@ -200,14 +207,14 @@
 }
 - (void)touchPointCell:(NSNotification*) noti{
     NSArray *labels = noti.object;
-    CAStudent *currentStudent;
+    CAStudentModel *currentStudent;
     NSMutableArray *currentTitles = [NSMutableArray array];
     for (UILabel *label in labels) {
         if (label.tag == -1) {
             continue;
         }
         currentStudent = self.students[label.tag/self.titles.count];
-        CATitle *title = self.titles[label.tag%self.titles.count];
+        CATitleModel *title = self.titles[label.tag%self.titles.count];
         [currentTitles addObject:title];
         NSLog(@"%@ %@",currentStudent.name,title.name);
 
@@ -240,13 +247,13 @@
     params[@"classInfo_id"] = @"1";
     //1.请求分数
     dispatch_group_async(group, queue, ^{
-        NSString *urlString = [baseURL stringByAppendingString:@"point/display"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"point/display"];
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
         } success:^(id responseObject) {
             NSArray *subjects = responseObject[@"subjects"];
             for (NSDictionary *dict in subjects) {
-                CAPoint *point = [[CAPoint alloc] initWithDict:dict];
+                CAPointModel *point = [[CAPointModel alloc] initWithDict:dict];
                 [weakSelf.points addObject:point];
             }
             
@@ -258,14 +265,14 @@
     });
     //2.请求学生列表
     dispatch_group_async(group, queue, ^{
-        NSString *urlString = [baseURL stringByAppendingString:@"student/display"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"student/display"];
         
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
         } success:^(id responseObject) {
             NSArray *subjects = responseObject[@"subjects"];
             for (NSDictionary *dict in subjects) {
-                CAStudent *student = [[CAStudent alloc] initWithDict:dict];
+                CAStudentModel *student = [[CAStudentModel alloc] initWithDict:dict];
                 [weakSelf.students addObject:student];
             }
             
@@ -278,14 +285,14 @@
     });
     //3.请求分数项
     dispatch_group_async(group, queue, ^{
-        NSString *urlString = [baseURL stringByAppendingString:@"title/display"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"title/display"];
         
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
         } success:^(id responseObject) {
             NSArray *subjects = responseObject[@"subjects"];
             for (NSDictionary *dict in subjects) {
-                CATitle *title = [[CATitle alloc] initWithDict:dict];
+                CATitleModel *title = [[CATitleModel alloc] initWithDict:dict];
                 [weakSelf.titles addObject:title];
             }
             dispatch_semaphore_signal(semaphore);

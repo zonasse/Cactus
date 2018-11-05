@@ -12,25 +12,37 @@
 #import "Cactus-Bridging-Header.h"
 #import <Charts/Charts.h>
 @interface CADataAnalysisContentView()<ChartViewDelegate>
-@property(nonatomic,strong) PieChartView *pieView;//饼图
-@property(nonatomic,strong) PieChartData *pieData;//饼图数据
-@property(nonatomic,strong) BarChartView *barView;//柱状图
-@property(nonatomic,strong) BarChartData *barData;//柱状图数据
-@property(nonatomic,strong) LineChartView *lineView;//折线图
-@property(nonatomic,strong) LineChartData *lineData;//折线图数据
+///饼图
+@property(nonatomic,strong) PieChartView *pieView;
+///饼图数据
+@property(nonatomic,strong) PieChartData *pieData;
+///柱状图
+@property(nonatomic,strong) BarChartView *barView;
+///柱状图数据
+@property(nonatomic,strong) BarChartData *barData;
+///折线图
+@property(nonatomic,strong) LineChartView *lineView;
+///折线图数据
+@property(nonatomic,strong) LineChartData *lineData;
 @property(nonatomic,assign) BOOL firstBuild;
 
 @end
 @implementation CADataAnalysisContentView
+#pragma mark - life cycle
 
 - (void)drawRect:(CGRect)rect{
     if(_firstBuild == NO){
         _firstBuild = YES;
+        //1.创建饼图
         [self setupPieChartView];
+        //2.创建柱状图
         [self setupBarChartView];
+        //3.创建折线图
         [self setupLineChartView];
     }
 }
+#pragma mark - event response
+
 #pragma mark --创建饼图
 - (void)setupPieChartView{
     //1.
@@ -88,6 +100,7 @@
     [_pieView animateWithXAxisDuration:1.4 easingOption:ChartEasingOptionEaseOutBack];
     [self setPieViewDataCount:5 range:14.0];
 }
+
 - (void)setPieViewDataCount:(int)count range:(double)range
 {
     double mult = range;
@@ -133,10 +146,11 @@
     _pieView.data = data;
     [_pieView highlightValues:nil];
 }
+
 #pragma mark --创建柱状图
 -(void)setupBarChartView{
     //1.
-    _barView = [[BarChartView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pieView.frame)+20, SCREEN_WIDTH, 300)];
+    _barView = [[BarChartView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_pieView.frame)+20, kSCREEN_WIDTH, 300)];
     _barView.backgroundColor = [UIColor whiteColor];
     [self addSubview:_barView];
     _barView.chartDescription.enabled = NO;
@@ -148,7 +162,7 @@
     _barView.pinchZoomEnabled = NO;
     
     // ChartYAxis *leftAxis = chartView.leftAxis;
-
+    
     
     _barView.rightAxis.enabled = NO;
     //2.
@@ -165,7 +179,7 @@
     xAxis.drawGridLinesEnabled = NO;
     xAxis.granularity = 1.0; // only intervals of 1 day
     xAxis.labelCount = 7;
-//    xAxis.valueFormatter = [[DayAxisValueFormatter alloc] initForChart:_barView];
+    //    xAxis.valueFormatter = [[DayAxisValueFormatter alloc] initForChart:_barView];
     
     NSNumberFormatter *leftAxisFormatter = [[NSNumberFormatter alloc] init];
     leftAxisFormatter.minimumFractionDigits = 0;
@@ -200,15 +214,15 @@
     l.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.f];
     l.xEntrySpace = 4.0;
     
-//    XYMarkerView *marker = [[XYMarkerView alloc]
-//                            initWithColor: [UIColor colorWithWhite:180/255. alpha:1.0]
-//                            font: [UIFont systemFontOfSize:12.0]
-//                            textColor: UIColor.whiteColor
-//                            insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
-//                            xAxisValueFormatter: _chartView.xAxis.valueFormatter];
-//    marker.chartView = _chartView;
-//    marker.minimumSize = CGSizeMake(80.f, 40.f);
-//    _chartView.marker = marker;
+    //    XYMarkerView *marker = [[XYMarkerView alloc]
+    //                            initWithColor: [UIColor colorWithWhite:180/255. alpha:1.0]
+    //                            font: [UIFont systemFontOfSize:12.0]
+    //                            textColor: UIColor.whiteColor
+    //                            insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)
+    //                            xAxisValueFormatter: _chartView.xAxis.valueFormatter];
+    //    marker.chartView = _chartView;
+    //    marker.minimumSize = CGSizeMake(80.f, 40.f);
+    //    _chartView.marker = marker;
     
     [self setBarViewDataCount:10 range:10.0];
 }
@@ -256,7 +270,7 @@
 }
 #pragma mark --创建折线图
 -(void) setupLineChartView{
-    _lineView = [[LineChartView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_barView.frame)+20, SCREEN_WIDTH, 300)];
+    _lineView = [[LineChartView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_barView.frame)+20, kSCREEN_WIDTH, 300)];
     [self addSubview:_lineView];
     _lineView.delegate = self;
     
@@ -306,18 +320,18 @@
     //[_chartView.viewPortHandler setMaximumScaleY: 2.f];
     //[_chartView.viewPortHandler setMaximumScaleX: 2.f];
     
-//    BalloonMarker *marker = [[BalloonMarker alloc]
-//                             initWithColor: [UIColor colorWithWhite:180/255. alpha:1.0]
-//                             font: [UIFont systemFontOfSize:12.0]
-//                             textColor: UIColor.whiteColor
-//                             insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)];
-//    marker.chartView = _lineView;
-//    marker.minimumSize = CGSizeMake(80.f, 40.f);
-//    _lineView.marker = marker;
+    //    BalloonMarker *marker = [[BalloonMarker alloc]
+    //                             initWithColor: [UIColor colorWithWhite:180/255. alpha:1.0]
+    //                             font: [UIFont systemFontOfSize:12.0]
+    //                             textColor: UIColor.whiteColor
+    //                             insets: UIEdgeInsetsMake(8.0, 8.0, 20.0, 8.0)];
+    //    marker.chartView = _lineView;
+    //    marker.minimumSize = CGSizeMake(80.f, 40.f);
+    //    _lineView.marker = marker;
     
     _lineView.legend.form = ChartLegendFormLine;
     
-
+    
     
     [_lineView animateWithXAxisDuration:2.5];
     [self setLineViewDataCount:10 range:10];
@@ -379,7 +393,9 @@
     }
 }
 
-#pragma mark - ChartViewDelegate
+#pragma mark - delegete and datasource methods
+
+#pragma mark -- ChartViewDelegate
 
 - (void)chartValueSelected:(ChartViewBase * __nonnull)chartView entry:(ChartDataEntry * __nonnull)entry highlight:(ChartHighlight * __nonnull)highlight
 {
@@ -390,5 +406,10 @@
 {
     NSLog(@"chartValueNothingSelected");
 }
+#pragma mark - getters and setters
+
+#pragma mark - private
+
+#pragma mark - notification methods
 
 @end

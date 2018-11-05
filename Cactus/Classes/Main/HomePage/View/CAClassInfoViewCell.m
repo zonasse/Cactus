@@ -8,85 +8,68 @@
 
 #import "CAClassInfoViewCell.h"
 @interface CAClassInfoViewCell()
+///替换视图
+@property (nonatomic,strong) UIImageView *replaceContentImageView;
+///教学班图片
+@property (nonatomic,strong) UIImageView *classInfoImageView;
+///教学班名称文本
+@property (nonatomic,strong) UILabel *classInfoNameLabel;
+///教学班学生数量文本
+@property (nonatomic,strong) UILabel *classInfoStudentNumberLabel;
+///教学班上课时间文本
+@property (nonatomic,strong) UILabel *classInfoTimeLabel;
+///教学班上课地点文本
+@property (nonatomic,strong) UILabel *classInfoRoomLabel;
 
-@property(nonatomic,strong) UIImageView *replaceContentView;
-@property(nonatomic,strong) UILabel *lessonNameLabel;
-@property(nonatomic,strong) UILabel *lessonClassLabel;
-@property(nonatomic,strong) UIImageView *lessonImage;
-@property(nonatomic,strong) UILabel *lessonStudentNumberLabel;
-@property(nonatomic,strong) UILabel *lessonTimeLabel;
-@property(nonatomic,strong) UILabel *lessonClassRoomLabel;
 @end
-@implementation CAClassInfoViewCell
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
+@implementation CAClassInfoViewCell
 
 #pragma mark -- rebuild cell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self){
-        /*
-          * 设置替换视图
-         */
-        self.replaceContentView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, classInfoCellHeight)];
-        self.replaceContentView.userInteractionEnabled = YES;
-        [self.contentView addSubview:self.replaceContentView];
-        //课程图片
-        self.lessonImage = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, classInfoCellHeight-10, classInfoCellHeight-10)];
-        [self.replaceContentView addSubview:self.lessonImage];
-        //课程班名称
-        self.lessonClassLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.lessonImage.frame)+10, self.lessonImage.frame.origin.y, 120, 20)];
-        self.lessonClassLabel.font = [UIFont systemFontOfSize:14];
-        [self.replaceContentView addSubview:self.lessonClassLabel];
-        //课程名称
-        self.lessonNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.lessonClassLabel.frame)+10, self.lessonImage.frame.origin.y, 100, 20)];
-        [self.replaceContentView addSubview:self.lessonNameLabel];
-        self.lessonNameLabel.font = [UIFont systemFontOfSize:12];
+        
+        //设置替换视图
+        static int classInfoCellHeight = 88;
+        self.replaceContentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, classInfoCellHeight)];
+        self.replaceContentImageView.userInteractionEnabled = YES;
+        [self.contentView addSubview:self.replaceContentImageView];
+        //教学班图片
+        self.classInfoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, classInfoCellHeight-20, classInfoCellHeight-20)];
+        [self.replaceContentImageView addSubview:self.classInfoImageView];
+        //教学班班名称
+        self.classInfoNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classInfoImageView.getMaxX+5, self.classInfoImageView.y, 120, 34)];
+        self.classInfoNameLabel.font = [UIFont systemFontOfSize:12];
+        [self.replaceContentImageView addSubview:self.classInfoNameLabel];
 
         //学生人数
-        self.lessonStudentNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.lessonClassLabel.frame.origin.x, CGRectGetMaxY(self.lessonClassLabel.frame)+10, 100, 20)];
-        self.lessonStudentNumberLabel.textColor = [UIColor lightGrayColor];
-        [self.replaceContentView addSubview:self.lessonStudentNumberLabel];
-        self.lessonStudentNumberLabel.font = [UIFont systemFontOfSize:12];
+        self.classInfoStudentNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(kSCREEN_WIDTH-120, self.classInfoNameLabel.y, 120, 34)];
+        self.classInfoStudentNumberLabel.textColor = [UIColor lightGrayColor];
+        [self.replaceContentImageView addSubview:self.classInfoStudentNumberLabel];
+        self.classInfoStudentNumberLabel.font = [UIFont systemFontOfSize:12];
 
         //开课时间
-        self.lessonTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.lessonNameLabel.frame.origin.x, self.lessonStudentNumberLabel.frame.origin.y, 150, 20)];
-        self.lessonTimeLabel.textColor = [UIColor lightGrayColor];
-        [self.replaceContentView addSubview:self.lessonTimeLabel];
-        self.lessonTimeLabel.font = [UIFont systemFontOfSize:12];
+        self.classInfoTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classInfoNameLabel.x, self.classInfoNameLabel.getMaxY, 120, 34)];
+        self.classInfoTimeLabel.textColor = [UIColor lightGrayColor];
+        [self.replaceContentImageView addSubview:self.classInfoTimeLabel];
+        self.classInfoTimeLabel.font = [UIFont systemFontOfSize:12];
 
         //上课地点
-        self.lessonClassRoomLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.lessonClassLabel.frame.origin.x, CGRectGetMaxY(self.lessonStudentNumberLabel.frame)+5, 150, 34)];
-        self.lessonClassRoomLabel.font = [UIFont systemFontOfSize:12];
+        self.classInfoRoomLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classInfoStudentNumberLabel.x, self.classInfoTimeLabel.y, 120, 34)];
+        self.classInfoRoomLabel.font = [UIFont systemFontOfSize:12];
 
-        [self.replaceContentView addSubview:self.lessonClassRoomLabel];
+        [self.replaceContentImageView addSubview:self.classInfoRoomLabel];
     }
     return self;
 }
 #pragma mark --设置课程信息
 -(void) setCellContentInformationWithClassInfoImage:(NSString *)classInfoImage classInfoName:(NSString*) classInfoName classInfoRoom:(NSString *)classInfoRoom{
-    [self.lessonImage sd_setImageWithURL:[NSURL URLWithString:classInfoImage] placeholderImage:[UIImage imageNamed:@"课程占位"]];
-    self.lessonNameLabel.text = classInfoName;
-    self.lessonClassRoomLabel.text = classInfoRoom;
+    [self.classInfoImageView sd_setImageWithURL:[NSURL URLWithString:classInfoImage] placeholderImage:[UIImage imageNamed:@"课程占位"]];
+    self.classInfoNameLabel.text = classInfoName;
+    self.classInfoRoomLabel.text = classInfoRoom;
+    self.classInfoStudentNumberLabel.text = @"学生人数：55";
 }
 
-//-(void) setCellContentInformationWithLessonImage:(NSString *)lessonImage lessonClassName:(NSString*) lessonClassName lessonName:(NSString*)lessonName studentNumber:(NSInteger) studentNumber lessonTime:(NSString *)lessonTime classRoom:(NSString *)classRoom{
-//
-//    [self.lessonImage sd_setImageWithURL:[NSURL URLWithString:lessonImage] placeholderImage:[UIImage imageNamed:@"课程占位"]];
-//    self.lessonClassLabel.text = lessonClassName;
-//    self.lessonNameLabel.text = lessonName;
-//    self.lessonStudentNumberLabel.text = [NSString stringWithFormat:@"学生人数: %ld",studentNumber];
-//    self.lessonTimeLabel.text = [NSString stringWithFormat:@"时间: %@",lessonTime];
-//    self.lessonClassRoomLabel.text = [NSString stringWithFormat:@"上课地点: %@",classRoom];
-//}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

@@ -7,7 +7,8 @@
 //  课程管理主页
 
 #import <UIKit/UIKit.h>
-#import "CAClassInfo.h"
+#import "CAClassInfoModel.h"
 @interface CAClassManagementViewController : UITabBarController
-@property(nonatomic,strong) CAClassInfo *classInfo;
+///教学班对象
+@property (nonatomic,strong) CAClassInfoModel *classInfo;
 @end
