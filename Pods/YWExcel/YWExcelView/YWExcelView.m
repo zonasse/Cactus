@@ -341,7 +341,9 @@
     CGFloat totalWidth = 0;
     CGFloat startX = 0;
     for (int  i = 1; i < count; i ++) {
-        UILabel *label = [UILabel new];
+        UIButton *label = [UIButton new];
+#warning 增加tag
+        label.tag = i;
         if (i < arr.count ) {
             CGFloat sW = [arr[i] floatValue];
             label.frame = CGRectMake(startX, 0, sW, _headHeight);
@@ -353,14 +355,18 @@
             totalWidth += _defalutWidth;
         }
         if (i < _headtexts.count) {
-            label.text = _headtexts[i];
+//            label.text = _headtexts[i];
+            [label setTitle:_headtexts[i] forState:UIControlStateNormal];
         }
         if (self.isShowBorder) {
             label.layer.borderWidth = 1;
             label.layer.borderColor = _showBorderColor.CGColor;
         }
-        label.font = [UIFont systemFontOfSize:14];
-        label.textAlignment = NSTextAlignmentCenter;
+//        label.font = [UIFont systemFontOfSize:14];
+//        label.textAlignment = NSTextAlignmentCenter;
+        label.titleLabel.font = [UIFont systemFontOfSize:14];
+        [label setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [label addTarget:self action:@selector(headTextclicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.topScrollView addSubview:label];
     }
     self.topScrollView.contentSize = CGSizeMake(totalWidth, 0);
@@ -369,7 +375,15 @@
     [_headView addSubview:self.topScrollView];
     [_list addObject:self.topScrollView];
 }
-
+#warning hahaha
+- (void)headTextclicked:(UIButton *)sender{
+    if (sender.tag == 1) {
+        return;
+    }else{
+        NSString *headTextIndexString = [NSString stringWithFormat:@"%ld",sender.tag-2];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"headTextClickedNotification" object:headTextIndexString];
+    }
+}
 - (void)creatHeadViewPlayin{
     NSInteger count = [self item];
     NSArray *arr = [self itemWidth];
@@ -382,6 +396,7 @@
     CGFloat startX = 0;
     for (int  i = 0; i < count; i ++) {
         UILabel *label = [UILabel new];
+//        UIButton *label = [UIButton new];
         if (i < arr.count ) {
             CGFloat sW = [arr[i] floatValue];
             label.frame = CGRectMake(startX, 0, sW, _headHeight);
@@ -394,6 +409,8 @@
         }
         if (i < _headtexts.count) {
             label.text = _headtexts[i];
+//            [label setTitle:_headtexts[i] forState:UIControlStateNormal];
+//            [label setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         }
         if (self.isShowBorder) {
             label.layer.borderWidth = 1;
@@ -401,6 +418,8 @@
         }
         label.font = [UIFont systemFontOfSize:14];
         label.textAlignment = NSTextAlignmentCenter;
+        
+//        label.titleLabel.font = [UIFont systemFontOfSize:14];
         [self.topScrollView addSubview:label];
     }
     self.topScrollView.contentSize = CGSizeMake(totalWidth, 0);

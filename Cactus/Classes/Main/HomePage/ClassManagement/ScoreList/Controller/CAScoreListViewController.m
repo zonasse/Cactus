@@ -51,7 +51,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(touchPointCell:) name:@"pointCellTouched" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"pointModifySuccessNotification" object:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"showRightItemNotification" object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headTextClicked:) name:@"headTextClickedNotification" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -434,6 +434,24 @@
     changeScoreVC.titles = currentTitles;
     changeScoreVC.hashMap = [_hashMap mutableDeepCopy];
     
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
+}
+
+/**
+ 点击了标题列
+ */
+- (void)headTextClicked:(NSNotification *)noti{
+    NSInteger headTextIndex = [noti.object integerValue];
+    //跳转到编辑分数列控制器
+    CAEditPointTitleViewController *editPointTitleVC = [[CAEditPointTitleViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:editPointTitleVC];
+    
+    editPointTitleVC.students = self.students;
+    editPointTitleVC.titles = self.titles;
+    editPointTitleVC.pointTitle = self.titles[headTextIndex];
+    editPointTitleVC.hashMap = [self.hashMap mutableDeepCopy];
     [self presentViewController:nav animated:YES completion:^{
         
     }];

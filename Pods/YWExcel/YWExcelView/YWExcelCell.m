@@ -140,6 +140,7 @@
     }
     return _rightScrollView;
 }
+#warning 添加手势jaccob
 -(void)handleTapGesture:( UITapGestureRecognizer *)tapRecognizer
 {
 //    int tapCount = tapRecognizer.numberOfTapsRequired;
