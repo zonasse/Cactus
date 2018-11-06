@@ -43,7 +43,8 @@
    
    
    //3.1异步获取教师数据
-   
+   [MBProgressHUD showMessage:@"教学信息获取中..."];
+   __block BOOL tag = YES;
    dispatch_group_async(group, queue, ^{
       NSString *urlString = [kBASE_URL stringByAppendingString:@"user/info/format"];
       NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -55,16 +56,18 @@
       [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
          
       } success:^(id responseObject) {
-         
-         NSArray *subjects = responseObject[@"subjects"];
-         NSLog(@"%@",subjects[0]);
-         weakSelf.teacherProfileData = subjects[0];
+         NSDictionary *responseDict = responseObject;
+         if ([responseDict[@"code"] isEqualToString:@"1041"]) {
+            tag = NO;
+         }else{
+            NSArray *subjects = responseDict[@"subjects"];
+            weakSelf.teacherProfileData = subjects[0];
+         }
          dispatch_semaphore_signal(semaphore);
          
-         //            [self.homePageView setTeacherProfileData:subjects[0]];
       } failure:^(NSError *error) {
+         tag = NO;
          dispatch_semaphore_signal(semaphore);
-         [MBProgressHUD showError:@"个人信息获取失败"];
       }];
    });
    //3.2异步获取教学班数据
@@ -79,14 +82,19 @@
       [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
          
       } success:^(id responseObject) {
-         NSLog(@"class_info:%@",responseObject);
-         weakSelf.classInfoData = responseObject[@"subjects"];
+         NSDictionary *responseDict = responseObject;
+         if ([responseDict[@"code"] isEqualToString:@"1041"]) {
+            tag = NO;
+         }else{
+            weakSelf.classInfoData = responseDict[@"subjects"];
+
+         }
          dispatch_semaphore_signal(semaphore);
          
       } failure:^(NSError *error) {
+         tag = NO;
          dispatch_semaphore_signal(semaphore);
          
-         [MBProgressHUD showError:@"教学信息获取失败"];
       }];
    });
    //3.3同时获取到时刷新UI
@@ -96,8 +104,14 @@
          dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
          dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
          dispatch_async(dispatch_get_main_queue(), ^{
-            [self.homePageView setTeacherProfileData:self.teacherProfileData];
-            [self.homePageView setClassInfoData:self.classInfoData];
+            [MBProgressHUD hideHUD];
+            if (tag == YES) {
+               [MBProgressHUD showSuccess:@"教学信息获取成功"];
+               [self.homePageView setTeacherProfileData:self.teacherProfileData];
+               [self.homePageView setClassInfoData:self.classInfoData];
+            }else{
+               [MBProgressHUD showError:@"教学信息获取失败"];
+            }
          });
          
 //      });

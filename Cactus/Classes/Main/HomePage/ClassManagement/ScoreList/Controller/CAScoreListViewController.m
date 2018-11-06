@@ -116,7 +116,7 @@
     
     //5.设置表格数据数组
     _list = [NSMutableArray array];
-    for (int i=0; i<10; ++i) {
+//    for (int i=0; i<10; ++i) {
         for (CAStudentModel *student in self.students) {
             NSMutableArray *rowArray = [NSMutableArray array];
             [rowArray addObject:student.sid];
@@ -134,7 +134,7 @@
             }
             [_list addObject:rowArray];
         }
-    }
+//    }
     //6.重绘表格
     [_excelView reloadData];
     
@@ -233,7 +233,8 @@
     [self clearOriginData];
     
     //同时请求分数、学生、列名数据
-     
+    [MBProgressHUD showMessage:@"教学班信息获取中..."];
+    __block BOOL tag = YES;
     __unsafe_unretained typeof(self) weakSelf = self;
     dispatch_group_t group = dispatch_group_create();
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -246,16 +247,22 @@
     params[@"token"] = token;
     //        params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", weakSelf.classInfo._id];
     params[@"classInfo_id"] = @"1";
-    //1.请求分数
+    
     dispatch_group_async(group, queue, ^{
         NSString *urlString = [kBASE_URL stringByAppendingString:@"point/display"];
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
         } success:^(id responseObject) {
-            NSArray *subjects = responseObject[@"subjects"];
-            for (NSDictionary *dict in subjects) {
-                CAPointModel *point = [[CAPointModel alloc] initWithDict:dict];
-                [weakSelf.points addObject:point];
+            NSDictionary *responseDict = responseObject;
+            if ([responseDict[@"code"] isEqualToString:@"1041"]) {
+                tag = NO;
+            }else{
+                NSArray *subjects = responseDict[@"subjects"];
+                
+                for (NSDictionary *dict in subjects) {
+                    CAPointModel *point = [[CAPointModel alloc] initWithDict:dict];
+                    [weakSelf.points addObject:point];
+                }
             }
             
             dispatch_semaphore_signal(semaphore);
@@ -271,15 +278,23 @@
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
         } success:^(id responseObject) {
-            NSArray *subjects = responseObject[@"subjects"];
-            for (NSDictionary *dict in subjects) {
-                CAStudentModel *student = [[CAStudentModel alloc] initWithDict:dict];
-                [weakSelf.students addObject:student];
+            NSDictionary *responseDict = responseObject;
+            if ([responseDict[@"code"] isEqualToString:@"1041"]) {
+                tag = NO;
+            }else{
+                NSArray *subjects = responseDict[@"subjects"];
+                for (NSDictionary *dict in subjects) {
+                    CAStudentModel *student = [[CAStudentModel alloc] initWithDict:dict];
+                    [weakSelf.students addObject:student];
+                }
             }
+            
+           
             
             dispatch_semaphore_signal(semaphore);
             
         } failure:^(NSError *error) {
+            tag = NO;
             dispatch_semaphore_signal(semaphore);
             
         }];
@@ -291,14 +306,22 @@
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
         } success:^(id responseObject) {
-            NSArray *subjects = responseObject[@"subjects"];
-            for (NSDictionary *dict in subjects) {
-                CATitleModel *title = [[CATitleModel alloc] initWithDict:dict];
-                [weakSelf.titles addObject:title];
+            NSDictionary *responseDict = responseObject;
+            if ([responseDict[@"code"] isEqualToString:@"1041"]) {
+                tag = NO;
+            }else{
+                NSArray *subjects = responseObject[@"subjects"];
+                for (NSDictionary *dict in subjects) {
+                    CATitleModel *title = [[CATitleModel alloc] initWithDict:dict];
+                    [weakSelf.titles addObject:title];
+                }
             }
+            
+            
             dispatch_semaphore_signal(semaphore);
             
         } failure:^(NSError *error) {
+            tag = NO;
             dispatch_semaphore_signal(semaphore);
             
         }];
@@ -310,8 +333,13 @@
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
             dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUD];
                 //刷新UI
-                [self setupExcelView];
+                if (tag == YES) {
+                    [self setupExcelView];
+                }else{
+                    [MBProgressHUD showError:@"教学信息获取失败"];
+                }
             });
         });
     });
