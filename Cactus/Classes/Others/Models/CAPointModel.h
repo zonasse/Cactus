@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface CAPointModel : NSObject<NSCopying,NSMutableCopying>
+//主键
+@property (nonatomic,assign) NSInteger _id;
 ///分数所属教学班
 @property (nonatomic,assign) NSInteger classInfo_id;
 ///分数所属学生

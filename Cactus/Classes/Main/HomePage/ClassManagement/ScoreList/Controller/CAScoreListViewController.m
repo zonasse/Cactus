@@ -207,6 +207,8 @@
             UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:editPointTitleVC];
             
             editPointTitleVC.students = self.students;
+            editPointTitleVC.titles = self.titles;
+            editPointTitleVC.pointTitle = title;
             editPointTitleVC.hashMap = [weakSelf.hashMap mutableDeepCopy];
             [self presentViewController:nav animated:YES completion:^{
                 

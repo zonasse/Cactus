@@ -10,6 +10,7 @@
 @implementation CAPointModel
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
+        self._id = [dict[@"id"] integerValue];
         self.classInfo_id = [dict[@"classInfo_id"] integerValue];
         self.student_id = [dict[@"student_id"] integerValue];
         self.pointNumber = [dict[@"pointNumber"] integerValue];
@@ -27,6 +28,7 @@
 
 - (id)copyWithZone:(NSZone *)zone{
     CAPointModel *copy = [[self class] allocWithZone:zone];
+    copy._id = self._id;
     copy.classInfo_id = self.classInfo_id;
     copy.student_id = self.student_id;
     copy.pointNumber = self.pointNumber;
@@ -37,6 +39,7 @@
 }
 - (id)mutableCopyWithZone:(NSZone *)zone{
     CAPointModel *copy = [[CAPointModel alloc] init];
+    copy._id = self._id;
     copy.classInfo_id = self.classInfo_id;
     copy.student_id = self.student_id;
     copy.pointNumber = self.pointNumber;

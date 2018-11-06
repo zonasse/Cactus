@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAEditPointTitleViewController : UITableViewController
 
 @property (nonatomic,strong)NSArray *students;
+@property (nonatomic,strong)NSArray *titles;
 @property (nonatomic,strong)CATitleModel *pointTitle;
 @property (nonatomic,strong)NSDictionary *hashMap;
 @end
