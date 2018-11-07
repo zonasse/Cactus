@@ -50,12 +50,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rightNavigationItemClicked) name:@"rightNavigationItemClickedNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(touchPointCell:) name:@"pointCellTouched" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"pointModifySuccessNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"showRightItemNotification" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(headTextClicked:) name:@"headTextClickedNotification" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"showRightItemNotification" object:nil];
+
     if (!_firstAppear) {
         _firstAppear = YES;
         [self refresh];
@@ -249,7 +250,7 @@
     params[@"classInfo_id"] = @"1";
     
     dispatch_group_async(group, queue, ^{
-        NSString *urlString = [kBASE_URL stringByAppendingString:@"point/display"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
         } success:^(id responseObject) {
@@ -273,7 +274,7 @@
     });
     //2.2请求学生数据
     dispatch_group_async(group, queue, ^{
-        NSString *urlString = [kBASE_URL stringByAppendingString:@"student/display"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"student/format"];
         
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
@@ -301,7 +302,7 @@
     });
     //2.3请求分数项数据
     dispatch_group_async(group, queue, ^{
-        NSString *urlString = [kBASE_URL stringByAppendingString:@"title/display"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"title/format"];
         
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             

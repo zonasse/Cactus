@@ -13,6 +13,8 @@
 #import "CACollegeModel.h"
 #import "CAClassModel.h"
 #import "CAMD5Tool.h"
+
+#import "Masonry.h"
 @interface CALoginViewController ()
 @property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) UIView *AvatarView;
@@ -39,23 +41,51 @@
 }
 #pragma mark ------ 设置子控件
 - (void)setupSubView{
-    //1.设置子控件位置
-    static int leftEdge = 20;
-    self.backgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,kSCREEN_WIDTH, kSCREEN_HEIGHT)];
-    self.AvatarView = [[UIImageView alloc] initWithFrame:CGRectMake(leftEdge, 44, kSCREEN_WIDTH-2*leftEdge, 100)];
-    self.accountTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, self.AvatarView.getMaxY + 20, self.AvatarView.width, 50)];
-    self.passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(leftEdge, _accountTextField.getMaxY + 20, _accountTextField.width, _accountTextField.height)];
-    self.loginButton = [[UIButton alloc] initWithFrame:CGRectMake(leftEdge, _passwordTextField.getMaxY + 30, _passwordTextField.width , 50)];
-    self.findPasswordButton = [[UIButton alloc] initWithFrame:CGRectMake(leftEdge, _loginButton.getMaxY+20, 100, 30)];
-    //self.logonButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-rightEdge-_findPasswordButton.width, _findPasswordButton.y, _findPasswordButton.width, _findPasswordButton.height)];
+    //1.Masonry布局，设置子控件位置
+    self.backgroundImageView = [[UIImageView alloc] init];
+    self.AvatarView = [[UIImageView alloc] init];
+    self.accountTextField = [[UITextField alloc] init];
+    self.passwordTextField = [[UITextField alloc] init];
+    self.loginButton = [[UIButton alloc] init];
+    self.findPasswordButton = [[UIButton alloc] init];
+    
+    [self.view addSubview:_backgroundImageView];
     [self.backgroundImageView addSubview:_AvatarView];
     [self.backgroundImageView addSubview:_accountTextField];
     [self.backgroundImageView addSubview:_passwordTextField];
     [self.backgroundImageView addSubview:_loginButton];
-    //[self.backgroundImageView addSubview:_logonButton];
     [self.backgroundImageView addSubview:_findPasswordButton];
-    [self.view addSubview:_backgroundImageView];
     
+    [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.right.mas_equalTo(self.view).with.insets(UIEdgeInsetsMake(0, 0, 0, 0));
+    }];
+    [self.AvatarView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.backgroundImageView).with.offset(20);
+        make.right.mas_equalTo(self.backgroundImageView).with.offset(-20);
+        make.top.mas_equalTo(self.backgroundImageView).with.offset(44);
+        make.height.mas_equalTo(@100);
+    }];
+    [self.accountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.AvatarView);
+        make.right.mas_equalTo(self.AvatarView);
+        make.top.mas_equalTo(self.AvatarView.mas_bottom).with.offset(20);
+        make.height.mas_equalTo(@50);
+    }];
+    [self.passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.height.mas_equalTo(self.accountTextField);
+        make.top.mas_equalTo(self.accountTextField.mas_bottom).with.offset(20);
+    }];
+    [self.loginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.height.mas_equalTo(self.accountTextField);
+        make.top.mas_equalTo(self.passwordTextField.mas_bottom).with.offset(30);
+    }];
+    [self.findPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.loginButton);
+        make.top.mas_equalTo(self.loginButton.mas_bottom).with.offset(20);
+        make.width.mas_equalTo(@100);
+        make.height.mas_equalTo(30);
+    }];
+//
     //2.设置子控件内容
     self.backgroundImageView.image = [UIImage imageNamed:@"background"];
     [self.backgroundImageView setUserInteractionEnabled:YES];
