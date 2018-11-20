@@ -98,7 +98,7 @@ const CGFloat INTERVAL_KEYBOARD = 50;
             [MBProgressHUD showSuccess:@"注册成功"];
             CAHomePageViewController *homePageVC = [[CAHomePageViewController alloc] init];
             //设置课程主页用户
-            homePageVC.teacher = [[CATeacherModel alloc] initWithDict:@{}];
+//            homePageVC.teacher = [[CATeacherModel alloc] initWithDict:@{}];
             UINavigationController *homePageNav = [[UINavigationController alloc] initWithRootViewController:homePageVC];
             [self presentViewController:homePageNav animated:YES completion:^{
                 

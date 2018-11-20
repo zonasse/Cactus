@@ -25,9 +25,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //0.设置导航栏返回按钮
+    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
+    [leftButton setImage:[UIImage imageNamed:@"nav_back_btn_icon"] forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(leftNavigationItemClicked) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton setTitle:@"返回" forState:UIControlStateNormal];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
     //1.设置导航栏右上角button
     UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
-    [rightButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb31", 34, [UIColor orangeColor])] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb31", 34, [UIColor whiteColor])] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(rightNavigationItemClicked) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem = rightItem;
@@ -121,7 +129,7 @@ static NSInteger lastIdx = 0;
         model.selectImageName = [obj objectForKey:@"selectImg"];
         model.normalImageName = [obj objectForKey:@"normalImg"];
         // 4.设置单个选中item标题状态下的颜色
-        model.selectColor = [UIColor orangeColor];
+        model.selectColor = kDefaultGreenColor;
         model.normalColor = [UIColor lightGrayColor];
         
         /***********************************/
@@ -208,6 +216,11 @@ static NSInteger lastIdx = 0;
 - (void)rightNavigationItemClicked{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"rightNavigationItemClickedNotification" object:nil];
 }
-
+/**
+ 点击了导航栏左上角按钮
+ */
+- (void)leftNavigationItemClicked{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 @end

@@ -20,6 +20,8 @@ NSString * const YCXMenuDidDisappearNotification = @"YCXMenuDidDisappearNotifica
 #define kSelectedColor [UIColor colorWithRed:0.059 green:0.353 blue:0.839 alpha:1.0f]
 #define kTitleFont  [UIFont systemFontOfSize:16.0]
 
+
+
 #define kSeparatorInsetLeft     0
 #define kSeparatorInsetRight    0
 #define kSeparatorHeight        0.5

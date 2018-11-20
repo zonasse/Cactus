@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CAClassInfoViewCell : UITableViewCell
--(void) setCellContentInformationWithClassInfoImage:(NSString *)classInfoImage classInfoName:(NSString*) classInfoName classInfoRoom:(NSString *)classInfoRoom;
+-(void) setCellContentInformationWithClassInfoImage:(NSString *)classInfoImage classInfoName:(NSString*) classInfoName classInfoRoom:(NSString *)classInfoRoom
+                                      classInfoTime:(NSString *)classInfoTime classInfoStudentCount:(NSInteger) studentCount;
 @end

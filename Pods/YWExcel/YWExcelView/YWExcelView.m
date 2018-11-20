@@ -325,7 +325,8 @@
     if (_headtexts && _headtexts.firstObject) {
         titleLbl.text = _headtexts.firstObject;
     }
-    titleLbl.font = [UIFont systemFontOfSize:14];
+    titleLbl.font = [UIFont systemFontOfSize:16];
+    titleLbl.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
     titleLbl.textAlignment = NSTextAlignmentCenter;
     [_headView addSubview:titleLbl];
     
@@ -364,8 +365,8 @@
         }
 //        label.font = [UIFont systemFontOfSize:14];
 //        label.textAlignment = NSTextAlignmentCenter;
-        label.titleLabel.font = [UIFont systemFontOfSize:14];
-        [label setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        label.titleLabel.font = [UIFont systemFontOfSize:16];
+        [label setTitleColor:[UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1] forState:UIControlStateNormal];
         [label addTarget:self action:@selector(headTextclicked:) forControlEvents:UIControlEventTouchUpInside];
         [self.topScrollView addSubview:label];
     }
@@ -416,7 +417,7 @@
             label.layer.borderWidth = 1;
             label.layer.borderColor = _showBorderColor.CGColor;
         }
-        label.font = [UIFont systemFontOfSize:14];
+        label.font = [UIFont systemFontOfSize:16];
         label.textAlignment = NSTextAlignmentCenter;
         
 //        label.titleLabel.font = [UIFont systemFontOfSize:14];

@@ -24,6 +24,8 @@
 @property (nonatomic,copy) NSString *date;
 ///教室
 @property (nonatomic,copy) NSString *room;
+///学生人数
+@property (nonatomic,assign) NSInteger student_count;
 /**
  初始化方法
  

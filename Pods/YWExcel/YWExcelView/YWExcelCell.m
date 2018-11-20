@@ -103,6 +103,7 @@
         label1.autoresizingMask = UIViewAutoresizingFlexibleHeight;//自适应宽度|高度
         startX = startX + w;
         label1.font = [UIFont systemFontOfSize:14];
+        label1.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
         label1.textAlignment = NSTextAlignmentCenter;
         if (_showBorder) {
             label1.layer.borderWidth = 1;
@@ -122,7 +123,8 @@
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _titleWidth, self.contentView.frame.size.height)];
         _nameLabel.autoresizingMask =  UIViewAutoresizingFlexibleHeight;//高度
         _nameLabel.textAlignment = NSTextAlignmentCenter;
-        _nameLabel.font = [UIFont systemFontOfSize:14];
+        _nameLabel.font = [UIFont systemFontOfSize:16];
+        _nameLabel.textColor = [UIColor colorWithRed:51/255.0 green:51/255.0 blue:51/255.0 alpha:1];
     }
     return _nameLabel;
 }
@@ -144,7 +146,6 @@
 -(void)handleTapGesture:( UITapGestureRecognizer *)tapRecognizer
 {
 //    int tapCount = tapRecognizer.numberOfTapsRequired;
-    // 先取消任何操作???????这句话存在的意义？？？
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 //    switch (tapCount){
 //        case 1:

@@ -41,7 +41,7 @@
     if (!_firstAppear) {
         _firstAppear = YES;
         //初始化教学班信息列表
-        self.classInfoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, kTABBAR_START_Y, kSCREEN_WIDTH, kSCREEN_HEIGHT-44-kTABBAR_START_Y) style:UITableViewStyleGrouped];
+        self.classInfoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT-44) style:UITableViewStyleGrouped];
         //        self.classInfoTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:self.classInfoTableView];
         self.classInfoTableView.delegate = self;
@@ -84,7 +84,7 @@
             break;
         case 4:
             cell.textLabel.text = @"学生人数：";
-            cell.detailTextLabel.text = @"41";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",self.classInfo.student_count];
             break;
         case 5:
             cell.textLabel.text = @"学年：";

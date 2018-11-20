@@ -97,12 +97,13 @@
 
 #pragma mark --设置表格
 - (void)setupExcelView{
-    _excelView=[[ExcelView alloc]initWithFrame:CGRectMake(0, kTABBAR_START_Y, kSCREEN_WIDTH, kSCREEN_HEIGHT-44-kTABBAR_START_Y)];
+    _excelView=[[ExcelView alloc]initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT-44)];
     
     _excelView.isLockFristColumn=YES;
     _excelView.isLockFristRow=YES;
     _excelView.isColumnTitlte=YES;
     _excelView.columnTitlte=@"学生列表";
+    _excelView.textFont = [UIFont systemFontOfSize:16.0];
 //    [_excelView show];
     [self.view addSubview:_excelView];
 }

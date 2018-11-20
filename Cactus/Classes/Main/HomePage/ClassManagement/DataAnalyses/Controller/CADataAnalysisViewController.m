@@ -28,7 +28,7 @@
     if (!_firstAppear) {
         _firstAppear = YES;
         //添加替换视图
-        _contentView = [[CADataAnalysisContentView alloc] initWithFrame:CGRectMake(0, kTABBAR_START_Y, kSCREEN_WIDTH, kSCREEN_HEIGHT-44-kTABBAR_START_Y)];
+        _contentView = [[CADataAnalysisContentView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT-44)];
         _contentView.contentSize = CGSizeMake(kSCREEN_WIDTH, kSCREEN_HEIGHT + 600);
         _contentView.showsVerticalScrollIndicator = YES;
         _contentView.backgroundColor = [UIColor whiteColor];

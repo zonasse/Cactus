@@ -8,15 +8,24 @@
 
 #import "CAHomePageViewController.h"
 #import "CAClassManagementViewController.h"
-#import "CAClassInfoModel.h"
 #import "CAHomePageView.h"
+
+#import "CATeacherModel.h"
+#import "CAUniversityModel.h"
+#import "CACollegeModel.h"
+#import "CAClassInfoModel.h"
+
 @interface CAHomePageViewController ()
 ///主页视图
 @property (nonatomic,strong) CAHomePageView *homePageView;
-///教师数据字典
-@property (nonatomic,strong) NSDictionary *teacherProfileData;
-///教学班数据数组
-@property (nonatomic, strong) NSArray *classInfoData;
+///教师模型对象
+@property (nonatomic,strong) CATeacherModel *teacher;
+///学院模型对象
+@property (nonatomic,strong) CACollegeModel *college;
+///学校模型对象
+@property (nonatomic,strong) CAUniversityModel *university;
+///教学班模型对象数组
+@property (nonatomic, strong) NSMutableArray *classInfoArray;
 
 @end
 
@@ -26,10 +35,17 @@
 - (void)viewDidLoad {
    [super viewDidLoad];
    self.title = @"课程主页";
+   [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+   [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_background"] forBarMetrics:UIBarMetricsDefault];
+   self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
    //1.添加主页视图
-   _homePageView = [[CAHomePageView alloc] initWithFrame:CGRectMake(0, kTABBAR_START_Y, kSCREEN_WIDTH, kSCREEN_HEIGHT-kTABBAR_START_Y)];
-   _homePageView.backgroundColor = [UIColor whiteColor];
+   _homePageView = [[CAHomePageView alloc] init];
    [self.view addSubview:_homePageView];
+   [_homePageView mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.left.top.and.right.mas_equalTo(self.view);
+      make.bottom.mas_equalTo(self.view);
+   }];
+   _homePageView.backgroundColor = [UIColor whiteColor];
    
    //2.添加主页通知
    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jumpToClassInfoManagementViewController:) name:@"CAJumpToClassManagementViewControllerNotification" object:nil];
@@ -46,7 +62,7 @@
    [MBProgressHUD showMessage:@"教学信息获取中..."];
    __block BOOL tag = YES;
    dispatch_group_async(group, queue, ^{
-      NSString *urlString = [kBASE_URL stringByAppendingString:@"user/info/format"];
+      NSString *urlString = [kBASE_URL stringByAppendingString:@"user/info/display"];
       NSMutableDictionary *params = [NSMutableDictionary dictionary];
       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
       NSString *token = [userDefaults valueForKey:@"userToken"];
@@ -61,7 +77,12 @@
             tag = NO;
          }else{
             NSArray *subjects = responseDict[@"subjects"];
-            weakSelf.teacherProfileData = subjects[0];
+            for (NSDictionary *dict in subjects) {
+               weakSelf.teacher = [[CATeacherModel alloc] initWithDict:dict];
+               weakSelf.college = [[CACollegeModel alloc] initWithDict:dict[@"college_message"]];
+               weakSelf.university = [[CAUniversityModel alloc] initWithDict:dict[@"university_message"]];
+            }
+         
          }
          dispatch_semaphore_signal(semaphore);
          
@@ -72,7 +93,7 @@
    });
    //3.2异步获取教学班数据
    dispatch_group_async(group, queue, ^{
-      NSString *urlString = [kBASE_URL stringByAppendingString:@"table/class_info/format"];
+      NSString *urlString = [kBASE_URL stringByAppendingString:@"table/class_info/display"];
       NSMutableDictionary *params = [NSMutableDictionary dictionary];
       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
       NSString *token = [userDefaults valueForKey:@"userToken"];
@@ -86,7 +107,8 @@
          if ([responseDict[@"code"] isEqualToString:@"1041"]) {
             tag = NO;
          }else{
-            weakSelf.classInfoData = responseDict[@"subjects"];
+            
+            weakSelf.classInfoArray = responseDict[@"subjects"];
 
          }
          dispatch_semaphore_signal(semaphore);
@@ -99,7 +121,6 @@
    });
    //3.3同时获取到时刷新UI
    dispatch_group_notify(group, queue, ^{
-//      dispatch_async(queue, ^{
          //两个请求对应两次信号等待
          dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
          dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
@@ -107,15 +128,14 @@
             [MBProgressHUD hideHUD];
             if (tag == YES) {
                [MBProgressHUD showSuccess:@"教学信息获取成功"];
-               [self.homePageView setTeacherProfileData:self.teacherProfileData];
-               [self.homePageView setClassInfoData:self.classInfoData];
+               [self.homePageView setTeacherName:self.teacher.name tid:self.teacher.tid universityName:self.university.name collegeName:self.college.name];
+               
+
+               [self.homePageView setClassInfoArray:self.classInfoArray];
             }else{
                [MBProgressHUD showError:@"教学信息获取失败"];
             }
          });
-         
-//      });
-      
    });
    
 }
@@ -128,7 +148,12 @@
 #pragma mark - delegete and datasource methods
 
 #pragma mark - getters and setters
-
+- (NSMutableArray *)classInfoArray{
+   if (!_classInfoArray) {
+      _classInfoArray = [NSMutableArray array];
+   }
+   return _classInfoArray;
+}
 #pragma mark - private
 
 #pragma mark - notification methods
@@ -141,5 +166,6 @@
    classManagementVC.classInfo = (CAClassInfoModel*)notification.object;
    [self.navigationController pushViewController:classManagementVC animated:YES];
 }
+
 
 @end

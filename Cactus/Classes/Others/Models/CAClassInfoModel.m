@@ -19,7 +19,7 @@
         self.month = dict[@"month"];
         self.date = dict[@"date"];
         self.room = dict[@"room"];
-
+        self.student_count = [dict[@"student_count"] integerValue];
     }
     return self;
 }

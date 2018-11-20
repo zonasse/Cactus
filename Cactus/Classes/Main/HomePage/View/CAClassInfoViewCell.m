@@ -29,47 +29,91 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if(self){
-        
-        //设置替换视图
-        static int classInfoCellHeight = 88;
-        self.replaceContentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, classInfoCellHeight)];
-        self.replaceContentImageView.userInteractionEnabled = YES;
+        __unsafe_unretained typeof(self) weakSelf = self;
+        self.replaceContentImageView = [[UIImageView alloc] init];
+        self.classInfoImageView = [[UIImageView alloc] init];
+        self.classInfoNameLabel = [[UILabel alloc] init];
+        self.classInfoStudentNumberLabel = [[UILabel alloc] init];
+        self.classInfoTimeLabel = [[UILabel alloc] init];
+        self.classInfoRoomLabel = [[UILabel alloc] init];
         [self.contentView addSubview:self.replaceContentImageView];
-        //教学班图片
-        self.classInfoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 10, classInfoCellHeight-20, classInfoCellHeight-20)];
-        [self.replaceContentImageView addSubview:self.classInfoImageView];
-        //教学班班名称
-        self.classInfoNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classInfoImageView.getMaxX+5, self.classInfoImageView.y, 120, 34)];
-        self.classInfoNameLabel.font = [UIFont systemFontOfSize:12];
-        [self.replaceContentImageView addSubview:self.classInfoNameLabel];
+        [self.replaceContentImageView addSubview:_classInfoImageView];
+        [self.replaceContentImageView addSubview:_classInfoNameLabel];
+        [self.replaceContentImageView addSubview:_classInfoStudentNumberLabel];
+        [self.replaceContentImageView addSubview:_classInfoTimeLabel];
+        [self.replaceContentImageView addSubview:_classInfoRoomLabel];
+        
+        [self.replaceContentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.bottom.mas_equalTo(self);
+        }];
+        //1.左边图片
+        [self.classInfoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(weakSelf.replaceContentImageView.mas_left).with.offset(10);
+            make.centerY.mas_equalTo(weakSelf.replaceContentImageView);
+            make.height.width.mas_equalTo(weakSelf.replaceContentImageView.mas_height);
+            
+        }];
+        
+        
+        //2.右边label
+        [self.classInfoNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.replaceContentImageView).offset(5);
+            make.left.mas_equalTo(weakSelf.classInfoImageView.mas_right).with.offset(10);
+            make.right.mas_equalTo(weakSelf.replaceContentImageView.mas_right).offset(-20);
+            make.height.mas_equalTo(@34);
+        }];
+        
+        [self.classInfoTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.mas_equalTo(weakSelf.classInfoNameLabel.mas_bottom).offset(0);
+            make.left.mas_equalTo(weakSelf.classInfoNameLabel);
+            make.right.mas_equalTo(weakSelf.classInfoRoomLabel.mas_left).offset(-10);
+            make.height.mas_equalTo(@22);
+        }];
+        [self.classInfoRoomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.mas_equalTo(weakSelf.replaceContentImageView.mas_right).offset(-20);
+            make.top.height.mas_equalTo(weakSelf.classInfoTimeLabel);
+            make.width.mas_equalTo(@80);
+        }];
+        
+        [self.classInfoStudentNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(weakSelf.classInfoNameLabel);
+            make.top.mas_equalTo(weakSelf.classInfoTimeLabel.mas_bottom).with.offset(0);
+            make.height.mas_equalTo(@22);
+            make.width.mas_equalTo(@80);
+        }];
 
-        //学生人数
-        self.classInfoStudentNumberLabel = [[UILabel alloc] initWithFrame:CGRectMake(kSCREEN_WIDTH-120, self.classInfoNameLabel.y, 120, 34)];
-        self.classInfoStudentNumberLabel.textColor = [UIColor lightGrayColor];
-        [self.replaceContentImageView addSubview:self.classInfoStudentNumberLabel];
-        self.classInfoStudentNumberLabel.font = [UIFont systemFontOfSize:12];
+        //3.设置控件属性
+        self.classInfoNameLabel.font = [UIFont systemFontOfSize:16.0];
+        self.classInfoStudentNumberLabel.font = [UIFont systemFontOfSize:12.0];
+        self.classInfoRoomLabel.font = [UIFont systemFontOfSize:12.0];
+        self.classInfoTimeLabel.font = [UIFont systemFontOfSize:12.0];
+        
+        self.classInfoNameLabel.textColor = kRGB(51, 51, 51);
+        self.classInfoRoomLabel.textColor = kRGB(128, 128, 128);
+        self.classInfoTimeLabel.textColor = kRGB(128, 128, 128);
+        self.classInfoStudentNumberLabel.textColor = kRGB(128, 128, 128);
 
-        //开课时间
-        self.classInfoTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classInfoNameLabel.x, self.classInfoNameLabel.getMaxY, 120, 34)];
-        self.classInfoTimeLabel.textColor = [UIColor lightGrayColor];
-        [self.replaceContentImageView addSubview:self.classInfoTimeLabel];
-        self.classInfoTimeLabel.font = [UIFont systemFontOfSize:12];
-
-        //上课地点
-        self.classInfoRoomLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.classInfoStudentNumberLabel.x, self.classInfoTimeLabel.y, 120, 34)];
-        self.classInfoRoomLabel.font = [UIFont systemFontOfSize:12];
-
-        [self.replaceContentImageView addSubview:self.classInfoRoomLabel];
     }
     return self;
 }
 #pragma mark --设置课程信息
--(void) setCellContentInformationWithClassInfoImage:(NSString *)classInfoImage classInfoName:(NSString*) classInfoName classInfoRoom:(NSString *)classInfoRoom{
-    [self.classInfoImageView sd_setImageWithURL:[NSURL URLWithString:classInfoImage] placeholderImage:[UIImage imageNamed:@"课程占位"]];
+-(void) setCellContentInformationWithClassInfoImage:(NSString *)classInfoImage classInfoName:(NSString*) classInfoName classInfoRoom:(NSString *)classInfoRoom
+                                      classInfoTime:(NSString *)classInfoTime classInfoStudentCount:(NSInteger) studentCount{
+    [self.classInfoImageView sd_setImageWithURL:[NSURL URLWithString:@"https://source.unsplash.com/60x60/?art"] placeholderImage:[UIImage imageNamed:@"课程占位"]];
     self.classInfoNameLabel.text = classInfoName;
-    self.classInfoRoomLabel.text = classInfoRoom;
-    self.classInfoStudentNumberLabel.text = @"学生人数：55";
+    self.classInfoRoomLabel.text = [NSString stringWithFormat:@"地点:%@" ,classInfoRoom];
+//    self.classInfoTimeLabel.text = classInfoTime;
+    self.classInfoTimeLabel.text = @"2018秋季4-18双周";
+
+    self.classInfoStudentNumberLabel.text = [NSString stringWithFormat:@"学生人数：%ld",studentCount];
 }
 
+//- (void)setFrame:(CGRect)frame{
+//    frame.origin.x += 5;
+//    frame.origin.y += 5;
+//    frame.size.height -= 10;
+//    frame.size.width -= 10;
+//    [super setFrame:frame];
+//}
 
 @end

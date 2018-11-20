@@ -33,15 +33,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"增加分数列";
-    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
-    [rightButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb29", 34, [UIColor orangeColor])] forState:UIControlStateNormal];
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_background"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+    
+    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+    [rightButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb29", 28, [UIColor whiteColor])] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb29", 28, [UIColor lightGrayColor])] forState:UIControlStateDisabled];
+    
     [rightButton addTarget:self action:@selector(save) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
     
     self.navigationItem.rightBarButtonItem = rightItem;
     
-    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
-    [leftButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb2c", 34, [UIColor orangeColor])] forState:UIControlStateNormal];
+    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    [leftButton setImage:[UIImage imageNamed:@"nav_back_btn_icon"] forState:UIControlStateNormal];
+    
     [leftButton addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
     
@@ -126,6 +136,7 @@
             return;
         }
 #warning 负优化
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             
             //2.插入每个分数
@@ -174,6 +185,11 @@
 }
 
 #pragma mark - Table view data source
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    
+    return [super initWithStyle:UITableViewStyleGrouped];
+    
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -222,6 +238,11 @@
             inputTextField.delegate = self;
             [self.textFields addObject:inputTextField];
 
+            studentSidLabel.textColor = kRGB(51, 51, 51);
+            studentSidLabel.font = [UIFont systemFontOfSize:16.0];
+            
+            studentNameLabel.textColor = kRGB(51, 51, 51);
+            studentNameLabel.font = [UIFont systemFontOfSize:16.0];
             
 //            inputTextField.tag = indexPath.row;
             [cell.contentView addSubview:inputTextField];

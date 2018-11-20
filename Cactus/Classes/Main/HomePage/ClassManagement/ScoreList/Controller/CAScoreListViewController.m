@@ -82,9 +82,10 @@
     _excelViewMode.style = YWExcelViewStyleDefalut;
     _excelViewMode.defalutHeight = 40;
     //2.初始化excelView
-    _excelView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, kTABBAR_START_Y, kSCREEN_WIDTH, kSCREEN_HEIGHT-44-kTABBAR_START_Y) mode:_excelViewMode];
+    _excelView = [[YWExcelView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, kSCREEN_HEIGHT-44) mode:_excelViewMode];
     _excelView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _excelView.dataSource = self;
+    _excelView.delegate = self;
     _excelView.showBorder = YES;
     [self.view addSubview:_excelView];
     
@@ -158,7 +159,9 @@
         [items addObject:addTitleItem];
         [items addObject:deleteTitleItem];
         [items addObject:editTitleItem];
-        [YCXMenu showMenuInView:self.view fromRect:CGRectMake(self.view.frame.size.width - 50, kTABBAR_START_Y, 50, 0) menuItems:items selected:^(NSInteger index, YCXMenuItem *item) {
+        [YCXMenu setTintColor:kDefaultGreenColor];
+        [YCXMenu setSelectedColor:kRGB(263, 161, 53)];
+        [YCXMenu showMenuInView:self.view fromRect:CGRectMake(self.view.frame.size.width - 50,0, 50, 0) menuItems:items selected:^(NSInteger index, YCXMenuItem *item) {
             NSLog(@"%@",item);
         }];
     }
@@ -363,6 +366,16 @@
 #pragma mark - delegete and datasource methods
 
 #pragma mark -- excelView delegate/datasource
+- (NSArray *)widthForItemOnExcelView:(YWExcelView *)excelView{
+    NSMutableArray *widthArray = [NSMutableArray array];
+    for (NSString *str in self.headTextsArray) {
+        CGSize size = CGSizeMake(320,2000); //设置一个行高上限
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:16]};
+        CGSize labelsize = [str boundingRectWithSize:size options:  NSStringDrawingUsesLineFragmentOrigin  attributes:attribute context:nil].size;
+        [widthArray addObject:[NSNumber numberWithFloat:labelsize.width+60]];
+    }
+    return widthArray;
+}
 //多少行
 - (NSInteger)excelView:(YWExcelView *)excelView numberOfRowsInSection:(NSInteger)section{
     return _list.count;

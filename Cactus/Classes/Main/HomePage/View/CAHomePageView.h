@@ -13,18 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CAHomePageView : UIView
 
 /**
- 设置教师数据
-
- @param profileDictionary 教师数据字典
+ 设置个人数据
  */
-- (void)setTeacherProfileData:(NSDictionary *)profileDictionary;
+- (void) setTeacherName:(NSString *)teacherName tid:(NSString *)tid universityName:(NSString *)universityName collegeName:(NSString *) collegeName;
 
-/**
- 设施教学班数据
 
- @param classInfoArray 教学班数据数组
- */
-- (void)setClassInfoData:(NSArray *)classInfoArray;
+///教学班信息数组
+@property (strong, nonatomic) NSArray *classInfoArray;
+
 @end
 
 NS_ASSUME_NONNULL_END
