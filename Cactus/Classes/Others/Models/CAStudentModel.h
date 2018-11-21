@@ -7,6 +7,7 @@
 //  学生模型
 
 #import <Foundation/Foundation.h>
+@class CAMajorModel;
 @interface CAStudentModel : NSObject
 ///主键
 @property (nonatomic,assign) NSInteger _id;
@@ -18,6 +19,7 @@
 @property (nonatomic,copy) NSString *year;
 ///学生所在专业
 @property (nonatomic,assign) NSInteger major_id;
+@property (nonatomic,strong) CAMajorModel *major;
 /**
  初始化方法
  
