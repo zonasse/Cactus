@@ -162,12 +162,12 @@
         [MBProgressHUD showError:@"账号或密码不能为空"];
         return;
     }
-    if (self.accountTextField.text.length < 4) {
-        [MBProgressHUD showError:@"账号长度需要8位以上"];
+    if (![NSString checkValidWithNormalString: self.accountTextField.text]) {
+        [MBProgressHUD showError:@"账号不符合规则"];
         return;
     }
-    if (self.passwordTextField.text.length < 6) {
-        [MBProgressHUD showError:@"密码长度需要6位以上"];
+    if (![NSString checkValidWithNormalString: self.passwordTextField.text]) {
+        [MBProgressHUD showError:@"密码不符合规则"];
         return;
     }
     [MBProgressHUD showMessage:@"登录中..."];

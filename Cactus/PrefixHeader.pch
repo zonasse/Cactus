@@ -16,6 +16,7 @@
 #import "AFNetworking.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 #import "UIView+CAExtension.h"
+#import "NSString+CAExtension.h"
 #import "CAMD5Tool.h"
 #import "CAHttpTool.h"
 #import "Masonry.h"
