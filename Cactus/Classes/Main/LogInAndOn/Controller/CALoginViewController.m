@@ -13,7 +13,6 @@
 #import "CACollegeModel.h"
 #import "CAClassModel.h"
 #import "CAMD5Tool.h"
-#import "UIResponder+CAFirstResponder.h"
 
 @interface CALoginViewController ()<UITextFieldDelegate>
 @property (strong, nonatomic) UIImageView *backgroundImageView;

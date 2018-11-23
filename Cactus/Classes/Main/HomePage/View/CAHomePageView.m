@@ -49,7 +49,7 @@
     return 88;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return _classInfoArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 //    return _classInfoArray.count;
@@ -77,8 +77,8 @@
     if(!cell){
         cell = [[CAClassInfoViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        NSDictionary *dict = self.classInfoArray[indexPath.row];
-        NSDictionary *dict = self.classInfoArray[0];
+        NSDictionary *dict = self.classInfoArray[indexPath.row];
+//        NSDictionary *dict = self.classInfoArray[0];
 
         [cell setCellContentInformationWithClassInfoImage:@"" classInfoName:dict[@"name"] classInfoRoom:dict[@"room"] classInfoTime:dict[@"date"] classInfoStudentCount:[dict[@"student_count"] integerValue]];
     }
@@ -89,7 +89,7 @@
     // 选中cell后立马取消选中，达到点击cell的效果
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSDictionary *dict = self.classInfoArray[indexPath.row];
+    NSDictionary *dict = self.classInfoArray[indexPath.section];
     CAClassInfoModel *classInfo = [[CAClassInfoModel alloc] initWithDict:dict];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setValue:[NSString stringWithFormat:@"%ld", classInfo._id] forKey:@"currentClassInfo_id"];

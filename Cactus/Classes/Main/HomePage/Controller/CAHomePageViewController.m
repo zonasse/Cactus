@@ -79,6 +79,7 @@
             NSArray *subjects = responseDict[@"subjects"];
             for (NSDictionary *dict in subjects) {
                weakSelf.teacher = [[CATeacherModel alloc] initWithDict:dict];
+               [[NSUserDefaults standardUserDefaults] setObject:weakSelf.teacher.name forKey:@"teacher_name"];
                weakSelf.college = [[CACollegeModel alloc] initWithDict:dict[@"college_message"]];
                weakSelf.university = [[CAUniversityModel alloc] initWithDict:dict[@"university_message"]];
             }

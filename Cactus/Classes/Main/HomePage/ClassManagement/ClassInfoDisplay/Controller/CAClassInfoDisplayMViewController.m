@@ -64,30 +64,32 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellID = @"classInfoDisplayCell";
+
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
     switch (indexPath.row) {
         case 0:
-            cell.textLabel.text = @"班级：";
+            cell.textLabel.text = @"班级:";
             cell.detailTextLabel.text = self.classInfo.name;
             break;
         case 1:
-            cell.textLabel.text = @"教师：";
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", self.classInfo.teacher_id];
+            cell.textLabel.text = @"教师:";
+            cell.detailTextLabel.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"teacher_name"];
+
             break;
         case 2:
-            cell.textLabel.text = @"上课时间：";
+            cell.textLabel.text = @"上课时间:";
             cell.detailTextLabel.text = self.classInfo.date;
             break;
         case 3:
-            cell.textLabel.text = @"上课地点：";
+            cell.textLabel.text = @"上课地点:";
             cell.detailTextLabel.text = self.classInfo.room;
             break;
         case 4:
-            cell.textLabel.text = @"学生人数：";
+            cell.textLabel.text = @"学生人数:";
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",self.classInfo.student_count];
             break;
         case 5:
-            cell.textLabel.text = @"学年：";
+            cell.textLabel.text = @"学年:";
             cell.detailTextLabel.text = self.classInfo.year;
             break;
         default:

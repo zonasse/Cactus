@@ -1,0 +1,6 @@
+framework module IconFont {
+  umbrella header "IconFont-umbrella.h"
+
+  export *
+  module * { export * }
+}

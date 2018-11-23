@@ -10,7 +10,7 @@
 
 @implementation NSString (CAExtension)
 + (BOOL)checkValidWithNormalString:(NSString *) normalString{
-    NSString *regex = @"^[a-zA-Z0-9_-]{4,16}$";
+    NSString *regex = @"^[a-zA-Z0-9_-]{1,16}$";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     return [predicate evaluateWithObject:normalString];
 }
@@ -20,7 +20,8 @@
     return [predicate evaluateWithObject:password];
 }
 + (BOOL)checkValidWithPointNumber:(NSString *)pointNumber{
-    NSString *regex = @"^\\d*\\.?\\d+$";
+//    NSString *regex = @"^[0-9]{1,3}[\\.[0-9]{0,2}]?$";
+    NSString *regex = @"^\\d{1,3}(\\.\\d{1,2})?$";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     return [predicate evaluateWithObject:pointNumber];
 }

@@ -249,7 +249,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults valueForKey:@"userToken"];
     params[@"token"] = token;
-    //        params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", weakSelf.classInfo._id];
+//            params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", weakSelf.classInfo._id];
     params[@"classInfo_id"] = @"1";
     
     dispatch_group_async(group, queue, ^{

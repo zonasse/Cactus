@@ -156,7 +156,6 @@ static NSInteger lastIdx = 0;
         //            model.itemSize = CGSizeMake(self.tabBar.frame.size.width / 5 - 35.0 ,self.tabBar.frame.size.height - 10);
         //        }
         // 备注 如果一步设置的VC的背景颜色，VC就会提前绘制驻留，优化这方面的话最好不要这么写
-        // 示例中为了方便就在这写了
         UIViewController *vc = [obj objectForKey:@"vc"];
         /*vc.view.backgroundColor = [UIColor colorWithRed:arc4random()%255/255.f
          green:arc4random()%255/255.f

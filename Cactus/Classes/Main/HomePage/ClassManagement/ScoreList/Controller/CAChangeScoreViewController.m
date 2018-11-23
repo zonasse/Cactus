@@ -178,6 +178,7 @@
         _saveAction = [UIAlertAction actionWithTitle:@"修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 #warning 检测输入是否合法或者相同
             UITextField *textField = alertController.textFields[0];
+
             point.pointNumber = [textField.text integerValue];
             [self.modifiedPoints addObject:point];
             
@@ -208,12 +209,13 @@
  */
 - (void)textFieldDidChange:(UITextField *)textField {
     
-    if (_pointTextField.text.length > 0) {
+    if (_pointTextField.text.length > 0 && [NSString checkValidWithPointNumber:textField.text]) {
         _saveAction.enabled = YES;
     } else {
         _saveAction.enabled = NO;
     }
 }
+
 
 #pragma mark - getters and setters
 

@@ -20,6 +20,7 @@
 #import "CAMD5Tool.h"
 #import "CAHttpTool.h"
 #import "Masonry.h"
+#import "UIResponder+CAFirstResponder.h"
 
 #pragma mark --公共变量
 #define kBASE_URL @"http://119.29.63.216:8000/api/"
