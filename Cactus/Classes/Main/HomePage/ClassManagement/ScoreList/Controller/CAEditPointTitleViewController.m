@@ -12,6 +12,7 @@
 #import "CAPointModel.h"
 @interface CAEditPointTitleViewController ()<UITextFieldDelegate>
 @property (nonatomic,strong) NSMutableArray *modifiedPoints;
+@property (nonatomic,strong) NSMutableArray *insertPoints;
 @property (nonatomic,strong) NSMutableArray *textFields;
 @end
 @implementation CAEditPointTitleViewController
@@ -22,7 +23,12 @@
     }
     return _modifiedPoints;
 }
-
+- (NSMutableArray *)insertPoints{
+    if (!_insertPoints) {
+        _insertPoints = [[NSMutableArray alloc] init];
+    }
+    return _insertPoints;
+}
 - (NSMutableArray *)textFields{
     if (!_textFields) {
         _textFields = [NSMutableArray array];
@@ -67,6 +73,7 @@
 - (void)save{
     [self.view endEditing:YES];
     [self.modifiedPoints removeAllObjects];
+    [self.insertPoints removeAllObjects];
     NSString *newTitleName = nil;
     for (int i=0; i<self.textFields.count; ++i) {
         UITextField *currentTextField = self.textFields[i];
@@ -81,7 +88,7 @@
                         continue;
                     }
                     if ([currentTextField.text isEqualToString:title.name]) {
-                        [MBProgressHUD showError:@"分数列标题重复"];
+                        [MBProgressHUD showError:@"分数列标题已存在"];
                         return;
                     }
                 }
@@ -97,6 +104,16 @@
             NSString *student_id_str = [NSString stringWithFormat:@"%ld",currentStudent._id];
             NSString *title_id_str = [NSString stringWithFormat:@"%ld",self.pointTitle._id];
             CAPointModel *point = _hashMap[student_id_str][title_id_str];
+            if (point == nil) {
+                CAPointModel *newPoint = [[CAPointModel alloc] init];
+                newPoint.title_id = self.pointTitle._id;
+                newPoint.student_id = currentStudent._id;
+                newPoint.pointNumber = [currentTextField.text integerValue];
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                newPoint.classInfo_id = [[defaults valueForKey:@"currentClassInfo_id"] integerValue];
+                [self.insertPoints addObject:newPoint];
+                continue;
+            }
             if([currentTextField.text isEqualToString:[NSString stringWithFormat:@"%ld",point.pointNumber]]){
                 continue;
             }
@@ -108,7 +125,7 @@
         
     }
     
-    if (newTitleName == nil && self.modifiedPoints.count == 0) {
+    if (newTitleName == nil && self.modifiedPoints.count == 0 && self.insertPoints.count == 0) {
         [MBProgressHUD showError:@"暂无可提交的修改"];
         return;
     }
@@ -116,133 +133,130 @@
     
     NSString *titleModifiedUrlString = [kBASE_URL stringByAppendingString:@"title/format"];
     NSString *pointModifiedUrlString = [kBASE_URL stringByAppendingString:@"point/format"];
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    
+    //发送请求
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t modifyTitleQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_queue_t modifyPointQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_queue_t insertPointQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults valueForKey:@"userToken"];
-    params[@"token"] = token;
     
-    if (self.modifiedPoints.count == 0) {
-        //只更改列标题
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    __block BOOL flag = NO;
+    //1.更改分数列标题
+    if (newTitleName != nil) {
+        dispatch_group_enter(group);
+        dispatch_group_async(group, modifyTitleQueue, ^{
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            params[@"token"] = token;
+
             NSMutableArray *subjects = [NSMutableArray array];
             [subjects addObject:@{@"id": [NSString stringWithFormat:@"%ld", self.pointTitle._id], @"name":newTitleName}];
-            params[@"subjects"] = subjects;
-            [ShareDefaultHttpTool PUTWithCompleteURL:titleModifiedUrlString parameters:params progress:^(id progress) {
-                
-            } success:^(id responseObject) {
-                [MBProgressHUD hideHUD];
-                NSDictionary *responseDict = responseObject;
-                if ([responseDict[@"code"] isEqualToString:@"1043"]) {
-                    [MBProgressHUD showError:@"分数列修改提交失败，请检查输入"];
-                }else{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD showSuccess:@"分数列修改提交成功"];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
-                        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-    
-                        }];
-                    });
-                }
-            } failure:^(NSError *error) {
-                
-            }];
-        });
-    }else if(newTitleName == nil){
-        //只更改分数值
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSMutableArray *subjects = [NSMutableArray array];
-            for (CAPointModel *point in self.modifiedPoints) {
-                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-                dict[@"id"] = [NSString stringWithFormat:@"%ld",point._id];
-                dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber];
-                [subjects addObject:dict];
-            }
-            params[@"subjects"] = subjects;
-            [ShareDefaultHttpTool PUTWithCompleteURL:pointModifiedUrlString parameters:params progress:^(id progress) {
-                
-            } success:^(id responseObject) {
-                [MBProgressHUD hideHUD];
-                NSDictionary *responseDict = responseObject;
-                if ([responseDict[@"code"] isEqualToString:@"1043"]) {
-                    [MBProgressHUD showError:@"分数修改提交失败，请检查输入"];
-                }else{
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [MBProgressHUD showSuccess:@"分数修改提交成功"];
-                        [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
-                        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                            
-                        }];
-                    });
-                }
-            } failure:^(NSError *error) {
-                
-            }];
-        });
-    }else{
-        //同时修改分数列和分数
-        __block BOOL tag = YES;
-        dispatch_group_t group = dispatch_group_create();
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-        //修改分数列
-        dispatch_group_async(group, queue, ^{
-            NSMutableArray *subjects = [NSMutableArray array];
-            [subjects addObject:@{@"id": [NSString stringWithFormat:@"%ld", self.pointTitle._id], @"name":newTitleName}];
+            
             params[@"subjects"] = subjects;
             [ShareDefaultHttpTool PUTWithCompleteURL:titleModifiedUrlString parameters:params progress:^(id progress) {
                 
             } success:^(id responseObject) {
                 NSDictionary *responseDict = responseObject;
-                if ([responseDict[@"code"] isEqualToString:@"1043"]) {
-                    tag = NO;
-                }
-                dispatch_semaphore_signal(semaphore);
-            } failure:^(NSError *error) {
-                tag = NO;
-                dispatch_semaphore_signal(semaphore);
-            }];
-        });
-        //修改分数值
-        dispatch_group_async(group, queue, ^{
-            NSMutableArray *subjects = [NSMutableArray array];
-            for (CAPointModel *point in self.modifiedPoints) {
-                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-                dict[@"id"] = [NSString stringWithFormat:@"%ld",point._id];
-                dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber];
-                [subjects addObject:dict];
-            }
-            params[@"subjects"] = subjects;
-            [ShareDefaultHttpTool PUTWithCompleteURL:pointModifiedUrlString parameters:params progress:^(id progress) {
-                
-            } success:^(id responseObject) {
-                NSDictionary *responseDict = responseObject;
-                if ([responseDict[@"code"] isEqualToString:@"1043"]) {
-                    tag = NO;
-                }
-                dispatch_semaphore_signal(semaphore);
-            } failure:^(NSError *error) {
-                tag = NO;
-                dispatch_semaphore_signal(semaphore);
-            }];
-        });
-        dispatch_group_notify(group, queue, ^{
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideHUD];
-                if (tag == YES) {
-                    [MBProgressHUD showSuccess:@"分数修改提交成功"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
-                    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                        
-                    }];
+                if ([responseDict[@"code"] isEqualToString:@"2004"]) {
+//                    [MBProgressHUD showError:@"分数列修改提交失败，请检查输入"];
                 }else{
-                    [MBProgressHUD showError:@"修改提交失败，请检查输入"];
+                    flag = YES;
                 }
-            });
+                dispatch_group_leave(group);
+            } failure:^(NSError *error) {
+                dispatch_group_leave(group);
+
+            }];
         });
     }
+    
+    //2.更改分数
+    if (self.modifiedPoints.count != 0) {
+        dispatch_group_enter(group);
+        dispatch_group_async(group, modifyTitleQueue, ^{
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            params[@"token"] = token;
+
+            NSMutableArray *subjects = [NSMutableArray array];
+            for (CAPointModel *point in self.modifiedPoints) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                dict[@"id"] = [NSString stringWithFormat:@"%ld",point._id];
+                dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber];
+                [subjects addObject:dict];
+            }
+            params[@"subjects"] = subjects;
+            [ShareDefaultHttpTool PUTWithCompleteURL:pointModifiedUrlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSDictionary *responseDict = responseObject;
+                if ([responseDict[@"code"] isEqualToString:@"2004"]) {
+//                    [MBProgressHUD showError:@"分数修改提交失败，请检查输入"];
+                }else{
+                    flag = YES;
+
+                }
+                dispatch_group_leave(group);
+
+            } failure:^(NSError *error) {
+                dispatch_group_leave(group);
+
+            }];
+        });
+    }
+    
+    //3.插入新分数
+    if (self.insertPoints.count != 0) {
+        dispatch_group_enter(group);
+        dispatch_group_async(group, modifyTitleQueue, ^{
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            params[@"token"] = token;
+
+            NSMutableArray *subjects = [NSMutableArray array];
+            for (CAPointModel *point in self.insertPoints) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber];
+                dict[@"title_id"] = [NSString stringWithFormat:@"%ld",point.title_id];
+                dict[@"student_id"] = [NSString stringWithFormat:@"%ld",point.student_id];
+                dict[@"classInfo_id"] = [NSString stringWithFormat:@"%ld",point.classInfo_id];
+                [subjects addObject:dict];
+            }
+            params[@"subjects"] = subjects;
+            [ShareDefaultHttpTool POSTWithCompleteURL:pointModifiedUrlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSDictionary *responseDict = responseObject;
+                if ([responseDict[@"code"] isEqualToString:@"2004"]) {
+//                    [MBProgressHUD showError:@"分数修改提交失败，请检查输入"];
+                }else{
+                    flag = YES;
+
+                }
+                dispatch_group_leave(group);
+
+            } failure:^(NSError *error) {
+                dispatch_group_leave(group);
+
+            }];
+        });
+    }
+    
+    dispatch_group_notify(group, modifyTitleQueue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!flag) {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:@"修改失败"];
+                return;
+            }
+            [MBProgressHUD showSuccess:@"分数修改提交成功"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        });
+
+    });
     
 }
 
@@ -268,39 +282,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellID = @"pointTitleCell";
-    //    CAAddPointTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        //        if (indexPath.section == 0) {
-        //            cell.studentSidLabel.text = @"设置新的分数列";
-        //        }else{
-        //            CAStudent *student = self.students[indexPath.row];
-        //            cell.studentSidLabel.text = student.sid;
-        //            cell.studentNameLabel.text = student.name;
-        //        }
+        
         if (indexPath.section == 0) {
             UITextField *inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, 5, kSCREEN_WIDTH-20, cell.height-10)];
             inputTextField.borderStyle = UITextBorderStyleRoundedRect;
             inputTextField.delegate = self;
             inputTextField.text = self.pointTitle.name;
             [self.textFields addObject:inputTextField];
-            //            inputTextField.tag = -10;
-            //            inputTextField.backgroundColor = [UIColor lightGrayColor];
             [cell.contentView addSubview:inputTextField];
         }else{
             UILabel *studentSidLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 100, cell.height-10)];
             UILabel *studentNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(studentSidLabel.getMaxX + 5, studentSidLabel.y, studentSidLabel.width, studentSidLabel.height)];
             UITextField *inputTextField = [[UITextField alloc] initWithFrame:CGRectMake(kSCREEN_WIDTH-100-10, 5, 100, cell.height-10)];
-            //            inputTextField.backgroundColor = [UIColor lightGrayColor];
             inputTextField.borderStyle = UITextBorderStyleRoundedRect;
             inputTextField.delegate = self;
             [self.textFields addObject:inputTextField];
             
             
-            //            inputTextField.tag = indexPath.row;
             [cell.contentView addSubview:inputTextField];
             [cell.contentView addSubview:studentSidLabel];
             [cell.contentView addSubview:studentNameLabel];
@@ -311,7 +315,11 @@
             NSString *student_id_str = [NSString stringWithFormat:@"%ld",student._id];
             NSString *title_id_str = [NSString stringWithFormat:@"%ld",self.pointTitle._id];
             CAPointModel *point = _hashMap[student_id_str][title_id_str];
-            inputTextField.text = [NSString stringWithFormat:@"%ld",point.pointNumber];
+            if (point != nil) {
+                inputTextField.text = [NSString stringWithFormat:@"%ld",point.pointNumber];
+            }else{
+                inputTextField.text = @"";
+            }
         }
     }
     

@@ -24,7 +24,7 @@
 
 #pragma mark --公共变量
 #define kBASE_URL @"http://119.29.63.216:8000/api/"
-//r#define kBASE_URL @"http://127.0.0.1:8000/api/"
+//#define kBASE_URL @"http://127.0.0.1:8000/api/"
 
 //#define kTABBAR_START_Y 64
 #define kSCREEN_WIDTH [UIScreen mainScreen].bounds.size.width

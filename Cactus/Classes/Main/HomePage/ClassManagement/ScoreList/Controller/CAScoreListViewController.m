@@ -244,7 +244,7 @@
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
     //2.1请求分数数据
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults valueForKey:@"userToken"];
     params[@"token"] = token;

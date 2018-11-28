@@ -11,6 +11,9 @@
 @interface CAChangeScoreViewController ()
 ///更改过的分数值
 @property (nonatomic,strong) NSMutableArray *modifiedPoints;
+///新插入的分数值
+@property (nonatomic,strong) NSMutableArray *insertPoints;
+
 ///提示框输入框
 @property (nonatomic,strong) UITextField *pointTextField;
 ///保存按钮
@@ -57,49 +60,105 @@
     }];
 }
 - (void)save{
-    if (self.modifiedPoints.count == 0) {
+    if (self.modifiedPoints.count == 0 && self.insertPoints.count == 0) {
         [MBProgressHUD showError:@"没有待提交的修改"];
         return;
     }
     [MBProgressHUD showMessage:@"修改中..."];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *token = [userDefaults valueForKey:@"userToken"];
-        params[@"token"] = token;
-        
-        NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];
-        NSMutableArray *subjects = [NSMutableArray array];
-        for (CAPointModel *point in self.modifiedPoints) {
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber ];
-            dict[@"student_id"] = [NSString stringWithFormat:@"%ld",point.student_id];
-            dict[@"title_id"] = [NSString stringWithFormat:@"%ld",point.title_id];
-            [subjects addObject:dict];
-        }
-        params[@"subjects"] = subjects;
-        
-        [ShareDefaultHttpTool PUTWithCompleteURL:urlString parameters:params progress:^(id progress) {
+    __block BOOL flag = NO;
+
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDefaults valueForKey:@"userToken"];
+    NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];
+
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    if (self.modifiedPoints.count != 0) {
+        dispatch_group_enter(group);
+        dispatch_group_async(group, queue, ^{
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            params[@"token"] = token;
             
-        } success:^(id responseObject) {
-            NSDictionary *responseDict = responseObject;
-            [MBProgressHUD hideHUD];
-            
-            if([responseDict[@"code"] isEqualToString:@"1033"]){
-                [MBProgressHUD showSuccess:@"修改成功"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
-                
-                [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                }];
-            }else{
-                [MBProgressHUD showError:@"修改失败，请稍后重试"];
+            NSMutableArray *subjects = [NSMutableArray array];
+            for (CAPointModel *point in self.modifiedPoints) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                dict[@"id"] = [NSString stringWithFormat:@"%ld",point._id];
+                dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber ];
+                [subjects addObject:dict];
             }
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideHUD];
+            params[@"subjects"] = subjects;
             
-        }];
+            [ShareDefaultHttpTool PUTWithCompleteURL:urlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSDictionary *responseDict = responseObject;
+                [MBProgressHUD hideHUD];
+                
+                if([responseDict[@"code"] isEqualToString:@"1033"]){
+                  
+                }else{
+                    flag = YES;
+                }
+                dispatch_group_leave(group);
+            } failure:^(NSError *error) {
+                dispatch_group_leave(group);
+            }];
+        });
+    }
+    if (self.insertPoints.count != 0) {
+        dispatch_group_enter(group);
+        dispatch_group_async(group, queue, ^{
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            params[@"token"] = token;
+            
+            NSMutableArray *subjects = [NSMutableArray array];
+            for (CAPointModel *point in self.insertPoints) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber ];
+                dict[@"student_id"] = [NSString stringWithFormat:@"%ld",point.student_id];
+                dict[@"title_id"] = [NSString stringWithFormat:@"%ld",point.title_id];
+                dict[@"classInfo_id"] = [NSString stringWithFormat:@"%ld",point.classInfo_id];
+                
+                [subjects addObject:dict];
+            }
+            params[@"subjects"] = subjects;
+            
+            [ShareDefaultHttpTool POSTWithCompleteURL:urlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSDictionary *responseDict = responseObject;
+                [MBProgressHUD hideHUD];
+                
+                if([responseDict[@"code"] isEqualToString:@"1033"]){
+                    
+                }else{
+                    flag = YES;
+                }
+                dispatch_group_leave(group);
+            } failure:^(NSError *error) {
+                dispatch_group_leave(group);
+
+            }];
+        });
+    }
+    dispatch_group_notify(group, queue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (!flag) {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:@"修改失败"];
+                return;
+            }
+            [MBProgressHUD showSuccess:@"分数修改提交成功"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        });
     });
+        
+    
+    
     
 }
 #pragma mark - delegete and datasource methods
@@ -129,9 +188,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
         if (indexPath.section == 0) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
         }else{
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:nil];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     }
@@ -154,7 +213,16 @@
         NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
         CAPointModel *point = _hashMap[student_id_str][title_id_str];
         cell.textLabel.text = title.name;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",point.pointNumber];
+        if (point == nil) {
+            cell.detailTextLabel.text = @"";
+            for (CAPointModel *insertPoint in self.insertPoints) {
+                if (insertPoint.title_id == title._id) {
+                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",insertPoint.pointNumber];
+                }
+            }
+        }else{
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",point.pointNumber];
+        }
     }
     
     
@@ -167,11 +235,15 @@
         NSString *student_id_str = [NSString stringWithFormat:@"%ld",_student._id];
         NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
 #warning point可能不存在
+        BOOL pointExists = YES;
         CAPointModel *point = _hashMap[student_id_str][title_id_str];
+        if (point == nil) {
+            pointExists = NO;
+        }
         /*
          * 弹出分数修改提示框
          */
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"修改%@的成绩",title.name] message:[NSString stringWithFormat:@"原成绩为%ld",point.pointNumber] preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"修改%@的成绩",title.name] message: pointExists ? [NSString stringWithFormat: @"原成绩为%ld",point.pointNumber] : @"当前成绩为空" preferredStyle:UIAlertControllerStyleAlert];
         //创建提示按钮
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
@@ -179,9 +251,29 @@
         _saveAction = [UIAlertAction actionWithTitle:@"修改" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 #warning 检测输入是否合法或者相同
             UITextField *textField = alertController.textFields[0];
-
-            point.pointNumber = [textField.text integerValue];
-            [self.modifiedPoints addObject:point];
+            if (pointExists) {
+                point.pointNumber = [textField.text integerValue];
+                [self.modifiedPoints addObject:point];
+            }else{
+                //检查是否为再次更改新分数
+                BOOL insertNew = YES;
+                for (CAPointModel *insertPoint in self.insertPoints) {
+                    if (insertPoint.title_id == title._id) {
+                        insertPoint.pointNumber = [textField.text integerValue];
+                        insertNew = NO;
+                        break;
+                    }
+                }
+                if (insertNew) {
+                    CAPointModel *newPoint = [[CAPointModel alloc] init];
+                    newPoint.pointNumber = [textField.text integerValue];
+                    newPoint.title_id = title._id;
+                    newPoint.student_id = self.student._id;
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    newPoint.classInfo_id = [[defaults valueForKey:@"currentClassInfo_id"] integerValue];
+                    [self.insertPoints addObject:newPoint];
+                }
+            }
             [self.tableView reloadData];
         }];
         
@@ -224,6 +316,12 @@
         _modifiedPoints = [NSMutableArray array];
     }
     return _modifiedPoints;
+}
+- (NSMutableArray *)insertPoints{
+    if (!_insertPoints) {
+        _insertPoints = [NSMutableArray array];
+    }
+    return _insertPoints;
 }
 #pragma mark - private
 
