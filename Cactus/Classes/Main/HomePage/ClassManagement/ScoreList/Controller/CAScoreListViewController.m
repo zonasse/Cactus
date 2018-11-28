@@ -118,7 +118,6 @@
     
     //5.设置表格数据数组
     _list = [NSMutableArray array];
-//    for (int i=0; i<10; ++i) {
         for (CAStudentModel *student in self.students) {
             NSMutableArray *rowArray = [NSMutableArray array];
             [rowArray addObject:student.sid];
@@ -249,8 +248,8 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults valueForKey:@"userToken"];
     params[@"token"] = token;
-//            params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", weakSelf.classInfo._id];
-    params[@"classInfo_id"] = @"1";
+    params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", weakSelf.classInfo._id];
+//    params[@"classInfo_id"] = @"1";
     
     dispatch_group_async(group, queue, ^{
         NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];

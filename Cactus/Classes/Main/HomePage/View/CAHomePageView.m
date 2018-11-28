@@ -77,7 +77,7 @@
     if(!cell){
         cell = [[CAClassInfoViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        NSDictionary *dict = self.classInfoArray[indexPath.row];
+        NSDictionary *dict = self.classInfoArray[indexPath.section];
 //        NSDictionary *dict = self.classInfoArray[0];
 
         [cell setCellContentInformationWithClassInfoImage:@"" classInfoName:dict[@"name"] classInfoRoom:dict[@"room"] classInfoTime:dict[@"date"] classInfoStudentCount:[dict[@"student_count"] integerValue]];

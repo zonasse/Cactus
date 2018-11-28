@@ -109,8 +109,9 @@
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *token = [userDefaults valueForKey:@"userToken"];
+        NSString *classInfo_id = [userDefaults valueForKey:@"currentClassInfo_id"];
         params[@"token"] = token;
-        params[@"subjects"] = @[@{@"name":self.pointTitle.name,@"titleGroup_id":@"1"}];
+        params[@"subjects"] = @[@{@"name":self.pointTitle.name,@"titleGroup_id":@"1",@"classInfo_id":classInfo_id}];
         [ShareDefaultHttpTool POSTWithCompleteURL:urlString parameters:params progress:^(id progress) {
 
         } success:^(id responseObject) {

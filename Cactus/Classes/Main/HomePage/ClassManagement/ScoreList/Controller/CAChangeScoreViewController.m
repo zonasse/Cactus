@@ -166,6 +166,7 @@
         CATitleModel *title = self.titles[indexPath.row];
         NSString *student_id_str = [NSString stringWithFormat:@"%ld",_student._id];
         NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
+#warning point可能不存在
         CAPointModel *point = _hashMap[student_id_str][title_id_str];
         /*
          * 弹出分数修改提示框
@@ -181,7 +182,6 @@
 
             point.pointNumber = [textField.text integerValue];
             [self.modifiedPoints addObject:point];
-            
             [self.tableView reloadData];
         }];
         
