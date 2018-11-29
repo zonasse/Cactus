@@ -98,12 +98,11 @@
     }
     [MBProgressHUD showMessage:@"提交中..."];
     //发送请求,先请求插入分数列
-    dispatch_group_t group = dispatch_group_create();
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-
     __block BOOL tag = YES;
-    dispatch_group_async(group, queue, ^{
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         //1.插入分数列
         NSString *urlString = [kBASE_URL stringByAppendingString:@"title/format"];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
@@ -117,38 +116,30 @@
         } success:^(id responseObject) {
             NSDictionary *responseDict = responseObject;
             if ([responseDict[@"code"] isEqualToString:@"1042"]) {
-                [MBProgressHUD hideHUD];
-                [MBProgressHUD showError:@"分数列提交失败，请检查输入"];
                 tag = NO;
             }else{
                 self.pointTitle._id = [responseDict[@"subjects"][0] integerValue];
             }
             dispatch_semaphore_signal(semaphore);
-
         } failure:^(NSError *error) {
-            [MBProgressHUD hideHUD];
-            [MBProgressHUD showError:@"分数列提交失败，请稍后重试"];
             tag = NO;
             dispatch_semaphore_signal(semaphore);
+
         }];
-
-
-
     });
-    dispatch_group_async(group, queue, ^{
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-        if (tag == NO) {
-            [MBProgressHUD hideHUD];
-            [MBProgressHUD showError:@"分数值提交失败，请检查输入"];
-            return;
-        }
-#warning 负优化
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            
+    if (self.modifiedPoints.count != 0) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+            if (tag == NO) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD hideHUD];
+                    [MBProgressHUD showError:@"分数列修改提交失败"];
+                });
+                return;
+            }
             //2.插入每个分数
             NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];
-
+            
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
             NSString *token = [userDefaults valueForKey:@"userToken"];
@@ -165,30 +156,31 @@
             }
             params[@"subjects"] = subjects;
             [ShareDefaultHttpTool POSTWithCompleteURL:urlString parameters:params progress:^(id progress) {
-
+                
             } success:^(id responseObject) {
-                NSDictionary *responseDict = responseObject;
-                if ([responseDict[@"code"] isEqualToString:@"1042"]) {
-                    [MBProgressHUD hideHUD];
-                    [MBProgressHUD showError:@"分数值提交失败，请检查输入"];
-                    return;
-                }
+//                    NSDictionary *responseDict = responseObject;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [MBProgressHUD hideHUD];
-                    [MBProgressHUD showSuccess:@"提交成功"];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
-                    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-
-                    }];
+                    if (tag) {
+                        [MBProgressHUD hideHUD];
+                        [MBProgressHUD showSuccess:@"提交成功"];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:@"pointModifySuccessNotification" object:nil];
+                        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                            
+                        }];
+                    }else{
+                        [MBProgressHUD hideHUD];
+                        [MBProgressHUD showError:@"分数列修改提交失败"];
+                    }
                 });
-
+                
             } failure:^(NSError *error) {
-                [MBProgressHUD hideHUD];
-                [MBProgressHUD showError:@"分数值提交失败，请稍后重试"];
+                
             }];
         });
-    });
-
+    }
+    
+    
+    
 }
 
 #pragma mark - Table view data source
