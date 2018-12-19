@@ -1,6 +1,0 @@
-framework module YWExcel {
-  umbrella header "YWExcel-umbrella.h"
-
-  export *
-  module * { export * }
-}

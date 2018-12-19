@@ -45,6 +45,8 @@
 		EACE3A4A2155D55000C43599 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A492155D55000C43599 /* main.m */; };
 		EACE3A542155D55200C43599 /* CactusTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A532155D55200C43599 /* CactusTests.m */; };
 		EACE3A5F2155D55200C43599 /* CactusUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A5E2155D55200C43599 /* CactusUITests.m */; };
+		EAD9679121C8C85200376E1C /* ScoreListCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD9678E21C8C85100376E1C /* ScoreListCollectionViewLayout.m */; };
+		EAD9679221C8C85200376E1C /* ScoreListCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD9679021C8C85200376E1C /* ScoreListCollectionCell.m */; };
 		EAE8E430215B0EE20037420C /* CATeacherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E42F215B0EE20037420C /* CATeacherModel.m */; };
 		EAE8E433215B174B0037420C /* CAStudentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E432215B174B0037420C /* CAStudentModel.m */; };
 		EAE8E436215B19390037420C /* CALessonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE8E435215B19390037420C /* CALessonModel.m */; };
@@ -176,6 +178,10 @@
 		EACE3A5A2155D55200C43599 /* CactusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CactusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACE3A5E2155D55200C43599 /* CactusUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CactusUITests.m; sourceTree = "<group>"; };
 		EACE3A602155D55200C43599 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EAD9678B21C8C85100376E1C /* ScoreListCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreListCollectionCell.h; sourceTree = "<group>"; };
+		EAD9678E21C8C85100376E1C /* ScoreListCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreListCollectionViewLayout.m; sourceTree = "<group>"; };
+		EAD9678F21C8C85100376E1C /* ScoreListCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreListCollectionViewLayout.h; sourceTree = "<group>"; };
+		EAD9679021C8C85200376E1C /* ScoreListCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScoreListCollectionCell.m; sourceTree = "<group>"; };
 		EAE8E42E215B0EE20037420C /* CATeacherModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CATeacherModel.h; sourceTree = "<group>"; };
 		EAE8E42F215B0EE20037420C /* CATeacherModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CATeacherModel.m; sourceTree = "<group>"; };
 		EAE8E431215B174B0037420C /* CAStudentModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CAStudentModel.h; sourceTree = "<group>"; };
@@ -313,6 +319,10 @@
 		EA8B4026218AF998005E85A4 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EAD9678B21C8C85100376E1C /* ScoreListCollectionCell.h */,
+				EAD9679021C8C85200376E1C /* ScoreListCollectionCell.m */,
+				EAD9678F21C8C85100376E1C /* ScoreListCollectionViewLayout.h */,
+				EAD9678E21C8C85100376E1C /* ScoreListCollectionViewLayout.m */,
 				EA8B403A218D45DB005E85A4 /* CAAddPointTitleCell.h */,
 				EA8B403B218D45DB005E85A4 /* CAAddPointTitleCell.m */,
 			);
@@ -811,6 +821,7 @@
 				EA16965C21635960005C3D48 /* MBProgressHUD.m in Sources */,
 				EAE8E43C215B1FB70037420C /* CAPointModel.m in Sources */,
 				EA031A57215631BD00128829 /* CALogonViewController.m in Sources */,
+				EAD9679221C8C85200376E1C /* ScoreListCollectionCell.m in Sources */,
 				EAE8E439215B1AD10037420C /* CAClassInfoModel.m in Sources */,
 				EA71BE2721A69C9D00E5ABB3 /* NSString+CAExtension.m in Sources */,
 				EAE8E43F215B212C0037420C /* CATitleModel.m in Sources */,
@@ -831,6 +842,7 @@
 				EAE8E433215B174B0037420C /* CAStudentModel.m in Sources */,
 				EA8B4015218A8BB9005E85A4 /* CADataAnalysisViewController.m in Sources */,
 				EA031A5221562F6100128829 /* CALoginViewController.m in Sources */,
+				EAD9679121C8C85200376E1C /* ScoreListCollectionViewLayout.m in Sources */,
 				EAB2ED7D21802CF1008E6DAD /* UIResponder+CAFirstResponder.m in Sources */,
 				EAE8E430215B0EE20037420C /* CATeacherModel.m in Sources */,
 				EAE8E442215B22470037420C /* CAUniversityModel.m in Sources */,

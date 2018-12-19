@@ -107,9 +107,9 @@
         NSString *urlString = [kBASE_URL stringByAppendingString:@"title/format"];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *token = [userDefaults valueForKey:@"userToken"];
+//        NSString *token = [userDefaults valueForKey:@"userToken"];
         NSString *classInfo_id = [userDefaults valueForKey:@"currentClassInfo_id"];
-        params[@"token"] = token;
+//        params[@"token"] = token;
         params[@"subjects"] = @[@{@"name":self.pointTitle.name,@"titleGroup_id":@"1",@"classInfo_id":classInfo_id}];
         [ShareDefaultHttpTool POSTWithCompleteURL:urlString parameters:params progress:^(id progress) {
 
@@ -142,8 +142,8 @@
             
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
             NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            NSString *token = [userDefaults valueForKey:@"userToken"];
-            params[@"token"] = token;
+//            NSString *token = [userDefaults valueForKey:@"userToken"];
+//            params[@"token"] = token;
             NSMutableArray *subjects = [NSMutableArray array];
             for (CAPointModel *point in self.modifiedPoints) {
                 point.title_id = self.pointTitle._id;

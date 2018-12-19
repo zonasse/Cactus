@@ -61,8 +61,8 @@
         NSString *urlString = [kBASE_URL stringByAppendingString:@"title/format"];
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *token = [userDefaults valueForKey:@"userToken"];
-        params[@"token"] = token;
+//        NSString *token = [userDefaults valueForKey:@"userToken"];
+//        params[@"token"] = token;
         NSMutableArray *subjects = [NSMutableArray array];
         for (CATitleModel *title in self.deletedTitles) {
             [subjects addObject:@{@"id":[NSString stringWithFormat:@"%ld",title._id ]}];

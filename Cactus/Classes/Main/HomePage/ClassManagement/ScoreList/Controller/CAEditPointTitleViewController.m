@@ -141,7 +141,7 @@
 //    dispatch_queue_t insertPointQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *token = [userDefaults valueForKey:@"userToken"];
+//    NSString *token = [userDefaults valueForKey:@"userToken"];
     
     __block BOOL flag = NO;
     //1.更改分数列标题
@@ -149,7 +149,7 @@
         dispatch_group_enter(group);
         dispatch_group_async(group, modifyTitleQueue, ^{
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            params[@"token"] = token;
+//            params[@"token"] = token;
 
             NSMutableArray *subjects = [NSMutableArray array];
             [subjects addObject:@{@"id": [NSString stringWithFormat:@"%ld", self.pointTitle._id], @"name":newTitleName}];
@@ -177,7 +177,7 @@
         dispatch_group_enter(group);
         dispatch_group_async(group, modifyTitleQueue, ^{
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            params[@"token"] = token;
+//            params[@"token"] = token;
 
             NSMutableArray *subjects = [NSMutableArray array];
             for (CAPointModel *point in self.modifiedPoints) {
@@ -211,7 +211,7 @@
         dispatch_group_enter(group);
         dispatch_group_async(group, modifyTitleQueue, ^{
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            params[@"token"] = token;
+//            params[@"token"] = token;
 
             NSMutableArray *subjects = [NSMutableArray array];
             for (CAPointModel *point in self.insertPoints) {

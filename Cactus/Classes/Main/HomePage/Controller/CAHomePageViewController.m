@@ -65,9 +65,9 @@
       NSString *urlString = [kBASE_URL stringByAppendingString:@"user/info/display"];
       NSMutableDictionary *params = [NSMutableDictionary dictionary];
       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-      NSString *token = [userDefaults valueForKey:@"userToken"];
+//      NSString *token = [userDefaults valueForKey:@"userToken"];
       NSString *teacherId = [userDefaults valueForKey:@"userId"];
-      params[@"token"] = token;
+//      params[@"token"] = token;
       params[@"id"] = teacherId;
       [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
          
@@ -97,9 +97,9 @@
       NSString *urlString = [kBASE_URL stringByAppendingString:@"table/class_info/display"];
       NSMutableDictionary *params = [NSMutableDictionary dictionary];
       NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-      NSString *token = [userDefaults valueForKey:@"userToken"];
+//      NSString *token = [userDefaults valueForKey:@"userToken"];
       NSString *teacherId = [userDefaults valueForKey:@"userId"];
-      params[@"token"] = token;
+//      params[@"token"] = token;
       params[@"teacher_id"] = teacherId;
       [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
          

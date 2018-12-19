@@ -68,7 +68,7 @@
     __block BOOL flag = NO;
 
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *token = [userDefaults valueForKey:@"userToken"];
+//    NSString *token = [userDefaults valueForKey:@"userToken"];
     NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];
 
     dispatch_group_t group = dispatch_group_create();
@@ -78,7 +78,7 @@
         dispatch_group_enter(group);
         dispatch_group_async(group, queue, ^{
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            params[@"token"] = token;
+//            params[@"token"] = token;
             
             NSMutableArray *subjects = [NSMutableArray array];
             for (CAPointModel *point in self.modifiedPoints) {
@@ -110,7 +110,7 @@
         dispatch_group_enter(group);
         dispatch_group_async(group, queue, ^{
             NSMutableDictionary *params = [NSMutableDictionary dictionary];
-            params[@"token"] = token;
+//            params[@"token"] = token;
             
             NSMutableArray *subjects = [NSMutableArray array];
             for (CAPointModel *point in self.insertPoints) {

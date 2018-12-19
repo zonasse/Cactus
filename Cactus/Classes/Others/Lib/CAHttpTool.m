@@ -50,6 +50,8 @@
     if (use) {
         [_manager setSecurityPolicy:[self customSecurityPolicy]];
     }
+    NSString *token = [[NSUserDefaults standardUserDefaults] valueForKey:@"userToken"];
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     [self POSTWithCompleteURL:URLString parameters:parameters progress:progress success:success failure:failure];
 }
 
@@ -59,6 +61,10 @@
                   progress:(void(^)(id progress))progress
                    success:(void (^)(id responseObject))success
                    failure:(void (^)(NSError *error))failure{
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] valueForKey:@"userToken"];
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    
     _manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:ACCEPTTYPENORMAL];
     [_manager POST:URLString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -74,6 +80,9 @@
                   success:(void (^)(id responseObject))success
                   failure:(void (^)(NSError *error))failure{
     _manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:ACCEPTTYPENORMAL];
+    
+    NSString *token = [[NSUserDefaults standardUserDefaults] valueForKey:@"userToken"];
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     [_manager GET:URLString parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
         progress(downloadProgress);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -90,6 +99,9 @@
                   failure:(void (^)(NSError *error))failure{
     _manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:ACCEPTTYPENORMAL];
 
+    NSString *token = [[NSUserDefaults standardUserDefaults] valueForKey:@"userToken"];
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    
     [_manager PUT:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"success");
         success(responseObject);
@@ -106,6 +118,9 @@
     _manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:ACCEPTTYPENORMAL];
     _manager.requestSerializer.HTTPMethodsEncodingParametersInURI = [NSSet setWithObjects:@"GET", @"HEAD", nil];
 
+    NSString *token = [[NSUserDefaults standardUserDefaults] valueForKey:@"userToken"];
+    [_manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    
     [_manager DELETE:URLString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         success(responseObject);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
