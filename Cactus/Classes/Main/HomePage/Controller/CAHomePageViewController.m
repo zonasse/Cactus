@@ -165,7 +165,11 @@
 - (void)jumpToClassInfoManagementViewController:(NSNotification *)notification{
    CAClassManagementViewController *classManagementVC = [[CAClassManagementViewController alloc] init];
    classManagementVC.classInfo = (CAClassInfoModel*)notification.object;
-   [self.navigationController pushViewController:classManagementVC animated:YES];
+   [self presentViewController:classManagementVC animated:YES completion:^{
+
+   }];
+   
+//   [self.navigationController pushViewController:classManagementVC animated:YES];
 }
 
 

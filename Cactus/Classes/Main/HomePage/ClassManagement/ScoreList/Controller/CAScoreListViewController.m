@@ -11,7 +11,7 @@
 #import "CAAddPointTitleViewController.h"
 #import "CADeletePointTitleViewController.h"
 #import "CAEditPointTitleViewController.h"
-//#import "YWExcelView.h"
+
 #import "YCXMenu.h"
 #import "CAPointModel.h"
 #import "CATitleModel.h"
@@ -28,7 +28,7 @@
     UIView *_scoreKeyboardView;
     UITextView *_scoreKeyboardTextView;
     UIButton *_scoreKeyboardConfirmButton;
-    
+    UIButton *_saveButton;
     ScoreListCollectionCell *_selectedCell;
     CGFloat currentOffsetY;
     
@@ -59,7 +59,31 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rightNavigationItemClicked) name:@"rightNavigationItemClickedNotification" object:nil];
+    //0.设置导航栏返回按钮
+    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
+    [leftButton setImage:[UIImage imageNamed:@"nav_back_btn_icon"] forState:UIControlStateNormal];
+    [leftButton addTarget:self action:@selector(leftNavigationItemClicked) forControlEvents:UIControlEventTouchUpInside];
+    [leftButton setTitle:@"返回" forState:UIControlStateNormal];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    
+    //1.设置导航栏右上角button
+    UIButton *crucifixButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
+    [crucifixButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb31", 34, [UIColor whiteColor])] forState:UIControlStateNormal];
+    [crucifixButton addTarget:self action:@selector(rightNavigationItemClicked) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *crucifixItem = [[UIBarButtonItem alloc] initWithCustomView:crucifixButton];
+    
+    
+    _saveButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 44)];
+    [_saveButton setTitle:@"保存" forState:UIControlStateNormal];
+    _saveButton.hidden = YES;
+    [_saveButton addTarget:self action:@selector(saveAllPointChanges) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithCustomView:_saveButton];
+    
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:crucifixItem, saveItem, nil];
+
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_background"] forBarMetrics:UIBarMetricsDefault];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refresh) name:@"pointModifySuccessNotification" object:nil];
     //注册键盘出现的通知
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -69,9 +93,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification object:nil];
-    UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(kSCREEN_WIDTH-100, 20, 40, 44)];
-    [self.view.window addSubview:saveButton];
-    [saveButton setTitle:@"保存" forState:UIControlStateNormal];
+    _insertPoints = [NSMutableArray array];
+    _modifiedPoints = [NSMutableArray array];
+
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -83,6 +108,13 @@
         [self refresh];
     }
 }
+/**
+ 点击了导航栏左上角按钮
+ */
+- (void)leftNavigationItemClicked{
+    [_scoreKeyboardTextView resignFirstResponder];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"LeftNavigationItemClickedNotification" object:nil];
+}
 #pragma mark - event response
 
 
@@ -92,6 +124,8 @@
 - (void)setupExcelView{
     [_collectionView removeFromSuperview];
     [self.headTextsArray removeAllObjects];
+    [_insertPoints removeAllObjects];
+    [_modifiedPoints removeAllObjects];
     //1.设置表格表头标题
     [self.headTextsArray addObject:@"学号"];
     [self.headTextsArray addObject:@"姓名"];
@@ -120,29 +154,6 @@
     
     [_collectionView registerClass:[ScoreListCollectionCell class] forCellWithReuseIdentifier:@"QuotationCell"];
 
-    
-    //5.设置表格数据数组
-//    _list = [NSMutableArray array];
-//        for (CAStudentModel *student in self.students) {
-//            NSMutableArray *rowArray = [NSMutableArray array];
-//            [rowArray addObject:student.sid];
-//            [rowArray addObject:student.name];
-//            for (CATitleModel *title in self.titles) {
-//                //                BOOL flag = NO;
-//                NSString *student_id_str = [NSString stringWithFormat:@"%ld",student._id];
-//                NSString *title_id_str = [NSString stringWithFormat:@"%ld",title._id];
-//                CAPointModel *point = _hashMap[student_id_str][title_id_str];
-//                if (point.pointNumber) {
-//                    [rowArray addObject:[NSString stringWithFormat:@"%ld",point.pointNumber]];
-//                }else{
-//                    [rowArray addObject:@""];
-//                }
-//            }
-//            [_list addObject:rowArray];
-//        }
-    //6.重绘表格
-//    [_excelView reloadData];
-    
 }
 
 /**
@@ -168,20 +179,114 @@
     }
     
 }
+- (void)saveAllPointChanges{
+    _editingStatus = NO;
+    [_scoreKeyboardTextView resignFirstResponder];
+    [MBProgressHUD showMessage:@"分数修改提交中..."];
+
+    __block BOOL flag = NO;
+    NSString *pointModifiedUrlString = [kBASE_URL stringByAppendingString:@"point/format"];
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    int semaphoreCount = (_modifiedPoints.count? 1:0)+(_insertPoints.count? 1:0);
+    
+    //更改分数
+    if (_modifiedPoints.count != 0) {
+
+        dispatch_group_async(group, queue, ^{
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+
+            NSMutableArray *subjects = [NSMutableArray array];
+            for (CAPointModel *point in self->_modifiedPoints) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                dict[@"id"] = [NSString stringWithFormat:@"%ld",point._id];
+                dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber];
+                [subjects addObject:dict];
+            }
+            params[@"subjects"] = subjects;
+            [ShareDefaultHttpTool PUTWithCompleteURL:pointModifiedUrlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSDictionary *responseDict = responseObject;
+                if ([responseDict[@"code"] isEqualToString:@"2004"]) {
+
+                }else{
+                    flag = YES;
+                    
+                }
+
+                dispatch_semaphore_signal(semaphore);
+            } failure:^(NSError *error) {
+                dispatch_semaphore_signal(semaphore);
+
+            }];
+        });
+    }
+    
+    //插入新分数
+    if (_insertPoints.count != 0) {
+
+        dispatch_group_async(group, queue, ^{
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+
+            
+            NSMutableArray *subjects = [NSMutableArray array];
+            for (CAPointModel *point in self->_insertPoints) {
+                NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+                dict[@"pointNumber"] = [NSString stringWithFormat:@"%ld",point.pointNumber];
+                dict[@"title_id"] = [NSString stringWithFormat:@"%ld",point.title_id];
+                dict[@"student_id"] = [NSString stringWithFormat:@"%ld",point.student_id];
+                dict[@"classInfo_id"] = [NSString stringWithFormat:@"%ld",point.classInfo_id];
+                [subjects addObject:dict];
+            }
+            params[@"subjects"] = subjects;
+            [ShareDefaultHttpTool POSTWithCompleteURL:pointModifiedUrlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                NSDictionary *responseDict = responseObject;
+                if ([responseDict[@"code"] isEqualToString:@"2004"]) {
+
+                }else{
+                    flag = YES;
+                    
+                }
+                dispatch_semaphore_signal(semaphore);
+
+            } failure:^(NSError *error) {
+                dispatch_semaphore_signal(semaphore);
+
+            }];
+        });
+    }
+    
+    dispatch_group_notify(group, queue, ^{
+        
+        //两个请求对应两次信号等待
+        for (int i=0; i<semaphoreCount; ++i) {
+            dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUD];
+            if (!flag) {
+                [MBProgressHUD showError:@"修改失败,请稍后重试"];
+                return;
+            }
+            self->_saveButton.hidden = YES;
+            [MBProgressHUD showSuccess:@"分数修改提交成功"];
+            [self refresh];
+            
+        });
+        
+    });
+}
 /**
  增加分数列
  */
-//- (void)addTitle{
-//    //跳转到增加分数列控制器
-//    CAAddPointTitleViewController *addPointTitleVC = [[CAAddPointTitleViewController alloc] init];
-//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:addPointTitleVC];
-//    addPointTitleVC.students = self.students;
-//    addPointTitleVC.hashMap = [_hashMap mutableDeepCopy];
-//
-//    [self presentViewController:nav animated:YES completion:^{
-//
-//    }];
-//}
+- (void)addTitle{
+    
+}
 
 
 /**
@@ -198,37 +303,8 @@
     }];
 }
 
-/**
- 编辑分数列
- */
-//- (void)editTitle{
-//    __unsafe_unretained typeof(self)weakSelf = self;
-//
-//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"选择要编辑的分数列" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//    for (CATitleModel *title in self.titles) {
-//        UIAlertAction *action = [UIAlertAction actionWithTitle:title.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//            //跳转到编辑分数列控制器
-//            CAEditPointTitleViewController *editPointTitleVC = [[CAEditPointTitleViewController alloc] init];
-//            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:editPointTitleVC];
-//
-//            editPointTitleVC.students = self.students;
-//            editPointTitleVC.titles = self.titles;
-//            editPointTitleVC.pointTitle = title;
-//            editPointTitleVC.hashMap = [weakSelf.hashMap mutableDeepCopy];
-//            [self presentViewController:nav animated:YES completion:^{
-//
-//            }];
-//        }];
-//        [alert addAction:action];
-//    }
-//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//    }];
-//    [alert addAction:cancelAction];
-//    [self presentViewController:alert animated:YES completion:^{
-//
-//    }];
-//}
+
+
 
 /**
  刷新表格数据
@@ -249,12 +325,7 @@
     
     //2.1请求分数数据
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-//    NSString *token = [userDefaults valueForKey:@"userToken"];
-//    params[@"token"] = token;
     params[@"classInfo_id"] = [NSString stringWithFormat:@"%ld", weakSelf.classInfo._id];
-//    params[@"classInfo_id"] = @"1";
-    
     dispatch_group_async(group, queue, ^{
         NSString *urlString = [kBASE_URL stringByAppendingString:@"point/format"];
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
@@ -380,6 +451,7 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     ScoreListCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"QuotationCell" forIndexPath:indexPath];
  
     if (self.headTextsArray.count == 0) {
@@ -428,6 +500,10 @@
 //单击事件
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    if(indexPath.section < 1 || indexPath.row < 2) return;
+    if (_selectedCell) {
+        _selectedCell.labelInfo.text = _scoreKeyboardTextView.text;
+    }
     ScoreListCollectionCell *cell = (ScoreListCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
     _selectedCell = cell;
     [self createCommentsView];
@@ -436,6 +512,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.section < 1 || indexPath.row < 2) return;
 
     if (!_editingStatus) {
         return;
@@ -445,10 +522,10 @@
     if ([_scoreKeyboardTextView.text isEqualToString:cell.labelInfo.text]) {
         return;
     }
+    if (![NSString checkValidWithPointNumber:_scoreKeyboardTextView.text]) {
+        return;
+    }
     if (!cell.point) {
-        if (!_insertPoints) {
-            _insertPoints = [NSMutableArray array];
-        }
         CAPointModel *newPoint = [[CAPointModel alloc] init];
         newPoint.pointNumber = [_scoreKeyboardTextView.text integerValue];
         newPoint.classInfo_id = self.classInfo._id;
@@ -456,14 +533,15 @@
         newPoint.student_id = cell.student._id;
         [_insertPoints addObject:newPoint];
     }else{
-        if (!_modifiedPoints) {
-            _modifiedPoints = [NSMutableArray array];
-        }
         CAPointModel *newPoint = cell.point;
         newPoint.pointNumber = [_scoreKeyboardTextView.text integerValue];
         [_modifiedPoints addObject:newPoint];
     }
-
+    if (_modifiedPoints.count || _insertPoints.count) {
+        _saveButton.hidden = NO;
+    }else{
+        _saveButton.hidden = YES;
+    }
 }
 ////高亮
 //- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -518,18 +596,16 @@
 
     [_scoreKeyboardTextView becomeFirstResponder];//让textView成为第一响应者（第一次）这次键盘并未显示出来，（个人觉得这里主要是将commentsView设置为commentText的inputAccessoryView,然后再给一次焦点就能成功显示）
 }
-//提交分数修改
-
+//键盘确定按钮点击
 - (void)confirmScore{
     _editingStatus = NO;
     [_scoreKeyboardTextView resignFirstResponder];
     if ([_scoreKeyboardTextView.text isEqualToString:_selectedCell.labelInfo.text]) {
         return;
     }
+    _selectedCell.labelInfo.text = _scoreKeyboardTextView.text;
     if (!_selectedCell.point) {
-        if (!_insertPoints) {
-            _insertPoints = [NSMutableArray array];
-        }
+        
         CAPointModel *newPoint = [[CAPointModel alloc] init];
         newPoint.pointNumber = [_scoreKeyboardTextView.text integerValue];
         newPoint.classInfo_id = self.classInfo._id;
@@ -537,14 +613,16 @@
         newPoint.student_id = _selectedCell.student._id;
         [_insertPoints addObject:newPoint];
     }else{
-        if (!_modifiedPoints) {
-            _modifiedPoints = [NSMutableArray array];
-        }
+        
         CAPointModel *newPoint = _selectedCell.point;
         newPoint.pointNumber = [_scoreKeyboardTextView.text integerValue];
         [_modifiedPoints addObject:newPoint];
     }
-    
+    if (_modifiedPoints.count || _insertPoints.count) {
+        _saveButton.hidden = NO;
+    }else{
+        _saveButton.hidden = YES;
+    }
 }
 //重写此方法，解决了部分cell无法点击的问题
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -597,7 +675,7 @@
     
     //视图下沉恢复原状
     [UIView animateWithDuration:duration animations:^{
-        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        self.view.frame = CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height);
     }];
 }
 
@@ -681,4 +759,5 @@
 //
 //    }];
 //}
+
 @end

@@ -25,26 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //0.设置导航栏返回按钮
-    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
-    [leftButton setImage:[UIImage imageNamed:@"nav_back_btn_icon"] forState:UIControlStateNormal];
-    [leftButton addTarget:self action:@selector(leftNavigationItemClicked) forControlEvents:UIControlEventTouchUpInside];
-    [leftButton setTitle:@"返回" forState:UIControlStateNormal];
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
-    self.navigationItem.leftBarButtonItem = leftItem;
-    
-    //1.设置导航栏右上角button
-    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
-    [rightButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000eb31", 34, [UIColor whiteColor])] forState:UIControlStateNormal];
-    [rightButton addTarget:self action:@selector(rightNavigationItemClicked) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
-    self.navigationItem.rightBarButtonItem = rightItem;
-    //2.添加通知监听
-    //2.1监听右上角button隐藏事件
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideRightItem) name:@"hideRightItemNotification" object:nil];
-    //2.2监听右上角button显示事件
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showRightItem) name:@"showRightItemNotification" object:nil];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismiss) name:@"LeftNavigationItemClickedNotification" object:nil];
 }
 
 - (void)viewDidLayoutSubviews{
@@ -56,6 +38,12 @@
 - (void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+- (void)dismiss{
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+    
 #pragma mark - event response
 
 #pragma mark - delegete and datasource methods
@@ -98,23 +86,26 @@ static NSInteger lastIdx = 0;
 }
 #pragma mark --设置tabbar子页面
 - (void)addChildViewControllers{
-    
     CAClassInfoDisplayMViewController *classInfoDisplayVC = [[CAClassInfoDisplayMViewController alloc] init];
     classInfoDisplayVC.classInfo = self.classInfo;
-    
+    UINavigationController *classInfoDisplayNav = [[UINavigationController alloc] initWithRootViewController:classInfoDisplayVC];
+
     CADataAnalysisViewController *dataAnalysisVC = [[CADataAnalysisViewController alloc] init];
     //    dataAnalysesVC.lessonClass = self.lessonClass;
-    
+    UINavigationController *dataAnalysisNav = [[UINavigationController alloc] initWithRootViewController:dataAnalysisVC];
+
     CAScoreListViewController *scoreListVC = [[CAScoreListViewController alloc] init];
     scoreListVC.classInfo = self.classInfo;
-    
+    UINavigationController *scoreListNav = [[UINavigationController alloc] initWithRootViewController:scoreListVC];
+
     CAStudentListViewController *studentListVC = [[CAStudentListViewController alloc] init];
     studentListVC.classInfo = self.classInfo;
-    
+    UINavigationController *studentListNav = [[UINavigationController alloc] initWithRootViewController:studentListVC];
+
     
     NSArray <NSDictionary *>*VCArray =
-    @[@{@"vc":scoreListVC,@"normalImg":@"\U0000ed0e",@"selectImg":@"\U0000ed0e",@"itemTitle":@"分数列表"},
-      @{@"vc":studentListVC ,@"normalImg":@"\U0000ece3",@"selectImg":@"\U0000ece3",@"itemTitle":@"学生列表"},@{@"vc":dataAnalysisVC,@"normalImg":@"\U0000ecf2",@"selectImg":@"\U0000ecf2",@"itemTitle":@"数据分析"},@{@"vc":classInfoDisplayVC ,@"normalImg":@"\U0000eb4f",@"selectImg":@"\U0000eb4f",@"itemTitle":@"班级信息"}
+    @[@{@"vc":scoreListNav,@"normalImg":@"\U0000ed0e",@"selectImg":@"\U0000ed0e",@"itemTitle":@"分数列表"},
+      @{@"vc":studentListNav ,@"normalImg":@"\U0000ece3",@"selectImg":@"\U0000ece3",@"itemTitle":@"学生列表"},@{@"vc":dataAnalysisNav,@"normalImg":@"\U0000ecf2",@"selectImg":@"\U0000ecf2",@"itemTitle":@"数据分析"},@{@"vc":classInfoDisplayNav ,@"normalImg":@"\U0000eb4f",@"selectImg":@"\U0000eb4f",@"itemTitle":@"班级信息"}
       ];
     // 1.遍历这个集合
     // 1.1 设置一个保存构造器的数组
@@ -198,28 +189,23 @@ static NSInteger lastIdx = 0;
 /**
  隐藏导航栏右上角按钮
  */
-- (void)hideRightItem{
-    self.navigationItem.rightBarButtonItem.customView.hidden = YES;
-}
+//- (void)hideRightItem{
+//    self.navigationItem.rightBarButtonItem.customView.hidden = YES;
+//}
 
 /**
  显示导航栏右上角按钮
  */
-- (void)showRightItem{
-    self.navigationItem.rightBarButtonItem.customView.hidden = NO;
-}
+//- (void)showRightItem{
+//    self.navigationItem.rightBarButtonItem.customView.hidden = NO;
+//}
 
 /**
  点击了导航栏右上角按钮
  */
-- (void)rightNavigationItemClicked{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"rightNavigationItemClickedNotification" object:nil];
-}
-/**
- 点击了导航栏左上角按钮
- */
-- (void)leftNavigationItemClicked{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void)rightNavigationItemClicked{
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"rightNavigationItemClickedNotification" object:nil];
+//}
+
 
 @end
