@@ -2,8 +2,8 @@
 //  CAClassInfoModel.m
 //  Cactus
 //
-//  Created by 钟奇龙 on 2018/9/26.
-//  Copyright © 2018年 钟奇龙. All rights reserved.
+//  Created by  zonasse on 2018/9/26.
+//  Copyright © 2018年  zonasse. All rights reserved.
 //
 
 #import "QLClassInfoModel.h"
@@ -15,11 +15,11 @@
         self.cid = dict[@"cid"];
         self.name = dict[@"name"];
         self.teacher_id = [dict[@"teacher_id"] integerValue];
-        self.year = dict[@"year"];
-        self.month = dict[@"month"];
-        self.date = dict[@"date"];
+        self.week = dict[@"week"];
         self.room = dict[@"room"];
         self.student_count = [dict[@"student_count"] integerValue];
+        self.semester = dict[@"semester"];
+        self.currentSemester = dict[@"current_semester"];
     }
     return self;
 }

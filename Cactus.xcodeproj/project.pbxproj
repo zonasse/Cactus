@@ -11,7 +11,7 @@
 		EA031A5221562F6100128829 /* QLLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A5021562F6100128829 /* QLLoginViewController.m */; };
 		EA031A57215631BD00128829 /* QLLogonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A55215631BD00128829 /* QLLogonViewController.m */; };
 		EA031A622156373D00128829 /* QLHomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A602156373D00128829 /* QLHomePageViewController.m */; };
-		EA031A6621563DEC00128829 /* QLClassInfoViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A6521563DEC00128829 /* QLClassInfoViewCell.m */; };
+		EA031A6621563DEC00128829 /* QLHomePageClassInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A6521563DEC00128829 /* QLHomePageClassInfoCell.m */; };
 		EA031A692156580B00128829 /* QLTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A682156580B00128829 /* QLTabBarViewController.m */; };
 		EA031A7B21570F7E00128829 /* QLClassInfoDisplayMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7921570F7E00128829 /* QLClassInfoDisplayMViewController.m */; };
 		EA031A7E21570FA300128829 /* QLScoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA031A7D21570FA200128829 /* QLScoreListViewController.m */; };
@@ -26,11 +26,13 @@
 		EA6E747A21ECCC7B00FC1B97 /* QLLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6E747921ECCC7B00FC1B97 /* QLLoginView.m */; };
 		EA6E747E21ECCE1200FC1B97 /* QLLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6E747D21ECCE1200FC1B97 /* QLLoginViewModel.m */; };
 		EA6E748721ED7E0000FC1B97 /* QLHomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6E748621ED7E0000FC1B97 /* QLHomeViewModel.m */; };
+		EA6E748821EE0C9100FC1B97 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6E746F21ECBDAA00FC1B97 /* Charts.framework */; };
+		EA6E748921EE0C9100FC1B97 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA6E746F21ECBDAA00FC1B97 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA71BE2721A69C9D00E5ABB3 /* NSString+QLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EA71BE2621A69C9D00E5ABB3 /* NSString+QLExtension.m */; };
 		EA89A3A9216301AC00FFC473 /* QLClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3A8216301AC00FFC473 /* QLClassModel.m */; };
 		EA89A3AC2163051500FFC473 /* QLTitleGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AB2163051500FFC473 /* QLTitleGroupModel.m */; };
 		EA89A3AF2163065500FFC473 /* QLMajorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AE2163065500FFC473 /* QLMajorModel.m */; };
-		EA8B3F9F218300DC005E85A4 /* QLHomePageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3F9E218300DC005E85A4 /* QLHomePageView.m */; };
+		EA8B3F9F218300DC005E85A4 /* QLHomePageProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B3F9E218300DC005E85A4 /* QLHomePageProfileCell.m */; };
 		EA8B4015218A8BB9005E85A4 /* QLDataAnalysisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4013218A8BB9005E85A4 /* QLDataAnalysisViewController.m */; };
 		EA8B401A218A8CDD005E85A4 /* QLDataAnalysisContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4019218A8CDD005E85A4 /* QLDataAnalysisContentView.m */; };
 		EA8B402C218C1EB7005E85A4 /* QLChangeScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B402B218C1EB7005E85A4 /* QLChangeScoreViewController.m */; };
@@ -74,6 +76,13 @@
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
 		};
+		EA6E748A21EE0C9100FC1B97 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA6E746921ECBDAA00FC1B97 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
 		EACE3A502155D55200C43599 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EACE3A2F2155D54E00C43599 /* Project object */;
@@ -97,6 +106,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				EA6E748921EE0C9100FC1B97 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -113,8 +123,8 @@
 		EA031A55215631BD00128829 /* QLLogonViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLLogonViewController.m; sourceTree = "<group>"; };
 		EA031A5F2156373D00128829 /* QLHomePageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLHomePageViewController.h; sourceTree = "<group>"; };
 		EA031A602156373D00128829 /* QLHomePageViewController.m */ = {isa = PBXFileReference; indentWidth = 3; lastKnownFileType = sourcecode.c.objc; path = QLHomePageViewController.m; sourceTree = "<group>"; };
-		EA031A6421563DEC00128829 /* QLClassInfoViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLClassInfoViewCell.h; sourceTree = "<group>"; };
-		EA031A6521563DEC00128829 /* QLClassInfoViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLClassInfoViewCell.m; sourceTree = "<group>"; };
+		EA031A6421563DEC00128829 /* QLHomePageClassInfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLHomePageClassInfoCell.h; sourceTree = "<group>"; };
+		EA031A6521563DEC00128829 /* QLHomePageClassInfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLHomePageClassInfoCell.m; sourceTree = "<group>"; };
 		EA031A672156580B00128829 /* QLTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLTabBarViewController.h; sourceTree = "<group>"; };
 		EA031A682156580B00128829 /* QLTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLTabBarViewController.m; sourceTree = "<group>"; };
 		EA031A7921570F7E00128829 /* QLClassInfoDisplayMViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLClassInfoDisplayMViewController.m; sourceTree = "<group>"; };
@@ -154,8 +164,8 @@
 		EA89A3AB2163051500FFC473 /* QLTitleGroupModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLTitleGroupModel.m; sourceTree = "<group>"; };
 		EA89A3AD2163065500FFC473 /* QLMajorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLMajorModel.h; sourceTree = "<group>"; };
 		EA89A3AE2163065500FFC473 /* QLMajorModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLMajorModel.m; sourceTree = "<group>"; };
-		EA8B3F9D218300DC005E85A4 /* QLHomePageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLHomePageView.h; sourceTree = "<group>"; };
-		EA8B3F9E218300DC005E85A4 /* QLHomePageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLHomePageView.m; sourceTree = "<group>"; };
+		EA8B3F9D218300DC005E85A4 /* QLHomePageProfileCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLHomePageProfileCell.h; sourceTree = "<group>"; };
+		EA8B3F9E218300DC005E85A4 /* QLHomePageProfileCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLHomePageProfileCell.m; sourceTree = "<group>"; };
 		EA8B4013218A8BB9005E85A4 /* QLDataAnalysisViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QLDataAnalysisViewController.m; sourceTree = "<group>"; };
 		EA8B4014218A8BB9005E85A4 /* QLDataAnalysisViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLDataAnalysisViewController.h; sourceTree = "<group>"; };
 		EA8B4018218A8CDD005E85A4 /* QLDataAnalysisContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QLDataAnalysisContentView.h; sourceTree = "<group>"; };
@@ -217,6 +227,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA6E748821EE0C9100FC1B97 /* Charts.framework in Frameworks */,
 				EA6E747221ECBDCC00FC1B97 /* Charts.framework in Frameworks */,
 				5DA646B90AE1F5F9EB935364 /* libPods-Cactus.a in Frameworks */,
 			);
@@ -355,10 +366,10 @@
 		EA0C7C1C21EC638400D4B03C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				EA031A6421563DEC00128829 /* QLClassInfoViewCell.h */,
-				EA031A6521563DEC00128829 /* QLClassInfoViewCell.m */,
-				EA8B3F9D218300DC005E85A4 /* QLHomePageView.h */,
-				EA8B3F9E218300DC005E85A4 /* QLHomePageView.m */,
+				EA031A6421563DEC00128829 /* QLHomePageClassInfoCell.h */,
+				EA031A6521563DEC00128829 /* QLHomePageClassInfoCell.m */,
+				EA8B3F9D218300DC005E85A4 /* QLHomePageProfileCell.h */,
+				EA8B3F9E218300DC005E85A4 /* QLHomePageProfileCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -945,6 +956,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				EA6E748B21EE0C9100FC1B97 /* PBXTargetDependency */,
 			);
 			name = Cactus;
 			productName = Cactus;
@@ -1130,7 +1142,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EA6E748721ED7E0000FC1B97 /* QLHomeViewModel.m in Sources */,
-				EA031A6621563DEC00128829 /* QLClassInfoViewCell.m in Sources */,
+				EA031A6621563DEC00128829 /* QLHomePageClassInfoCell.m in Sources */,
 				EA031A7E21570FA300128829 /* QLScoreListViewController.m in Sources */,
 				EA8B403C218D45DB005E85A4 /* QLAddPointTitleCell.m in Sources */,
 				EA16965C21635960005C3D48 /* MBProgressHUD.m in Sources */,
@@ -1153,7 +1165,7 @@
 				EA4BDC9A21670631003B446B /* UIView+QLExtension.m in Sources */,
 				EACE3A4A2155D55000C43599 /* main.m in Sources */,
 				EA16965D21635960005C3D48 /* MBProgressHUD+MJ.m in Sources */,
-				EA8B3F9F218300DC005E85A4 /* QLHomePageView.m in Sources */,
+				EA8B3F9F218300DC005E85A4 /* QLHomePageProfileCell.m in Sources */,
 				EA031A692156580B00128829 /* QLTabBarViewController.m in Sources */,
 				EA89A3AC2163051500FFC473 /* QLTitleGroupModel.m in Sources */,
 				EAE8E433215B174B0037420C /* QLStudentModel.m in Sources */,
@@ -1193,6 +1205,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		EA6E748B21EE0C9100FC1B97 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = EA6E748A21EE0C9100FC1B97 /* PBXContainerItemProxy */;
+		};
 		EACE3A512155D55200C43599 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EACE3A362155D54E00C43599 /* Cactus */;
@@ -1336,6 +1353,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558BYD3F79;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cactus/Resource/Global/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Cactus/Resource/Plist/Info.plist";
@@ -1359,6 +1377,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 558BYD3F79;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Cactus/Resource/Global/PrefixHeader.pch";
 				INFOPLIST_FILE = "$(SRCROOT)/Cactus/Resource/Plist/Info.plist";

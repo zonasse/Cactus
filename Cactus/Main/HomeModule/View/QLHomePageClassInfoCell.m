@@ -2,12 +2,12 @@
 //  CAClassInfoViewCell.m
 //  Cactus
 //
-//  Created by 钟奇龙 on 2018/9/22.
-//  Copyright © 2018年 钟奇龙. All rights reserved.
+//  Created by  zonasse on 2018/9/22.
+//  Copyright © 2018年  zonasse. All rights reserved.
 //
 
-#import "QLClassInfoViewCell.h"
-@interface QLClassInfoViewCell()
+#import "QLHomePageClassInfoCell.h"
+@interface QLHomePageClassInfoCell()
 ///替换视图
 @property (nonatomic,strong) UIImageView *replaceContentImageView;
 ///教学班图片
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation QLClassInfoViewCell
+@implementation QLHomePageClassInfoCell
 
 #pragma mark -- rebuild cell
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
@@ -48,7 +48,7 @@
         }];
         //1.左边图片
         [self.classInfoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(weakSelf.replaceContentImageView.mas_left).with.offset(10);
+            make.left.mas_equalTo(weakSelf.replaceContentImageView.mas_left).with.offset(0);
             make.centerY.mas_equalTo(weakSelf.replaceContentImageView);
             make.height.width.mas_equalTo(weakSelf.replaceContentImageView.mas_height);
             

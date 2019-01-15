@@ -2,8 +2,8 @@
 //  CAChangeScoreViewController.m
 //  Cactus
 //
-//  Created by 钟奇龙 on 2018/11/2.
-//  Copyright © 2018 钟奇龙. All rights reserved.
+//  Created by  zonasse on 2018/11/2.
+//  Copyright © 2018  zonasse. All rights reserved.
 //
 
 #import "QLChangeScoreViewController.h"

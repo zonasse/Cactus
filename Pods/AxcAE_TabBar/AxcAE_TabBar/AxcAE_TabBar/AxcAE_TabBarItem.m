@@ -198,7 +198,7 @@
     _itemModel = itemModel;
     self.backgroundImageView = itemModel.backgroundImageView; // 先添加背景
     self.title = _itemModel.itemTitle;
-#pragma mark --此处有改动（钟奇龙）
+#pragma mark --此处有改动（zonasse）
     self.normalImage = [UIImage iconWithInfo:TBCityIconInfoMake(_itemModel.normalImageName, 44, _itemModel.normalColor)];
     self.selectImage = [UIImage iconWithInfo:TBCityIconInfoMake(_itemModel.selectImageName, 44, _itemModel.selectColor)];
     //self.normalImage = [UIImage imageNamed:_itemModel.normalImageName];

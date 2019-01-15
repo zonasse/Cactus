@@ -2,8 +2,8 @@
 //  QLLoginViewModel.m
 //  Cactus
 //
-//  Created by 钟奇龙 on 2019/1/14.
-//  Copyright © 2019 钟奇龙. All rights reserved.
+//  Created by  zonasse on 2019/1/14.
+//  Copyright © 2019  zonasse. All rights reserved.
 //
 
 #import "QLLoginViewModel.h"
@@ -75,7 +75,7 @@
         [MBProgressHUD hideHUD];
         NSDictionary *responseDict = (NSDictionary *)responseObject;
         NSString *code = responseObject[@"code"];
-        if(![code isEqualToString:k_status_post_succeed]){
+        if(![code isEqualToString:k_status_get_succeed]){
             [MBProgressHUD showError:@"用户名或密码错误"];
             return;
         }

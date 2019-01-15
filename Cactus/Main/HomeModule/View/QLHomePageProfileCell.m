@@ -2,15 +2,15 @@
 //  CAHomePageView.m
 //  Cactus
 //
-//  Created by 钟奇龙 on 2018/10/26.
-//  Copyright © 2018 钟奇龙. All rights reserved.
+//  Created by  zonasse on 2018/10/26.
+//  Copyright © 2018  zonasse. All rights reserved.
 //
 
-#import "QLHomePageView.h"
-#import "QLClassInfoViewCell.h"
+#import "QLHomePageProfileCell.h"
+#import "QLHomePageClassInfoCell.h"
 #import "QLTeacherModel.h"
 #import "QLClassInfoModel.h"
-@interface QLHomePageView()<UITableViewDelegate,UITableViewDataSource>
+@interface QLHomePageProfileCell()
 ///教师视图
 @property (strong, nonatomic) UIView *teacherProfileView;
 ///教师头像
@@ -25,17 +25,21 @@
 @property (strong, nonatomic)  UILabel *teacherCollegeLabel;
 ///管理员图像
 @property (strong, nonatomic)  UIImageView *isManagerImageView;
-///教师对象
-@property (strong, nonatomic) QLTeacherModel *teacher;
 
 @end
 
-@implementation QLHomePageView
+@implementation QLHomePageProfileCell
 #pragma mark - life cycle
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier{
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        [self setupSubViews];
+    }
+    return self;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self setupSubViews];
     }
     return self;
 }
@@ -74,21 +78,20 @@
     _teacherTidLabel = [[UILabel alloc] init];
     
     
-    [self addSubview:_teacherProfileView];
-//    [self addSubview:_classInfoTableView];
+    [self.contentView addSubview:_teacherProfileView];
     [_teacherProfileView addSubview:_teacherImageView];
     [_teacherProfileView addSubview:_teacherNameLabel];
     [_teacherProfileView addSubview:_teacherUniversityLabel];
     [_teacherProfileView addSubview:_teacherTidLabel];
     [_teacherProfileView addSubview:_teacherCollegeLabel];
-    //    [_teacherProfileView addSubview:_isManagerPic];
     
     
     [_teacherProfileView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self);
-        make.top.mas_equalTo(self).with.offset(10);
-        make.width.mas_equalTo(self.mas_width).with.offset(20);
-        make.height.mas_equalTo(@210);
+//        make.centerX.mas_equalTo(self);
+//        make.top.mas_equalTo(self).with.offset(10);
+//        make.width.mas_equalTo(self.mas_width).with.offset(20);
+//        make.height.mas_equalTo(@210);
+        make.left.top.right.bottom.mas_equalTo(self);
     }];
 //    [_classInfoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.centerX.mas_equalTo(self);
@@ -121,22 +124,26 @@
         make.height.mas_equalTo(30);
     }];
     
-//    _classInfoTableView.delegate = self;
-//    _classInfoTableView.dataSource = self;
-//    _classInfoTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-//    UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 5)];
-//    tableHeaderView.backgroundColor = [UIColor clearColor];
-//    _classInfoTableView.tableHeaderView = tableHeaderView;
 
     [_teacherImageView layoutIfNeeded];
     _teacherImageView.layer.masksToBounds = YES;
     _teacherImageView.layer.cornerRadius =_teacherImageView.width / 2 ;
     
     _teacherNameLabel.textAlignment = NSTextAlignmentCenter;
-    _teacherUniversityLabel.textAlignment = NSTextAlignmentCenter;
-    _teacherCollegeLabel.textAlignment = NSTextAlignmentCenter;
-    _teacherTidLabel.textAlignment = NSTextAlignmentCenter;
+    _teacherNameLabel.font = [UIFont systemFontOfSize:16.0];
     
+    _teacherUniversityLabel.textAlignment = NSTextAlignmentCenter;
+    _teacherUniversityLabel.font = [UIFont systemFontOfSize:12.0];
+    _teacherUniversityLabel.textColor = [UIColor grayColor];
+    
+    _teacherCollegeLabel.textAlignment = NSTextAlignmentCenter;
+    _teacherCollegeLabel.font = [UIFont systemFontOfSize:12.0];
+    _teacherCollegeLabel.textColor = [UIColor grayColor];
+
+    _teacherTidLabel.textAlignment = NSTextAlignmentCenter;
+    _teacherTidLabel.font = [UIFont systemFontOfSize:12.0];
+    _teacherTidLabel.textColor = [UIColor grayColor];
+
 }
 
 /**
@@ -153,9 +160,6 @@
 }
 
 
-
-
-#pragma mark - notification methods
 
 
 @end

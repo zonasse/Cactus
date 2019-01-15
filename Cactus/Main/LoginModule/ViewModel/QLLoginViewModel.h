@@ -2,8 +2,8 @@
 //  QLLoginViewModel.h
 //  Cactus
 //
-//  Created by 钟奇龙 on 2019/1/14.
-//  Copyright © 2019 钟奇龙. All rights reserved.
+//  Created by  zonasse on 2019/1/14.
+//  Copyright © 2019  zonasse. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
