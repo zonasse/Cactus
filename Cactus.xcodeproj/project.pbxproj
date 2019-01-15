@@ -23,6 +23,9 @@
 		EA16965E21635960005C3D48 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA16965B21635960005C3D48 /* MBProgressHUD.bundle */; };
 		EA4BDC9A21670631003B446B /* UIView+QLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4BDC9921670631003B446B /* UIView+QLExtension.m */; };
 		EA6E747221ECBDCC00FC1B97 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6E746F21ECBDAA00FC1B97 /* Charts.framework */; };
+		EA6E747A21ECCC7B00FC1B97 /* QLLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6E747921ECCC7B00FC1B97 /* QLLoginView.m */; };
+		EA6E747E21ECCE1200FC1B97 /* QLLoginViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6E747D21ECCE1200FC1B97 /* QLLoginViewModel.m */; };
+		EA6E748721ED7E0000FC1B97 /* QLHomeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6E748621ED7E0000FC1B97 /* QLHomeViewModel.m */; };
 		EA71BE2721A69C9D00E5ABB3 /* NSString+QLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EA71BE2621A69C9D00E5ABB3 /* NSString+QLExtension.m */; };
 		EA89A3A9216301AC00FFC473 /* QLClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3A8216301AC00FFC473 /* QLClassModel.m */; };
 		EA89A3AC2163051500FFC473 /* QLTitleGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89A3AB2163051500FFC473 /* QLTitleGroupModel.m */; };
@@ -132,6 +135,17 @@
 		EA4BDC9821670631003B446B /* UIView+QLExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+QLExtension.h"; sourceTree = "<group>"; };
 		EA4BDC9921670631003B446B /* UIView+QLExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+QLExtension.m"; sourceTree = "<group>"; };
 		EA6E746921ECBDAA00FC1B97 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../../../Downloads/Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
+		EA6E747821ECCC7B00FC1B97 /* QLLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLLoginView.h; sourceTree = "<group>"; };
+		EA6E747921ECCC7B00FC1B97 /* QLLoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLLoginView.m; sourceTree = "<group>"; };
+		EA6E747C21ECCE1200FC1B97 /* QLLoginViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLLoginViewModel.h; sourceTree = "<group>"; };
+		EA6E747D21ECCE1200FC1B97 /* QLLoginViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLLoginViewModel.m; sourceTree = "<group>"; };
+		EA6E747F21ECD5B100FC1B97 /* QLURLAddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLURLAddress.h; sourceTree = "<group>"; };
+		EA6E748021ED6DE800FC1B97 /* QLColorSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLColorSetting.h; sourceTree = "<group>"; };
+		EA6E748121ED6E4100FC1B97 /* QLViewSizeSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLViewSizeSetting.h; sourceTree = "<group>"; };
+		EA6E748221ED734500FC1B97 /* QLStatusCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLStatusCode.h; sourceTree = "<group>"; };
+		EA6E748321ED792E00FC1B97 /* QLLocalStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLLocalStorage.h; sourceTree = "<group>"; };
+		EA6E748521ED7E0000FC1B97 /* QLHomeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLHomeViewModel.h; sourceTree = "<group>"; };
+		EA6E748621ED7E0000FC1B97 /* QLHomeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLHomeViewModel.m; sourceTree = "<group>"; };
 		EA71BE2521A69C9D00E5ABB3 /* NSString+QLExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+QLExtension.h"; sourceTree = "<group>"; };
 		EA71BE2621A69C9D00E5ABB3 /* NSString+QLExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+QLExtension.m"; sourceTree = "<group>"; };
 		EA89A3A7216301AC00FFC473 /* QLClassModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLClassModel.h; sourceTree = "<group>"; };
@@ -251,6 +265,7 @@
 		EA0C7C1221EC638400D4B03C /* LoginModule */ = {
 			isa = PBXGroup;
 			children = (
+				EA6E747B21ECCDF300FC1B97 /* ViewModel */,
 				EA0C7C1421EC638400D4B03C /* Controller */,
 				EA0C7C1521EC638400D4B03C /* Model */,
 				EA0C7C1321EC638400D4B03C /* Other */,
@@ -288,6 +303,8 @@
 		EA0C7C1621EC638400D4B03C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EA6E747821ECCC7B00FC1B97 /* QLLoginView.h */,
+				EA6E747921ECCC7B00FC1B97 /* QLLoginView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -302,6 +319,7 @@
 		EA0C7C1821EC638400D4B03C /* HomeModule */ = {
 			isa = PBXGroup;
 			children = (
+				EA6E748421ED7DEA00FC1B97 /* ViewModel */,
 				EA0C7C1A21EC638400D4B03C /* Controller */,
 				EA0C7C1B21EC638400D4B03C /* Model */,
 				EA0C7C1921EC638400D4B03C /* Other */,
@@ -530,6 +548,8 @@
 		EA0C7C3321EC638E00D4B03C /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				EA6E747F21ECD5B100FC1B97 /* QLURLAddress.h */,
+				EA6E748221ED734500FC1B97 /* QLStatusCode.h */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -557,6 +577,9 @@
 		EA0C7C3721EC638E00D4B03C /* Macros */ = {
 			isa = PBXGroup;
 			children = (
+				EA6E748021ED6DE800FC1B97 /* QLColorSetting.h */,
+				EA6E748121ED6E4100FC1B97 /* QLViewSizeSetting.h */,
+				EA6E748321ED792E00FC1B97 /* QLLocalStorage.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -826,6 +849,24 @@
 			path = DataBase;
 			sourceTree = "<group>";
 		};
+		EA6E747B21ECCDF300FC1B97 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EA6E747C21ECCE1200FC1B97 /* QLLoginViewModel.h */,
+				EA6E747D21ECCE1200FC1B97 /* QLLoginViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EA6E748421ED7DEA00FC1B97 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EA6E748521ED7E0000FC1B97 /* QLHomeViewModel.h */,
+				EA6E748621ED7E0000FC1B97 /* QLHomeViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		EACE3A2E2155D54E00C43599 = {
 			isa = PBXGroup;
 			children = (
@@ -1088,10 +1129,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA6E748721ED7E0000FC1B97 /* QLHomeViewModel.m in Sources */,
 				EA031A6621563DEC00128829 /* QLClassInfoViewCell.m in Sources */,
 				EA031A7E21570FA300128829 /* QLScoreListViewController.m in Sources */,
 				EA8B403C218D45DB005E85A4 /* QLAddPointTitleCell.m in Sources */,
 				EA16965C21635960005C3D48 /* MBProgressHUD.m in Sources */,
+				EA6E747E21ECCE1200FC1B97 /* QLLoginViewModel.m in Sources */,
 				EAE8E43C215B1FB70037420C /* QLPointModel.m in Sources */,
 				EA031A57215631BD00128829 /* QLLogonViewController.m in Sources */,
 				EAD9679221C8C85200376E1C /* QLScoreListCollectionCell.m in Sources */,
@@ -1105,6 +1148,7 @@
 				EA8B401A218A8CDD005E85A4 /* QLDataAnalysisContentView.m in Sources */,
 				EA031A7B21570F7E00128829 /* QLClassInfoDisplayMViewController.m in Sources */,
 				EA031A622156373D00128829 /* QLHomePageViewController.m in Sources */,
+				EA6E747A21ECCC7B00FC1B97 /* QLLoginView.m in Sources */,
 				EA031A8121570FC100128829 /* QLStudentListViewController.m in Sources */,
 				EA4BDC9A21670631003B446B /* UIView+QLExtension.m in Sources */,
 				EACE3A4A2155D55000C43599 /* main.m in Sources */,

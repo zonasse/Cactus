@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface QLHomePageViewController : UIViewController
+@interface QLHomePageViewController : UITableViewController
 
 @end

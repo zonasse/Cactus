@@ -13,8 +13,6 @@
 @interface QLHomePageView()<UITableViewDelegate,UITableViewDataSource>
 ///教师视图
 @property (strong, nonatomic) UIView *teacherProfileView;
-///教学班列表
-@property (strong, nonatomic) UITableView *classInfoTableView;
 ///教师头像
 @property (strong, nonatomic)  UIImageView *teacherImageView;
 ///教师姓名文本
@@ -35,76 +33,25 @@
 @implementation QLHomePageView
 #pragma mark - life cycle
 
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-    [self setupSubViews];
-    
+- (instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        [self setupSubViews];
+    }
+    return self;
 }
 #pragma mark - event response
 
 #pragma mark - delegete and datasource methods
 
-#pragma mark ----tableview delegate and datasource
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 88;
-}
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _classInfoArray.count;
-}
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return _classInfoArray.count;
-    return 1;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 1;
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 5;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView * view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
-    return view;
-}
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView * view=[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 1)];
-    return view;
-}
-
-- (QLClassInfoViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellId = @"classInfoCell";
-    QLClassInfoViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if(!cell){
-        cell = [[QLClassInfoViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        NSDictionary *dict = self.classInfoArray[indexPath.section];
-//        NSDictionary *dict = self.classInfoArray[0];
-
-        [cell setCellContentInformationWithClassInfoImage:@"" classInfoName:dict[@"name"] classInfoRoom:dict[@"room"] classInfoTime:dict[@"date"] classInfoStudentCount:[dict[@"student_count"] integerValue]];
-    }
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    // 选中cell后立马取消选中，达到点击cell的效果
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSDictionary *dict = self.classInfoArray[indexPath.section];
-    QLClassInfoModel *classInfo = [[QLClassInfoModel alloc] initWithDict:dict];
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setValue:[NSString stringWithFormat:@"%ld", classInfo._id] forKey:@"currentClassInfo_id"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CAJumpToClassManagementViewControllerNotification" object:classInfo];
-    
-}
 
 #pragma mark - getters and setters
 /**
  设置教学班信息
  */
-- (void)setClassInfoArray:(NSArray *)classInfoArray{
-    _classInfoArray = classInfoArray;
-    [self.classInfoTableView reloadData];
-}
+//- (void)setClassInfoArray:(NSArray *)classInfoArray{
+//    _classInfoArray = classInfoArray;
+//    [self.classInfoTableView reloadData];
+//}
 #pragma mark - private
 
 /**
@@ -113,11 +60,11 @@
 - (void) setupSubViews{
     __unsafe_unretained typeof(self) weakSelf = self;
     _teacherProfileView = [[UIView alloc] init];
-    _classInfoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStyleGrouped];
-    
-    _classInfoTableView.estimatedRowHeight = 0;
-    _classInfoTableView.estimatedSectionHeaderHeight = 0;
-    _classInfoTableView.estimatedSectionFooterHeight = 0;
+//    _classInfoTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) style:UITableViewStyleGrouped];
+//
+//    _classInfoTableView.estimatedRowHeight = 0;
+//    _classInfoTableView.estimatedSectionHeaderHeight = 0;
+//    _classInfoTableView.estimatedSectionFooterHeight = 0;
 
     
     _teacherImageView = [[UIImageView alloc] init];
@@ -128,7 +75,7 @@
     
     
     [self addSubview:_teacherProfileView];
-    [self addSubview:_classInfoTableView];
+//    [self addSubview:_classInfoTableView];
     [_teacherProfileView addSubview:_teacherImageView];
     [_teacherProfileView addSubview:_teacherNameLabel];
     [_teacherProfileView addSubview:_teacherUniversityLabel];
@@ -143,12 +90,12 @@
         make.width.mas_equalTo(self.mas_width).with.offset(20);
         make.height.mas_equalTo(@210);
     }];
-    [_classInfoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(self);
-        make.top.mas_equalTo(weakSelf.teacherProfileView.mas_bottom).with.offset(0);
-        make.width.mas_equalTo(weakSelf.teacherProfileView);
-        make.bottom.mas_equalTo(self);
-    }];
+//    [_classInfoTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.mas_equalTo(self);
+//        make.top.mas_equalTo(weakSelf.teacherProfileView.mas_bottom).with.offset(0);
+//        make.width.mas_equalTo(weakSelf.teacherProfileView);
+//        make.bottom.mas_equalTo(self);
+//    }];
     
     [_teacherImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self);
@@ -174,12 +121,12 @@
         make.height.mas_equalTo(30);
     }];
     
-    _classInfoTableView.delegate = self;
-    _classInfoTableView.dataSource = self;
-    _classInfoTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 5)];
-    tableHeaderView.backgroundColor = [UIColor clearColor];
-    _classInfoTableView.tableHeaderView = tableHeaderView;
+//    _classInfoTableView.delegate = self;
+//    _classInfoTableView.dataSource = self;
+//    _classInfoTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 5)];
+//    tableHeaderView.backgroundColor = [UIColor clearColor];
+//    _classInfoTableView.tableHeaderView = tableHeaderView;
 
     [_teacherImageView layoutIfNeeded];
     _teacherImageView.layer.masksToBounds = YES;
