@@ -16,11 +16,14 @@
 #import "QLPointModel.h"
 #import "QLTitleModel.h"
 #import "QLStudentModel.h"
+#import "QLTitleGroupModel.h"
 #import "NSDictionary+QLDictionaryDeepCopy.h"
 #import "NSString+QLExtension.h"
 #import "QLScoreListCollectionCell.h"
 #import "QLScoreListCollectionViewLayout.h"
-@interface QLScoreListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITextViewDelegate>
+#import "SMAlert.h"
+#import "QLDropDownView.h"
+@interface QLScoreListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UITextViewDelegate,UITextFieldDelegate>
 {
     UICollectionView *_collectionView;
     QLScoreListCollectionViewLayout *_collectionViewLayout;
@@ -32,6 +35,10 @@
     QLScoreListCollectionCell *_selectedCell;
     CGFloat currentOffsetY;
     
+    UIButton *titleGroupButton;
+    QLTitleGroupModel *newTitleBelongToTitleGroup;
+    SMButton *newTitleConfirmButton;
+    UITextField *newTitleTextField;
     
     NSMutableArray *_modifiedPoints;
     NSMutableArray *_insertPoints;
@@ -45,6 +52,8 @@
 @property (nonatomic,strong) NSMutableArray *points;
 ///分数列对象数组
 @property (nonatomic,strong) NSMutableArray *titles;
+///分数大项数组
+@property (nonatomic,strong) NSMutableArray *titleGroups;
 ///学生-分数-分数列字典
 @property (nonatomic,strong) NSMutableDictionary *hashMap;
 ///控制器首次出现
@@ -285,9 +294,110 @@
  增加分数列
  */
 - (void)addTitle{
+    [SMAlert setConfirmBtBackgroundColor:[UIColor whiteColor]];
+    [SMAlert setConfirmBtTitleColor:[UIColor redColor]];
+    [SMAlert setCancleBtBackgroundColor:[UIColor whiteColor]];
+    [SMAlert setCancleBtTitleColor:[UIColor blueColor]];
+    [SMAlert setAlertBackgroundColor:[UIColor blackColor]];
+    UIView *customView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 280, 250)];
     
-}
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 20, 250, 15)];
+    [titleLabel setFont:[UIFont systemFontOfSize:15]];
+    [titleLabel setTextColor:[UIColor darkGrayColor]];
+    titleLabel.text = @"请输入分属列名:";
+    [customView addSubview:titleLabel];
+    
+    newTitleTextField = [[UITextField alloc]initWithFrame:CGRectMake(15, 50, 250, 35)];
+    newTitleTextField.layer.borderWidth = 0.5;
+    newTitleTextField.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    [newTitleTextField setReturnKeyType:UIReturnKeyDone];
+    newTitleTextField.delegate = self;
+    [customView addSubview:newTitleTextField];
+    
+    UILabel *weightMessageLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 100, titleLabel.width, 50)];
+    weightMessageLabel.text = @"权重请在web端进行设置，此处默认为0";
+    [weightMessageLabel setFont:[UIFont systemFontOfSize:15.0]];
+    weightMessageLabel.numberOfLines = 0;
+    [customView addSubview:weightMessageLabel];
+    
+    UILabel *titleGroupLabel = [[UILabel alloc] initWithFrame:CGRectMake(titleLabel.x, weightMessageLabel.getMaxY + 15, 250, 15)];
+    titleGroupLabel.text = @"大项:";
+    [titleGroupLabel setFont:[UIFont systemFontOfSize:15]];
+    [customView addSubview:titleGroupLabel];
+    
+    titleGroupButton = [[UIButton alloc] initWithFrame:CGRectMake(titleGroupLabel.x, titleGroupLabel.getMaxY + 15, 100, 44)];
+    [titleGroupButton setTitle:@"选择大项" forState:UIControlStateNormal];
+    [titleGroupButton setBackgroundImage:[UIImage imageNamed:@"small_btn_bg"] forState: UIControlStateNormal];
+    [titleGroupButton addTarget:self action:@selector(chooseTitleGroup) forControlEvents:UIControlEventTouchUpInside];
+    [customView addSubview:titleGroupButton];
 
+    newTitleConfirmButton = [SMButton initWithTitle:@"确定" clickAction:^{
+        
+        [MBProgressHUD showMessage:@"提交中..."];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            //1.插入分数列
+            NSString *urlString = [kBASE_URL stringByAppendingString:@"title/format"];
+            NSMutableDictionary *params = [NSMutableDictionary dictionary];
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSString *classInfo_id = [userDefaults valueForKey:k_classInfo_id_key];
+            params[@"subjects"] = @[@{@"name":self->newTitleTextField.text,@"titleGroup_id":[NSString stringWithFormat:@"%ld",self->newTitleBelongToTitleGroup._id] ,@"classInfo_id":classInfo_id}];
+            self->newTitleBelongToTitleGroup = nil;
+
+            [ShareDefaultHttpTool POSTWithCompleteURL:urlString parameters:params progress:^(id progress) {
+                
+            } success:^(id responseObject) {
+                [MBProgressHUD hideHUD];
+                NSDictionary *responseDict = responseObject;
+                if ([responseDict[@"code"] isEqualToString:@"1042"]) {
+                    [MBProgressHUD showError:@"分数列插入失败"];
+                }else{
+                    [self refresh];
+                }
+            } failure:^(NSError *error) {
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showError:@"分数列插入失败"];
+            }];
+        });
+
+        
+    }];
+    newTitleConfirmButton.enabled = NO;
+    [newTitleConfirmButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
+    [SMAlert showCustomView:customView confirmButton:newTitleConfirmButton cancleButton:[SMButton initWithTitle:@"取消" clickAction:^{
+        self->newTitleBelongToTitleGroup = nil;
+    }]];
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    if ([NSString checkValidWithNormalString: textField.text] && self->newTitleBelongToTitleGroup) {
+        self->newTitleConfirmButton.enabled = YES;
+    }else{
+        self->newTitleConfirmButton.enabled = NO;
+        
+    }
+}
+- (void)chooseTitleGroup{
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"选择大项" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    for (QLTitleGroupModel *titleGroup in self.titleGroups) {
+        [alert addAction:[UIAlertAction actionWithTitle:titleGroup.name style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self->titleGroupButton setTitle:titleGroup.name forState:UIControlStateNormal];
+            self->newTitleBelongToTitleGroup = titleGroup;
+            if ([NSString checkValidWithNormalString: self->newTitleTextField.text] && self->newTitleBelongToTitleGroup) {
+                self->newTitleConfirmButton.enabled = YES;
+            }else{
+                self->newTitleConfirmButton.enabled = NO;
+
+            }
+        }]];
+    }
+    
+    [self presentViewController:alert animated:YES completion:^{
+        
+    }];
+}
+//- (void)dropDown:(QLDropDownView *)drop withView:(UIView *)view didSelectText:(NSString *)str{
+//
+//}
 
 /**
  删除分数列
@@ -313,7 +423,7 @@
     
     
     //1.清空表格数据
-//    [self clearOriginData];
+    [self clearOriginData];
     
     //同时请求分数、学生、列名数据
     [MBProgressHUD showMessage:@"教学班信息获取中..."];
@@ -377,9 +487,9 @@
             
         }];
     });
-    //2.3请求分数项数据
+    //2.3请求分数列数据
     dispatch_group_async(group, queue, ^{
-        NSString *urlString = [kBASE_URL stringByAppendingString:@"title/format"];
+        NSString *urlString = [kBASE_URL stringByAppendingString:@"title/display"];
         
         [ShareDefaultHttpTool GETWithCompleteURL:urlString parameters:params progress:^(id progress) {
             
@@ -390,6 +500,8 @@
             }else{
                 NSArray *subjects = responseObject[@"subjects"];
                 for (NSDictionary *dict in subjects) {
+                    QLTitleGroupModel *titleGroup = [[QLTitleGroupModel alloc] initWithDict:dict[@"titleGroup_message"]];
+                    [weakSelf.titleGroups addObject:titleGroup];
                     QLTitleModel *title = [[QLTitleModel alloc] initWithDict:dict];
                     [weakSelf.titles addObject:title];
                 }
@@ -702,13 +814,24 @@
     }
     return _titles;
 }
+- (NSMutableArray *)titleGroups{
+    if (!_titleGroups) {
+        _titleGroups = [NSMutableArray array];
+    }
+    return _titleGroups;
+}
 - (NSMutableArray *)headTextsArray{
     if (!_headTextsArray) {
         _headTextsArray = [NSMutableArray array];
     }
     return _headTextsArray;
 }
-
+- (void)clearOriginData{
+    [self.students removeAllObjects];
+    [self.points removeAllObjects];
+    [self.titleGroups removeAllObjects];
+    [self.titles removeAllObjects];
+}
 #pragma mark - private
 
 #pragma mark - notification methods

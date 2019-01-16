@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface QLTitleGroupModel : NSObject
+@property (nonatomic,assign) NSInteger _id;
 ///大项名
 @property (nonatomic,copy) NSString *name;
 ///所属课程

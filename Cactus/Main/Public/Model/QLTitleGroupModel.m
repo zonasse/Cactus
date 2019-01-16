@@ -11,6 +11,7 @@
 @implementation QLTitleGroupModel
 - (instancetype)initWithDict:(NSDictionary *)dict{
     if(self = [super init]){
+        self._id = [dict[@"id"] integerValue];
         self.name = dict[@"name"];
         self.lesson_id = [dict[@"lesson_id"] integerValue];
         self.weight = [dict[@"weight"] integerValue];
