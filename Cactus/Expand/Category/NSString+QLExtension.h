@@ -11,9 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (QLExtension)
-+ (BOOL)checkValidWithNormalString:(NSString *) normalString;
-+ (BOOL)checkValidWithStrongPassword:(NSString *) password;
-+ (BOOL)checkValidWithPointNumber:(NSString *) pointNumber;
++ (BOOL)checkValidWithNormalString:(NSString *) str;
++ (BOOL)checkValidWithStrongPassword:(NSString *) str;
++ (BOOL)checkValidWithPointNumber:(NSString *) str;
++ (BOOL)checkValidWithChineseWord:(NSString *)str;
 
 @end
 

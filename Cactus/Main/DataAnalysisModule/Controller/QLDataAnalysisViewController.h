@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "QLClassInfoModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface QLDataAnalysisViewController : UIViewController
-
+@property (nonatomic,strong) QLClassInfoModel *classInfo;
 @end
 
 NS_ASSUME_NONNULL_END

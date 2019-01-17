@@ -15,7 +15,6 @@
         self.sid = dict[@"sid"];
         self.name = dict[@"name"];
         self.year = dict[@"year"];
-#warning 此处属性记得更改为major_id
         self.major_id = [dict[@"major_id"] integerValue];
         self.major = [[QLMajorModel alloc] initWithDict:dict[@"major_message"]];
     }

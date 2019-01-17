@@ -15,6 +15,7 @@
 #import "QLUniversityModel.h"
 #import "QLClassInfoModel.h"
 #import "QLTabBarViewController.h"
+
 @interface QLHomeViewModel()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,weak) QLHomePageViewController *homePageVC;
 ///教师模型对象
@@ -41,6 +42,7 @@
         self.homePageVC = (QLHomePageViewController*)controller;
         self.homePageVC.tableView.delegate = self;
         self.homePageVC.tableView.dataSource = self;
+        self.homePageVC.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.homePageVC.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             [self refreshData];
         }];
@@ -170,7 +172,7 @@
     if (indexPath.section == 0) {
         return 210;
     }
-    return 88;
+    return 90;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
@@ -219,7 +221,18 @@
     return headerView;
 
 }
-
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+//    if (section == 0) {
+//        return 0.0;
+//    }else{
+//        return 5;
+//    }
+//}
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kSCREEN_WIDTH, 5)];
+//    footerView.backgroundColor = kRGB(212, 212, 212);
+//    return footerView;
+//}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         QLHomePageProfileCell *cell = [tableView cellForRowAtIndexPath:indexPath];

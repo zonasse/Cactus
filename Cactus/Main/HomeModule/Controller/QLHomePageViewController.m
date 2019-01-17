@@ -29,10 +29,21 @@
    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_background"] forBarMetrics:UIBarMetricsDefault];
    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
    
+   //设置导航栏右上角button
+   UIButton *logoutButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 34, 34)];
+   [logoutButton setImage:[UIImage iconWithInfo:TBCityIconInfoMake(@"\U0000ed2f", 34, [UIColor whiteColor])] forState:UIControlStateNormal];
+   [logoutButton addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
+   UIBarButtonItem *lougoutItem = [[UIBarButtonItem alloc] initWithCustomView:logoutButton];
+   self.navigationItem.rightBarButtonItem = lougoutItem;
+   
    self.homeViewModel = [[QLHomeViewModel alloc] initWithController:self];
    
 }
-
+- (void)logout{
+   [self dismissViewControllerAnimated:YES completion:^{
+      
+   }];
+}
 - (void)dealloc{
    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }

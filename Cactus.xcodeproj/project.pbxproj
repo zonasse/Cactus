@@ -41,6 +41,9 @@
 		EA8B4030218C3E10005E85A4 /* NSDictionary+QLDictionaryDeepCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B402F218C3E10005E85A4 /* NSDictionary+QLDictionaryDeepCopy.m */; };
 		EA8B4041218ECBCD005E85A4 /* QLDeletePointTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8B4040218ECBCD005E85A4 /* QLDeletePointTitleViewController.m */; };
 		EAAAC44021EED151008A1BFE /* QLDropDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAAC43F21EED151008A1BFE /* QLDropDownView.m */; };
+		EAAAC44721EF144E008A1BFE /* QLCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAAC44621EF144E008A1BFE /* QLCollectionViewModel.m */; };
+		EAAAC44F21F05D11008A1BFE /* QLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAAC44E21F05D11008A1BFE /* QLTextView.m */; };
+		EAAAC45321F06F74008A1BFE /* QLStudentListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAAC45221F06F74008A1BFE /* QLStudentListViewModel.m */; };
 		EAB2ED7D21802CF1008E6DAD /* UIResponder+QLFirstResponder.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED7C21802CF1008E6DAD /* UIResponder+QLFirstResponder.m */; };
 		EAB2ED9C218090D2008E6DAD /* QLMD5Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB2ED9B218090D2008E6DAD /* QLMD5Tool.m */; };
 		EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACE3A3B2155D54F00C43599 /* AppDelegate.m */; };
@@ -182,6 +185,12 @@
 		EA8B4040218ECBCD005E85A4 /* QLDeletePointTitleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLDeletePointTitleViewController.m; sourceTree = "<group>"; };
 		EAAAC43E21EED151008A1BFE /* QLDropDownView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLDropDownView.h; sourceTree = "<group>"; };
 		EAAAC43F21EED151008A1BFE /* QLDropDownView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLDropDownView.m; sourceTree = "<group>"; };
+		EAAAC44521EF144E008A1BFE /* QLCollectionViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLCollectionViewModel.h; sourceTree = "<group>"; };
+		EAAAC44621EF144E008A1BFE /* QLCollectionViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLCollectionViewModel.m; sourceTree = "<group>"; };
+		EAAAC44D21F05D11008A1BFE /* QLTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLTextView.h; sourceTree = "<group>"; };
+		EAAAC44E21F05D11008A1BFE /* QLTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLTextView.m; sourceTree = "<group>"; };
+		EAAAC45121F06F74008A1BFE /* QLStudentListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLStudentListViewModel.h; sourceTree = "<group>"; };
+		EAAAC45221F06F74008A1BFE /* QLStudentListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QLStudentListViewModel.m; sourceTree = "<group>"; };
 		EAB2ED7B21802CF1008E6DAD /* UIResponder+QLFirstResponder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIResponder+QLFirstResponder.h"; sourceTree = "<group>"; };
 		EAB2ED7C21802CF1008E6DAD /* UIResponder+QLFirstResponder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+QLFirstResponder.m"; sourceTree = "<group>"; };
 		EAB2ED9A218090D2008E6DAD /* QLMD5Tool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QLMD5Tool.h; sourceTree = "<group>"; };
@@ -384,6 +393,7 @@
 		EA0C7C1E21EC638400D4B03C /* ScoreListModule */ = {
 			isa = PBXGroup;
 			children = (
+				EAAAC44421EF142C008A1BFE /* ViewModel */,
 				EA0C7C2021EC638400D4B03C /* Controller */,
 				EA0C7C2121EC638400D4B03C /* Model */,
 				EA0C7C1F21EC638400D4B03C /* Other */,
@@ -439,6 +449,7 @@
 		EA0C7C2421EC638400D4B03C /* StudentListModule */ = {
 			isa = PBXGroup;
 			children = (
+				EAAAC45021F06F52008A1BFE /* ViewModel */,
 				EA0C7C2621EC638400D4B03C /* Controller */,
 				EA0C7C2721EC638400D4B03C /* Model */,
 				EA0C7C2521EC638400D4B03C /* Other */,
@@ -574,6 +585,8 @@
 			isa = PBXGroup;
 			children = (
 				EAAAC43D21EED125008A1BFE /* QLDropDown */,
+				EAAAC44D21F05D11008A1BFE /* QLTextView.h */,
+				EAAAC44E21F05D11008A1BFE /* QLTextView.m */,
 			);
 			path = Controls;
 			sourceTree = "<group>";
@@ -894,6 +907,24 @@
 			path = QLDropDown;
 			sourceTree = "<group>";
 		};
+		EAAAC44421EF142C008A1BFE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EAAAC44521EF144E008A1BFE /* QLCollectionViewModel.h */,
+				EAAAC44621EF144E008A1BFE /* QLCollectionViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EAAAC45021F06F52008A1BFE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EAAAC45121F06F74008A1BFE /* QLStudentListViewModel.h */,
+				EAAAC45221F06F74008A1BFE /* QLStudentListViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		EACE3A2E2155D54E00C43599 = {
 			isa = PBXGroup;
 			children = (
@@ -1173,6 +1204,7 @@
 				EA0740822182EBC000DAC570 /* QLHttpTool.m in Sources */,
 				EA89A3A9216301AC00FFC473 /* QLClassModel.m in Sources */,
 				EA8B401A218A8CDD005E85A4 /* QLDataAnalysisContentView.m in Sources */,
+				EAAAC44F21F05D11008A1BFE /* QLTextView.m in Sources */,
 				EA031A7B21570F7E00128829 /* QLClassInfoDisplayMViewController.m in Sources */,
 				EA031A622156373D00128829 /* QLHomePageViewController.m in Sources */,
 				EA6E747A21ECCC7B00FC1B97 /* QLLoginView.m in Sources */,
@@ -1194,7 +1226,9 @@
 				EACE3A3C2155D54F00C43599 /* AppDelegate.m in Sources */,
 				EAB2ED9C218090D2008E6DAD /* QLMD5Tool.m in Sources */,
 				EA8B4041218ECBCD005E85A4 /* QLDeletePointTitleViewController.m in Sources */,
+				EAAAC45321F06F74008A1BFE /* QLStudentListViewModel.m in Sources */,
 				EA8B4030218C3E10005E85A4 /* NSDictionary+QLDictionaryDeepCopy.m in Sources */,
+				EAAAC44721EF144E008A1BFE /* QLCollectionViewModel.m in Sources */,
 				EAE8E445215B22B40037420C /* QLCollegeModel.m in Sources */,
 				EAE8E436215B19390037420C /* QLLessonModel.m in Sources */,
 				EA89A3AF2163065500FFC473 /* QLMajorModel.m in Sources */,

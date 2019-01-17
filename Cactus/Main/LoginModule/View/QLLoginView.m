@@ -130,7 +130,10 @@
     
 }
 
-
+- (void)setExistTid:(NSString *)tid password:(NSString *)password{
+    self.accountTextField.text = tid;
+    self.passwordTextField.text = password;
+}
 #pragma mark - 登录
 - (void)login{
     if ([self.delegate respondsToSelector:@selector(didClickLoginButtonWithTid:password:)]) {

@@ -20,6 +20,7 @@
         self.student_count = [dict[@"student_count"] integerValue];
         self.semester = dict[@"semester"];
         self.currentSemester = dict[@"current_semester"];
+        self.lesson_id = [dict[@"lesson_id"] integerValue];
     }
     return self;
 }

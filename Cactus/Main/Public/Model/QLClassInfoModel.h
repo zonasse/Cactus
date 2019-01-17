@@ -26,6 +26,8 @@
 @property (nonatomic,copy) NSString *semester;
 ///当前学期
 @property (nonatomic,copy) NSString *currentSemester;
+///课程组id
+@property (nonatomic,assign) NSInteger lesson_id;
 /**
  初始化方法
  

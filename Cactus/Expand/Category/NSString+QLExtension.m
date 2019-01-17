@@ -9,21 +9,25 @@
 #import "NSString+QLExtension.h"
 
 @implementation NSString (QLExtension)
-+ (BOOL)checkValidWithNormalString:(NSString *) normalString{
++ (BOOL)checkValidWithNormalString:(NSString *) str{
     NSString *regex = @"^[a-zA-Z0-9_-]{1,16}$";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-    return [predicate evaluateWithObject:normalString];
+    return [predicate evaluateWithObject:str];
 }
-+ (BOOL)checkValidWithStrongPassword:(NSString *)password{
++ (BOOL)checkValidWithStrongPassword:(NSString *)str{
     NSString *regex = @"^.*(?=.{6,})(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-    return [predicate evaluateWithObject:password];
+    return [predicate evaluateWithObject:str];
 }
-+ (BOOL)checkValidWithPointNumber:(NSString *)pointNumber{
++ (BOOL)checkValidWithPointNumber:(NSString *)str{
 //    NSString *regex = @"^[0-9]{1,3}[\\.[0-9]{0,2}]?$";
     NSString *regex = @"^\\d{1,3}(\\.\\d{1,2})?$";
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
-    return [predicate evaluateWithObject:pointNumber];
+    return [predicate evaluateWithObject:str];
 }
-
++ (BOOL)checkValidWithChineseWord:(NSString *)str{
+    NSString *regex = @"^[\u4e00-\u9fa5_a-zA-Z0-9]+$";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [predicate evaluateWithObject:str];
+}
 @end

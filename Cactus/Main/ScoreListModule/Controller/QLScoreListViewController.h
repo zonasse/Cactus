@@ -11,5 +11,5 @@
 @interface QLScoreListViewController : UIViewController
 ///教学班对象
 @property (nonatomic,strong) QLClassInfoModel *classInfo;
-
+@property (nonatomic,strong) UIButton *saveButton;
 @end

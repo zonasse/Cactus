@@ -20,7 +20,8 @@
 @property (nonatomic,strong) UILabel *classInfoTimeLabel;
 ///教学班上课地点文本
 @property (nonatomic,strong) UILabel *classInfoRoomLabel;
-
+///cell间隔
+@property (nonatomic,strong) UIView *separatorView;
 @end
 
 @implementation QLHomePageClassInfoCell
@@ -36,12 +37,15 @@
         self.classInfoStudentNumberLabel = [[UILabel alloc] init];
         self.classInfoTimeLabel = [[UILabel alloc] init];
         self.classInfoRoomLabel = [[UILabel alloc] init];
+        self.separatorView = [[UIView alloc] init];
+        
         [self.contentView addSubview:self.replaceContentImageView];
         [self.replaceContentImageView addSubview:_classInfoImageView];
         [self.replaceContentImageView addSubview:_classInfoNameLabel];
         [self.replaceContentImageView addSubview:_classInfoStudentNumberLabel];
         [self.replaceContentImageView addSubview:_classInfoTimeLabel];
         [self.replaceContentImageView addSubview:_classInfoRoomLabel];
+        [self.replaceContentImageView addSubview:_separatorView];
         
         [self.replaceContentImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.right.bottom.mas_equalTo(self);
@@ -81,7 +85,12 @@
             make.height.mas_equalTo(@22);
             make.width.mas_equalTo(@80);
         }];
-
+        
+        [self.separatorView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.mas_equalTo(weakSelf.replaceContentImageView);
+            make.top.mas_equalTo(weakSelf.classInfoImageView.mas_bottom);
+            make.height.mas_equalTo(@2);
+        }];
         //3.设置控件属性
         self.classInfoNameLabel.font = [UIFont systemFontOfSize:16.0];
         self.classInfoStudentNumberLabel.font = [UIFont systemFontOfSize:12.0];
@@ -92,7 +101,7 @@
         self.classInfoRoomLabel.textColor = kRGB(128, 128, 128);
         self.classInfoTimeLabel.textColor = kRGB(128, 128, 128);
         self.classInfoStudentNumberLabel.textColor = kRGB(128, 128, 128);
-
+        self.separatorView.backgroundColor = kRGB(212, 212, 212);
     }
     return self;
 }

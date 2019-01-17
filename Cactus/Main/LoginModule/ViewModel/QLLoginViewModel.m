@@ -24,6 +24,14 @@
         loginView.delegate = self;
         [self.loginController.view addSubview:loginView];
         
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *existTid = [userDefaults valueForKey:k_tid_key];
+        NSString *existPassword = [userDefaults valueForKey:k_password_key];
+        
+        if (existTid && existPassword) {
+            [loginView setExistTid:existTid password:existPassword];
+        }
+        
         [loginView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.top.bottom.mas_equalTo(self.loginController.view);
         }];

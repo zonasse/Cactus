@@ -13,10 +13,6 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self setup];
-//        UIView *selectedView = [[UIView alloc] initWithFrame:self.bounds];
-//        selectedView.backgroundColor = kDefaultGreenColor;
-//        self.selectedBackgroundView = selectedView;
-        
     }
     return self;
 }

@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QLLoginView : UIView
 @property (nonatomic,weak) id<QLLoginViewDelegate> delegate;
+- (void)setExistTid:(NSString *)tid password:(NSString *)password;
 @end
 
 NS_ASSUME_NONNULL_END
